@@ -1,0 +1,45 @@
+.dropdown-menu{
+  border: none;
+  box-shadow: $shadow;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  border-radius: 4px;
+  min-width: 145px;
+  color: $black;
+  overflow: hidden;
+  z-index: 10;
+  @include breakpoint(ipad){
+    font-size: 1vw;
+    border-radius: .2vw;
+    min-width: 10vw;
+  }
+}
+.dropdown-item{
+  font-size: 14px;
+  text-align: left;
+  color: $black;
+  padding: 7.5px 15px;
+  @include breakpoint(ipad){
+    font-size: 1vw;
+    padding: .5vw 1vw;
+  }
+}
+.dropdown-toggle{
+  text-align: left;
+  &:after{
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    @include breakpoint(ipad){
+      right: 1vw;
+    }
+  }
+  > svg{
+    margin-right: 5px;
+    @include breakpoint(ipad){
+      margin-right: .5vw;
+    }
+  }
+}

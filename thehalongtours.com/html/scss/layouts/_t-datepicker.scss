@@ -1,0 +1,85 @@
+.t-datepicker{
+  display: flex;
+  align-items: center;
+  float: none;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  height: 48px;
+  padding-left: 50px;
+  padding-right: 15px;
+  line-height: initial;
+  @include breakpoint(xs){
+    position: initial;
+  }
+  @include breakpoint(ipad){
+    border-radius: .2vw;
+    height: 3.3vw;
+    padding-left: 3vw;
+    padding-right: 1vw;
+    font-size: 1vw;
+  }
+  .t-check-out{
+    &:before{
+      content: '-';
+      padding: 0 5px;
+      font-weight: 500;
+    }
+  }
+  .t-check-in, .t-check-out{
+    border: none;
+    border-radius: 0;
+    height: 100%;
+    float: none;
+    display: flex;
+    align-items: center;
+    width: auto;
+    @include breakpoint(xs){
+      position: initial;
+    }
+  }
+  .t-dates{
+    padding: 0;
+    height: auto;
+    span{
+      color: #000;
+    }
+    .t-date-info-title{
+      position: initial;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.45);
+      opacity: 1;
+      @include breakpoint(ipad){font-size: 1vw;}
+    }
+  }
+}
+.t-datepicker-days{
+  @include breakpoint(xs){
+    width: 100%;
+    left: 0;
+  }
+  @include breakpoint(ipad){
+    width: 45vw;
+  }
+}
+.t-check-out .t-datepicker-day{
+  @include breakpoint(xs){
+    left: 0;
+  }
+  @include breakpoint(sm){
+    left: auto;
+    right: 0;
+  }
+}
+.t-datepicker-day{
+  @include breakpoint(ipad){
+    top: calc(100% + .5vw);
+    padding: .8vw 0;
+  }
+}
+.t-next, .t-prev, .t-table-condensed td, .t-table-condensed th{
+  @include breakpoint(ipad){
+    padding: .8vw;
+    font-size: 1vw;
+    line-height: 1.5;
+  }
+}

@@ -1,0 +1,121 @@
+.tripSummary{
+  &__header{
+    background-color: $dark-green;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+    padding: 10px 15px;
+    @include breakpoint(ipad){
+      border-radius: .2vw .2vw 0 0;
+      padding: .8vw 1vw;
+    }
+  }
+  &__body{
+    background-color: #fff;
+    box-shadow: $shadow;
+    padding: 15px 8px;
+    @include breakpoint(ipad){
+      padding: 1vw .5vw;
+    }
+  }
+  &__item{
+    background-color: $light-green;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    @include breakpoint(ipad){
+      border-radius: .2vw;
+      margin-bottom: 1vw;
+    }
+  }
+  &__title{
+    padding: 8px 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include breakpoint(ipad){
+      padding: .5vw 1vw;
+    }
+    &.rotate{
+      svg{
+        transform: rotate(180deg);
+      }
+    }
+    svg{
+      transition: all .3s ease-in-out;
+    }
+  }
+  &__cont{
+    padding: 8px 15px;
+    border-top: 1px solid $border-color;
+    display: none;
+    @include breakpoint(ipad){
+      padding: .5vw 1vw;
+    }
+  }
+  &__label{
+    display: inline-flex;
+    align-items: center;
+    border-radius: 16px;
+    padding: 3px 15px;
+    margin-top: 15px;
+    @include breakpoint(ipad){
+      padding: .2vw 1vw;
+      margin-top: 1vw;
+    }
+  }
+  &__trip{
+    li{
+      border-bottom: 1px dashed $border-color;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      &:last-child{
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+      p{
+        margin-bottom: 5px;
+        .p1{
+          span{
+            &:first-child{
+              border-right: 1px solid $border-color;
+              padding-right: 8px;
+              margin-right: 8px;
+              @include breakpoint(ipad){
+                padding-right: .6vw;
+                margin-right: .6vw;
+              }
+            }
+          }
+        }
+      }
+
+    }
+  }
+  &__price{
+    li{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      @include breakpoint(ipad){
+        margin-bottom: .5vw;
+      }
+      &:last-child{
+        margin-bottom: 0;
+      }
+      &.liTotal{
+        border-top: 1px dashed $border-color;
+        padding-top: 5px;
+        @include breakpoint(ipad){
+          padding-top: .5vw;
+        }
+      }
+    }
+  }
+  &__btn{
+    .btn{
+      width: 100%;
+    }
+  }
+}

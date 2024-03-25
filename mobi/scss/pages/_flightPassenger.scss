@@ -1,0 +1,135 @@
+.flightPassenger {
+  margin: 50px 0;
+  @include breakpoint(ipad) {
+    margin: 5vw 0;
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__left {
+    @include breakpoint(xs) {
+      width: 100%;
+      margin-bottom: 30px;
+      order: 2;
+    }
+    @include breakpoint(ipad) {
+      width: calc(100% - 25vw);
+    }
+    @include breakpoint(lg) {
+      width: calc(100% - 300px);
+    }
+  }
+
+  &__right {
+    @include breakpoint(xs) {
+      width: 100%;
+      order: 1;
+      margin-bottom: 30px;
+    }
+    @include breakpoint(ipad) {
+      width: 25vw;
+      padding-left: 2vw;
+    }
+    @include breakpoint(lg) {
+      width: 300px;
+      padding-left: 30px;
+    }
+  }
+
+  &__btn {
+    text-align: right;
+  }
+}
+
+.frequentBox {
+  display: none;
+
+  &__cont {
+    @include breakpoint(xs) {
+      margin-top: 15px;
+    }
+    @include breakpoint(ipad) {
+      margin: 1vw -1vw 0;
+    }
+    @include breakpoint(sm) {
+      display: flex;
+    }
+    @include breakpoint(lg) {
+      margin: 15px -15px 0;
+    }
+
+    > .d-block {
+      @include breakpoint(ipad) {
+        padding: 0 1vw;
+      }
+      @include breakpoint(lg) {
+        padding: 0 15px;
+      }
+    }
+  }
+}
+
+.modal-tips {
+  &__text {
+    text-align: center;
+    h3{
+      font-size: 20px;
+      @include breakpoint(ipad){
+        font-size: 1.8vw;
+      }
+      @include breakpoint(lg){
+        font-size: 30px;
+      }
+    }
+  }
+}
+
+.tipsBox {
+  &__item {
+    background: $light-green;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding: 0 15px;
+    @include breakpoint(ipad) {
+      margin-bottom: 1vw;
+      padding: 0 1vw;
+      border-radius: .2vw;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    width: 100%;
+    font-weight: 500;
+    padding: 10px 0;
+    @include breakpoint(ipad) {
+      font-size: 1.1vw;
+      padding: .8vw 0;
+    }
+
+    i {
+      color: rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  &__body {
+    padding: 15px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    display: none;
+    @include breakpoint(ipad) {
+      padding: 1vw 0;
+    }
+
+    .form-group {
+      > label {
+        font-weight: 400;
+      }
+    }
+  }
+}

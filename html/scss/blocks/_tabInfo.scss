@@ -1,0 +1,34 @@
+.tabInfo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  overflow-x: auto;
+  @include breakpoint(xs){
+    justify-content: left;
+    padding: 0 10px;
+  }
+  li{
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    &.active a, &:hover a{
+      position: relative;
+      &:before{
+        content: "";
+        width: 100%;
+        height: 3px;
+        background-color: #FBB040;
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+      }
+    }
+    a{
+      color: $black45;
+      font-weight: 600;
+      white-space: nowrap;
+      padding: 10px 24px;
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+; $Id: Mr Quang Email:phamducquang1981@gmail.com,v 1.0 Exp $
+name = cruise
+description = "cruise website"
+core = 7.x
+version = "7.x-1.0"
+package = annguyen
+php = 5.2

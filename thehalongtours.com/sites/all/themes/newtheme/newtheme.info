@@ -1,0 +1,34 @@
+name = Newtheme
+description = A multi-column theme which can be configured to modify colors and switch between fixed and fluid width layouts.
+package = Core
+version = VERSION
+core = 7.x
+
+
+stylesheets[all][] = css/libs/bootstrap.min.css
+stylesheets[all][] = css/libs/t-datepicker.min.css
+stylesheets[all][] = css/libs/t-datepicker-purple.css
+stylesheets[all][] = css/jquery-ui.css
+stylesheets[all][] = css/styles.css
+stylesheets[all][] = css/main.css
+stylesheets[all][] = css/cruise.css
+
+
+scripts[] = js/jquery-3.3.1.min.js
+scripts[] = js/jquery-ui.min.js
+scripts[] = js/popper.min.js
+scripts[] = js/bootstrap.min.js
+scripts[] = js/slick.min.js
+scripts[] = js/t-datepicker.min.js
+scripts[] = js/main.js
+
+
+
+
+settings[garland_width] = fluid
+
+; Information added by Drupal.org packaging script on 2021-07-21
+version = "7.82"
+project = "drupal"
+datestamp = "1626883669"
+

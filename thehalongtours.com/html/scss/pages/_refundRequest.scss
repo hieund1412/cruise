@@ -1,0 +1,13 @@
+.refundRequest{
+  &__main{
+    width: 752px;
+    margin: auto;
+    padding: 32px 0;
+    label span {
+      color: #F93243;
+    }
+  }
+  &__btn{
+    text-align: right;
+  }
+}

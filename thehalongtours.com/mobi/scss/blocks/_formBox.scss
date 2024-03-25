@@ -1,0 +1,445 @@
+.formBox{
+  margin-bottom: 15px;
+  @include breakpoint(ipad){
+    margin-bottom: 1vw;
+  }
+  &__header{
+    background-color: $dark-green;
+    display: flex;
+    align-items: center;
+    border-radius: 4px 4px 0 0;
+    padding: 10px 15px;
+    @include breakpoint(ipad){
+      padding: .5vw 1vw;
+      border-radius: .2vw .2vw 0 0;
+    }
+  }
+  &__body{
+    background: #FFFFFF;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+    border-radius: 0 0 4px 4px;
+    padding: 15px;
+    @include breakpoint(ipad){
+      padding: 2vw;
+      border-radius: 0 0 .2vw .2vw;
+    }
+  }
+  &__row{
+    @include breakpoint(xs){
+      margin-bottom: 15px;
+    }
+    @include breakpoint(ipad){
+      margin: 0 -1vw 1vw;
+    }
+    @include breakpoint(sm){
+      display: flex;
+      flex-wrap: wrap;
+    }
+    @include breakpoint(lg){
+      margin: 0 -15px 15px;
+    }
+    .checkbox{
+      margin-bottom: 15px;
+      @include breakpoint(ipad){
+        padding: 0 1vw;
+        margin-bottom: 1vw;
+      }
+      @include breakpoint(lg){
+        padding: 0 15px;
+      }
+    }
+  }
+  &__date{
+    width: 100%;
+    @include breakpoint(ipad){
+      padding: 0 1vw;
+    }
+    @include breakpoint(lg){
+      padding: 0 15px;
+    }
+    > label{
+      font-weight: 400;
+      color: $black85;
+      margin-bottom: 8px;
+      font-size: 14px;
+      @include breakpoint(ipad){
+        font-size: 1vw;
+        margin-bottom: .7vw;
+      }
+    }
+    .d-flex{
+      @include breakpoint(xs){
+        flex-wrap: wrap;
+      }
+      @include breakpoint(ipad){
+        margin: 0 -1vw;
+      }
+      @include breakpoint(lg){
+        margin: 0 -15px;
+      }
+    }
+    .form-group{
+      @include breakpoint(xs){
+        width: 100%;
+      }
+    }
+  }
+  &__text{
+    margin-bottom: 15px;
+    @include breakpoint(ipad){
+      margin-bottom: 1vw;
+    }
+  }
+  &__tip{
+    margin-top: 15px;
+    color: #44B7FF;
+    font-weight: 500;
+    @include breakpoint(ipad){
+      margin-top: 1vw;
+    }
+    &:hover{
+      text-decoration: underline;
+    }
+    span,svg{
+      vertical-align: middle;
+    }
+    span{
+      margin-left: 15px;
+      @include breakpoint(ipad){
+        margin-left: 1vw;
+      }
+    }
+  }
+  &__frequent{
+    > button{
+      font-size: 14px;
+      font-weight: 500;
+      color: #318FDB;
+      @include breakpoint(ipad){
+        font-size: 1vw;
+      }
+      &:hover{
+        span{
+          text-decoration: underline;
+        }
+      }
+      span{
+        margin-right: 15px;
+        @include breakpoint(ipad){
+          margin-right: 1vw;
+        }
+      }
+      svg{
+        transition: all .3s;
+      }
+      span,svg{
+        vertical-align: middle;
+      }
+      &.rotate{
+        svg{
+          transform: rotate(90deg);
+        }
+      }
+    }
+  }
+  &__flex{
+    @include breakpoint(sm){
+      display: flex;
+    }
+  }
+  &__left{
+    @include breakpoint(xs){
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+      margin-bottom: 15px;
+    }
+    @include breakpoint(ipad){
+      width: 50%;
+      padding-right: 2vw;
+    }
+    @include breakpoint(lg){
+      width: 50%;
+      padding-right: 30px;
+    }
+  }
+  &__right{
+    @include breakpoint(sm){
+      width: 50%;
+      padding-left: 2vw;
+    }
+    @include breakpoint(lg){
+      width: 50%;
+      padding-left: 30px;
+    }
+  }
+  &__sub{
+    background-color: $light-green;
+    border-radius: 4px;
+    padding: 15px;
+    @include breakpoint(ipad){
+      padding: 1vw;
+      border-radius: .2vw;
+    }
+    &.costBox{
+      display: none;
+    }
+    li{
+      display: flex;
+      justify-content: space-between;
+      padding: 3px 0;
+      @include breakpoint(ipad){
+        padding: .3vw 0;
+      }
+    }
+  }
+  &__price{
+    &__total{
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+      @include breakpoint(ipad){
+        padding-bottom: 1vw;
+      }
+      .d-block{
+        &:first-child{
+          flex: 1;
+        }
+      }
+    }
+    &__cost{
+      padding-top: 15px;
+      @include breakpoint(ipad){
+        padding-top: 1vw;
+      }
+      .d-flex{
+        justify-content: space-between;
+      }
+    }
+    &__detail{
+      .d-flex{
+        justify-content: space-between;
+        margin-bottom: 5px;
+        @include breakpoint(ipad){
+          margin-bottom: .5vw;
+        }
+      }
+      .btnDetail{
+        i{
+          transition: all .2s;
+        }
+        &.rotate{
+          i{
+            transform: rotate(180deg);
+          }
+        }
+        &:hover{
+          span{
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  &__itinerary{
+    &__trip{
+      @include breakpoint(sm){
+        display: flex;
+      }
+      .flightDuration{
+        align-items: initial;
+        height: auto;
+        @include breakpoint(ipad){
+          margin-left: 2vw;
+        }
+        @include breakpoint(lg){
+          margin-left: 30px;
+        }
+      }
+    }
+    &__item{
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+      @include breakpoint(xs){
+        padding: 15px;
+        margin: 0 -15px;
+      }
+      @include breakpoint(ipad){
+        padding: 1vw 0;
+      }
+      @include breakpoint(lg){
+        padding: 15px 0;
+      }
+      &:last-child{
+        border-bottom: none;
+      }
+    }
+  }
+  &__traveler{
+    &__item{
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+      @include breakpoint(xs){
+        padding: 15px;
+        margin: 0 -15px;
+      }
+      @include breakpoint(ipad){
+        padding: 1vw 0;
+      }
+      @include breakpoint(lg){
+        padding: 15px 0;
+      }
+      &:last-child{
+        border-bottom: none;
+      }
+    }
+  }
+  &__contact{
+    &__line{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &__payment{
+    &__item{
+      margin-bottom: 15px;
+      @include breakpoint(ipad){
+        margin-bottom: 1vw;
+      }
+      .radio{
+        label{
+          font-weight: 500;
+        }
+      }
+    }
+    &__card{
+      display: flex;
+      margin-top: 15px;
+      padding-left: 25px;
+      @include breakpoint(ipad){
+        margin-top: 1vw;
+        padding-left: 1.5vw;
+      }
+      li{
+        padding: 0 5px;
+        @include breakpoint(ipad){
+          padding: 0 .5vw;
+        }
+        img{
+          width: 64px;
+          @include breakpoint(ipad){
+            width: 4vw;
+          }
+        }
+      }
+    }
+  }
+  &__baggage{
+    &__item{
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+      @include breakpoint(xs){
+        padding: 15px;
+        margin: 0 -15px;
+      }
+      @include breakpoint(ipad){
+        padding: 1vw 0;
+      }
+      @include breakpoint(lg){
+        padding: 15px 0;
+      }
+    }
+    &__text{
+      padding-top: 15px;
+      @include breakpoint(ipad){
+        padding-top: 1vw;
+      }
+    }
+  }
+  &__term{
+    max-height: 300px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-right: -15px;
+    padding-right: 15px;
+    @include breakpoint(ipad){
+      max-height: 30vw;
+      margin-right: -1.5vw;
+      padding-right: 2vw;
+    }
+    &::-webkit-scrollbar {
+      width:5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background-color: #f2f2f2;
+      border-radius: 16px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background:$dark-green;
+      border-radius: 16px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: $dark-green;
+    }
+    p{
+      margin-bottom: 15px;
+      color: $black85;
+      @include breakpoint(ipad){
+        margin-bottom: 1vw;
+
+      }
+      &.title{
+        font-size: 16px;
+        font-weight: $medium;
+        @include breakpoint(ipad){
+          font-size: 1.1vw;
+        }
+      }
+    }
+    ul{
+      list-style: disc;
+      padding-left: 15px;
+      @include breakpoint(ipad){
+        padding-left: 1vw;
+      }
+      li{
+        margin-bottom: 15px;
+        color: $black85;
+        @include breakpoint(ipad){
+          margin-bottom: 1vw;
+        }
+      }
+    }
+  }
+  .form-group{
+    @include breakpoint(ipad){
+      padding: 0 1vw;
+    }
+    @include breakpoint(sm){
+      width: 33.333%;
+    }
+    @include breakpoint(lg){
+      padding: 0 15px;
+    }
+    &.w-50{
+      @include breakpoint(xs){
+        width: 100% !important;
+      }
+    }
+    > label{
+      font-weight: 400;
+    }
+  }
+  .borderBottom{
+    border-bottom: 1px dashed $border-color;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    @include breakpoint(ipad){
+      padding-bottom: 1vw;
+      margin-bottom: 1vw;
+    }
+  }
+}

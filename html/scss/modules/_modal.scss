@@ -1,0 +1,33 @@
+.modal-dialog{
+  @include breakpoint(ipad){
+    margin: 3vw auto;
+    max-width: 70vw;
+  }
+  @include breakpoint(lg){
+    max-width: 790px;
+  }
+}
+.modal-body{
+  padding: 15px;
+  @include breakpoint(ipad){
+    padding: 1.5vw;
+  }
+  @include breakpoint(lg){
+    padding: 24px;
+  }
+}
+.modal-content{
+  border: none;
+}
+button.close{
+  padding: 5px;
+  float: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  @include breakpoint(ipad){
+    padding: .5vw;
+    top: 1vw;
+    right: 1vw;
+  }
+}

@@ -1,0 +1,44 @@
+.flightHeader{
+  background-color: $dark-green;
+  padding: 15px 0;
+  @include breakpoint(ipad){
+    padding: 1vw 0;
+  }
+  &__logo{
+    @include breakpoint(xs){
+      margin-bottom: 10px;
+    }
+  }
+  &__cont{
+    @include breakpoint(sm){
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+.flStep{
+  display: flex;
+  @include breakpoint(ipad){
+    width: 30vw;
+  }
+  @include breakpoint(lg){
+    width: 400px;
+  }
+  &__item{
+    flex: 1;
+    border-bottom: 4px solid #CDF6EB;
+    margin: 0 1px;
+    padding-bottom: 4px;
+    text-align: center;
+    @include breakpoint(ipad){
+      border-width: .2vw;
+      padding-bottom: .2vw;
+      margin: 0 .1vw;
+    }
+    &.active{
+      border-color: #FBB040;
+      color: #FBB040;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+.passMenu{
+  @include breakpoint(xs){
+    transform: none!important;
+    left: -100px!important;
+    top: 100% !important;
+  }
+}
+.passengerBox{
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: $shadow;
+  padding: 7.5px 0;
+  @include breakpoint(xs){
+    width: 320px;
+  }
+  @include breakpoint(ipad){
+    border-radius: .2vw;
+    padding: .5vw 0;
+    width: 20vw;
+  }
+  @include breakpoint(lg){
+    width: 355px;
+  }
+  &__item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7.5px 15px;
+    @include breakpoint(ipad){
+      padding: .5vw 1vw;
+    }
+  }
+  &__text{
+
+  }
+  &__action{
+    display: flex;
+    align-items: center;
+    .minus,.plus{
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: $dark-green;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all .2s;
+      @include breakpoint(ipad){
+        width: 1.8vw;
+        height: 1.8vw;
+      }
+      @include breakpoint(lg){
+        &:hover{
+          background-color: #3A9E9B;
+        }
+      }
+      &.disabled{
+        pointer-events: none;
+        background-color: rgba(0, 0, 0, 0.45);
+      }
+    }
+    p{
+      margin: 0 15px;
+      @include breakpoint(ipad){margin: 0 1vw;}
+    }
+  }
+}

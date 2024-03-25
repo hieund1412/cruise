@@ -1,0 +1,81 @@
+.flightSchedules{
+  .homeBook__form{
+    position: relative;
+    left: 0;
+    right: 0;
+    margin-top: 0;
+    margin-bottom: 48px;
+    &:before{
+      display: none;
+    }
+  }
+  .flightItem{
+    &__table{
+      margin-top: 48px;
+      &__left{
+        width: 65%;
+        .flightItem__table__cell{
+          &:nth-child(1){
+            width: 80%;
+          }
+          &:nth-child(2){
+            width: 20%;
+          }
+        }
+      }
+      &__right{
+        width: 35%;
+        box-sizing: content-box;
+        .flightItem__table__cell{
+          padding: 0;
+          transition: 0.3s;
+          cursor: pointer;
+          p:nth-child(2){
+            white-space: nowrap;
+          }
+          svg{
+            margin: auto;
+          }
+          &.active, &:hover{
+            background: #0F5A5E;
+            svg{
+              path{
+                fill: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .flightTime{
+    &__trip{
+      .d-block{
+        @include breakpoint(sm){
+          flex: none;
+        }
+        &:nth-child(2){
+          margin: 0 auto;
+        }
+      }
+    }
+    &__box{
+      margin-top: 15px;
+      &__item{
+        margin-bottom: 10px;
+        overflow: hidden;
+        .btn-outline-green{
+          color: #0F5A5E;
+          border-color: #0F5A5E;
+          width: 100%;
+        }
+        &.active{
+          .btn-outline-green{
+            color: #fff;
+            background-color: #0F5A5E;
+          }
+        }
+      }
+    }
+  }
+}

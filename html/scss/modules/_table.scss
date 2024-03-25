@@ -1,0 +1,93 @@
+.table{
+  margin-bottom: 15px;
+  @include breakpoint(ipad){
+    margin-bottom: 1vw;
+  }
+  th{
+    font-weight: 500;
+    padding: 15px;
+    @include breakpoint(ipad){
+      padding: 1vw ;
+    }
+    &:first-child{
+      border-top-left-radius: 4px;
+      @include breakpoint(ipad){
+        border-top-left-radius: .5vw;
+      }
+    }
+    &:last-child{
+      border-top-right-radius: 4px;
+      @include breakpoint(ipad){
+        border-top-right-radius: .5vw;
+      }
+    }
+  }
+  td{
+    padding: 15px;
+    @include breakpoint(ipad){
+      padding: 1vw ;
+    }
+  }
+  &.table-flight{
+    th{
+      background-color: $dark-green;
+      color: #fff;
+      vertical-align: middle;
+      white-space: nowrap;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      border-top: none;
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      button,a{
+        color: #fff;
+        font-weight: 500;
+        @include breakpoint(ipad){
+          margin-left: .5vw;
+          font-size: 1vw;
+        }
+        svg{
+          display: block;
+        }
+      }
+    }
+    td{
+      background-color: #fff;
+      vertical-align: middle;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      border-top: none;
+      &.active{
+        background-color: rgba(242, 216, 248, 0.6);
+      }
+    }
+  }
+  &.table-flight-mobile{
+    th{
+      background-color: $dark-green;
+      color: #fff;
+      vertical-align: middle;
+      border-bottom: none;
+      border-top: none;
+      position: sticky;
+      top: 0;
+      z-index: 99;
+      &:last-child{
+        text-align: right;
+      }
+      button,a{
+        color: #fff;
+        font-weight: 500;
+        margin-left: 5px;
+        svg{
+          display: block;
+        }
+      }
+    }
+    td{
+      background-color: #fff;
+      vertical-align: middle;
+      border-bottom: none;
+      border-top: none;
+    }
+  }
+}

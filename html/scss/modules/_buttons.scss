@@ -1,0 +1,114 @@
+.btn{
+  border-radius: 4px;
+  transition: all .15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 14px;
+  height: 40px;
+  padding: 0 15px;
+  @include breakpoint(ipad){
+    font-size: 1vw;
+    padding: 0 1vw;
+    height: 2.8vw;
+    border-radius: .2vw;
+  }
+  &:focus{
+    outline: none;
+    box-shadow: none;
+  }
+  &:hover{
+    opacity: .8;
+  }
+  &.btn-xs{
+    height: 24px;
+    @include breakpoint(ipad){
+      height: 1.8vw;
+    }
+  }
+  &.btn-lg{
+    height: 48px;
+    @include breakpoint(ipad){
+      height: 3.3vw;
+    }
+  }
+  &.btn-purple{
+    color: #fff;
+    background-color: $purple;
+    border-color: $purple;
+  }
+  &.btn-orange{
+    color: #fff;
+    background-color: $orange;
+    border-color: $orange;
+  }
+  &.btn-darkGreen{
+    color: #fff;
+    background-color: $dark-green;
+    border-color: $dark-green;
+  }
+  &.btn-outline{
+    border-color: #ced4da;
+  }
+  &.btn-outline-purple{
+    border-color: $purple;
+    color: $purple;
+  }
+  &.btn-outline-white{
+    border-color: #fff;
+    color: #fff;
+  }
+  &.btn-disable{
+    pointer-events: none;
+    background: #bfbfbf;
+    border-color: #bfbfbf;
+  }
+}
+.btnGroup{
+  display: inline-flex;
+  .btn{
+    + .btn{
+      margin-left: 15px;
+      @include breakpoint(ipad){
+        margin-left: 1vw;
+      }
+    }
+  }
+  a{
+    + a{
+      margin-left: 15px;
+      @include breakpoint(ipad){
+        margin-left: 1vw;
+      }
+    }
+  }
+}
+.viewMore{
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  color: #318FDB;
+  @include breakpoint(ipad){
+    font-size: 1vw;
+
+  }
+  &:hover{
+    color: #318FDB;
+    span{
+      text-decoration: underline;
+    }
+  }
+  svg{
+    margin-left: 20px;
+    @include breakpoint(ipad){
+      margin-left: 1vw;
+    }
+  }
+  i{
+    margin-left: 20px;
+    @include breakpoint(ipad){
+      margin-left: 1vw;
+    }
+  }
+}

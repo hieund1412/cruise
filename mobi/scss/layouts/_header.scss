@@ -1,0 +1,347 @@
+.header {
+  background-color: $dark-green;
+
+  &__main {
+    @include breakpoint(sm) {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+  }
+
+  &__toggle {
+    @include breakpoint(xs) {
+      span {
+        display: none;
+      }
+    }
+    @include breakpoint(ipad) {
+      margin-left: 1.5vw;
+    }
+    @include breakpoint(lg) {
+      margin-left: 25px;
+    }
+  }
+
+  &__btn {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    height: 64px;
+    @include breakpoint(ipad) {
+      font-size: 1vw;
+      height: 5vw;
+    }
+    @include breakpoint(lg) {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    span {
+      padding-left: 5px;
+      @include breakpoint(ipad) {
+        padding-left: .5vw;
+      }
+    }
+
+    .svgArrow {
+      margin-left: 15px;
+      @include breakpoint(ipad) {
+        margin-left: 1vw;
+      }
+    }
+  }
+
+  &__search {
+    @include breakpoint(xs) {
+      display: none;
+    }
+
+    .inputSearch {
+      width: 350px;
+      @include breakpoint(ipad) {
+        width: 20vw;
+      }
+    }
+  }
+
+  &__lang {
+    @include breakpoint(xs) {
+      display: none;
+    }
+    @include breakpoint(ipad) {
+      margin-left: 1.5vw;
+    }
+    @include breakpoint(lg) {
+      margin-left: 25px;
+    }
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.listLang {
+  .dropdown-item {
+    img {
+      width: 20px;
+      @include breakpoint(ipad) {
+        width: 2vw;
+      }
+    }
+
+    span {
+      padding-left: 10px;
+      @include breakpoint(ipad) {
+        padding-left: .8vw;
+      }
+    }
+  }
+}
+
+.navbarBox {
+  @include breakpoint(xs) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    transition: all .3s ease-in-out;
+    visibility: hidden;
+  }
+  @include breakpoint(sm) {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: $shadow;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+    transition: all .3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(.9);
+  }
+  @include breakpoint(ipad) {
+    width: 40vw;
+    border-radius: .2vw;
+  }
+  @include breakpoint(lg) {
+    width: 650px;
+    border-radius: 4px;
+  }
+
+  &.open {
+    @include breakpoint(xs){
+      visibility: visible;
+      .navbarBox{
+        &__main{
+          visibility: visible;
+          transform: none;
+        }
+        &__backdrop{
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+    }
+    @include breakpoint(sm) {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+  }
+
+  &__main {
+    @include breakpoint(xs) {
+      width: calc(100% - 50px);
+      height: 100%;
+      background-color: #fff;
+      transition: all .3s ease-in-out;
+      visibility: hidden;
+      transform: translateX(-100%);
+    }
+  }
+
+  &__backdrop {
+    @include breakpoint(xs) {
+      background-color: rgba(0, 0, 0, .75);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      transition: all .3s ease-in-out;
+      visibility: hidden;
+      opacity: 0;
+    }
+    @include breakpoint(sm){display: none;}
+  }
+
+  &__header {
+    display: flex;
+    @include breakpoint(xs) {
+      justify-content: space-between;
+      align-items: center;
+      background-color: $dark-green;
+      padding-left: 15px;
+
+    }
+    @include breakpoint(sm) {
+      justify-content: flex-end;
+    }
+
+    .logo {
+      @include breakpoint(sm) {
+        display: none;
+      }
+    }
+  }
+
+  &__close {
+    @include breakpoint(xs) {
+      height: 56px;
+      padding: 0 15px;
+    }
+    @include breakpoint(ipad) {
+      padding: 1vw;
+    }
+    @include breakpoint(lg) {
+      padding: 15px;
+    }
+
+    svg {
+      display: block;
+      @include breakpoint(xs) {
+        path {
+          fill: #fff;
+        }
+      }
+    }
+  }
+
+  &__body {
+    @include breakpoint(xs) {
+      height: calc(100% - 108px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 15px;
+    }
+  }
+
+  &__group {
+    @include breakpoint(sm) {
+      display: flex;
+    }
+    @include breakpoint(ipad) {
+      padding: 0 1vw 1vw;
+    }
+    @include breakpoint(lg) {
+      padding: 0 15px 15px;
+    }
+  }
+
+  &__list {
+    @include breakpoint(xs) {
+      margin-bottom: 15px;
+    }
+    @include breakpoint(sm) {
+      width: 33.333%;
+    }
+    @include breakpoint(ipad) {
+      padding: 0 1vw;
+    }
+    @include breakpoint(lg) {
+      padding: 0 15px;
+    }
+
+    ul {
+      @include breakpoint(xs) {
+        display: none;
+      }
+
+      li {
+        a {
+          color: $black85;
+          transition: all .1s;
+          display: block;
+          padding: 7.5px 0;
+          @include breakpoint(ipad) {
+            font-size: 1vw;
+          }
+
+          &:hover {
+            color: #0F5A5E;
+          }
+        }
+      }
+    }
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    @include breakpoint(xs) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &.active {
+        font-weight: 500;
+        color: #0F5A5E;
+
+        svg {
+          transform: rotate(180deg);
+
+          path {
+            fill: #0F5A5E;
+            fill-opacity: 1;
+          }
+        }
+      }
+    }
+    @include breakpoint(ipad) {
+      font-size: 1.1vw;
+      margin-bottom: .8vw;
+    }
+
+    svg {
+      transition: .3s;
+      @include breakpoint(sm) {
+        display: none;
+      }
+    }
+  }
+
+  &__search {
+    @include breakpoint(sm) {
+      display: none;
+    }
+  }
+
+  &__footer {
+    border-top: 1px solid $border-color;
+    @include breakpoint(sm) {
+      display: none;
+    }
+
+    .flexGroup1 {
+      padding: 15px;
+
+      span {
+        padding: 0 5px;
+      }
+    }
+
+    .dropdown-menu {
+      @include breakpoint(xs) {
+        min-width: 100%;
+      }
+    }
+  }
+}

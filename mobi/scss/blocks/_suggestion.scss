@@ -1,0 +1,98 @@
+.suggestion {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  background-color: #fff;
+  box-shadow: $shadow;
+  border-radius: 4px;
+  width: 360px;
+  max-height: 400px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+  @include breakpoint(xs) {
+    width: 100%;
+  }
+  @include breakpoint(ipad) {
+    border-radius: .2vw;
+    width: 25vw;
+    height: 20vw;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    @include breakpoint(ipad) {
+      width: .4vw;
+    }
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    @include breakpoint(ipad) {
+      border-radius: 1.1vw;
+    }
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.65);
+    border-radius: 16px;
+    @include breakpoint(ipad) {
+      border-radius: 1.1vw;
+    }
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.65);
+  }
+
+  &.open {
+    display: block;
+  }
+
+  &__title {
+    background-color: rgba(15, 90, 94, 0.16);
+    color: $dark-green;
+    font-weight: 500;
+    padding: 5px 25px;
+    @include breakpoint(ipad) {
+      font-size: 1vw;
+      padding: .5vw 2vw;
+    }
+  }
+
+  &__list {
+    li {
+      button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 10px 25px;
+        @include breakpoint(ipad) {
+          padding: .8vw 2vw;
+        }
+
+        &:hover {
+          span {
+            color: #0F5A5E !important;
+          }
+        }
+
+        span {
+          &:first-child {
+            color: #000;
+          }
+
+          &:last-child {
+            color: rgba(0, 0, 0, 0.55);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1640 @@
+<?php
+$sever = 'https://'.$_SERVER['SERVER_NAME'];
+define('DOMAIN',$sever);
+define('PAYMENT_FAILED',2858);
+define('PAYMENT_SUCC',2857);
+define('PAYMENT_SUCC_VI',2869);
+define('PAYMENT_FAILED_VI',2868);
+
+
+require_once 'cruise.inc';
+function cruise_menu() {
+    $items['home'] = array(
+        'title' => t('home'),
+        'description' => t('home'),
+        'page callback' => 'home',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['cruise/%'] = array(
+        'title' => t('cruise detail'),
+        'description' => t('cruise detail'),
+        'page callback' => 'cruise_detail',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['cruises'] = array(
+        'title' => t('cruise list'),
+        'description' => t('cruise list'),
+        'page callback' => 'cruise_list',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['all_cruise'] = array(
+        'title' => t('all cruise'),
+        'description' => t('all cruise'),
+        'page callback' => 'page_all_cruise',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['passenger'] = array(
+        'title' => t('passenger'),
+        'description' => t('passenger'),
+        'page callback' => 'page_passenger',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['review'] = array(
+        'title' => t('Review'),
+        'description' => t('Review'),
+        'page callback' => 'page_review',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['thing-to-do'] = array(
+        'title' => t('Thing to do'),
+        'description' => t('Thing to do'),
+        'page callback' => 'page_thing_to_do',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['faq'] = array(
+        'title' => t('FAQ'),
+        'description' => t('FAQ'),
+        'page callback' => 'page_faq',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['contactus'] = array(
+        'title' => t('contactus'),
+        'description' => t('contactus'),
+        'page callback' => 'page_contactus',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['news'] = array(
+        'title' => t('News'),
+        'description' => t('News'),
+        'page callback' => 'page_news',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['destination'] = array(
+        'title' => t('destination'),
+        'description' => t('destination'),
+        'page callback' => 'page_destination',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['deals'] = array(
+        'title' => t('deals'),
+        'description' => t('deals'),
+        'page callback' => 'page_deals',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['detail'] = array(
+        'title' => t('detail'),
+        'description' => t('detail'),
+        'page callback' => 'page_detail',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['lang'] = array(
+        'title' => t('Change language'),
+        'description' => t('Change language'),
+        'page callback' => 'change_lang',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+
+
+    );
+
+
+    $items['payment'] = array(
+        'title' => t('Page payment'),
+        'description' => t('payment'),
+        'page callback' => 'page_payment',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['payment/respond'] = array(
+        'title' => t('Respond'),
+        'page callback' => 'payment_onepay_respond',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+    $items['search-all-cruise'] = array(
+        'title' => t('Respond'),
+        'page callback' => 'search_all_cruise',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['payment/finish'] = array(
+        'title' => t('Passenger info'),
+        'page callback' => 'payment_finish_page',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['ajax'] = array(
+        'title' => t('ajax'),
+        'description' => t('ajax'),
+        'page callback' => 'ajax',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
+
+
+    return $items;
+}
+
+function cruise_init() {
+    global $language;
+    $languages = language_list();
+    $lang = (isset($_SESSION['lang']) && $_SESSION['lang'] != '')?$_SESSION['lang']:'en';
+    $_SESSION['lang'] = $lang;
+    $languages_key = array_keys($languages);
+    if(in_array($lang,$languages_key)) {
+        $language = $languages[$lang];
+    }
+
+}
+function search_all_cruise(){
+    if(isset($_POST['post-all-cruise-btn'])) {
+        $time = time();
+        //$_SESSION['search_param'][time()]['depart'] = date("d-m-Y", $time);
+        $_SESSION['search_param'][time()]['no_room'] = '1';
+        $_SESSION['search_param'][time()]['room_type'] = ['single'];
+        $_SESSION['search_param'][time()]['adult'] = ['1'];
+        $_SESSION['search_param'][time()]['child'] = ['0'];
+        $_SESSION['search_param'][time()]['infant'] = ['0'];
+        $_SESSION['search_param'][time()]['cruise'] = 'all';
+        $_SESSION['search_param'][time()]['checkin'] = 'all';
+        $_SESSION['search_param'][time()]['duration'] = '2day1night';
+        $_SESSION['search_param'][time()]['t'] = '';
+        drupal_goto(drupal_get_path_alias('all_cruise'),array('query' => array('t' => time() )));
+    }else{
+        drupal_goto(base_path());
+    }
+}
+function home() {
+    global $language;
+    drupal_set_title(t('Home'));
+
+    return '';
+}
+
+function ajax() {
+    $act = isset($_REQUEST['act'])?$_REQUEST['act']:null;
+
+    switch ($act) {
+        case 'test_mail':
+            $full_code = isset($_REQUEST['full_code'])?$_REQUEST['full_code']:'';
+            if($full_code != '') {
+                $body = email($full_code);
+                if(isset($_REQUEST['do_send']) && $_REQUEST['do_send'] == 1) {
+                    $rs_email = do_send_email($full_code,$body);
+                    echo array('status' => $rs_email);
+                }
+                echo $body;
+            }
+
+            break;
+        case 'send_email':
+            $subject = isset($_REQUEST['subject'])?$_REQUEST['subject']:'';
+            $body = isset($_REQUEST['body'])?$_REQUEST['body']:'';
+            $to = isset($_REQUEST['to'])?$_REQUEST['to']:'';
+           $rs = _do_send_mail($to,$body,$subject,'');
+           echo  $rs;
+            break;
+    }
+
+}
+
+function send_email() {
+    $web_info = web_info_basic();
+    $admin_email = isset($web_info['field_manager_email']['und'][0]['value'])?$web_info['field_manager_email']['und'][0]['value']:'';
+    $body = 'hello';
+    $suject = 'hello';
+    _do_send_mail($admin_email,$body,$suject,'');
+}
+
+function do_send_email($full_code,$body,$fullname = '') {
+    $lang = isset($_SESSION['lang'])?$_SESSION['lang']:'en';
+    $web_info = web_info_basic();
+    $admin_email = isset($web_info['field_manager_email']['und'][0]['value'])?$web_info['field_manager_email']['und'][0]['value']:'';
+    $order = _page_review($full_code);
+    $customer_email = $order['email'];
+
+
+    $order_code = get_code($full_code);
+    if($lang == 'vi') {
+        $suject = 'Thông tin đặt chỗ cho khách '.$fullname.' - Mã đặt chỗ: '.$order_code;
+    } else {
+
+        $suject = 'The cruise booking for '.$fullname.' -  Order number: '.$order_code;
+    }
+
+
+
+
+
+
+    //gui cho admin
+
+    _do_send_mail($admin_email,$body,$suject,'');
+    _do_send_mail($customer_email,$body,$suject,'');
+}
+
+
+
+function change_lang() {
+    global $language,$user;
+
+    $lang = arg(1);
+    $languages = language_list();
+    $languages_key = array_keys($languages);
+    if(in_array($lang,$languages_key)) {
+        $_SESSION['lang'] = $lang;
+        $language = $languages[$lang];
+    }
+
+    if(isset($_REQUEST['redirect']) && $_REQUEST['redirect'] != '') {
+        $redirect_url = $_REQUEST['redirect'];
+        $redirect_url = urldecode($redirect_url);
+    } else {
+        $redirect_url = '';
+    }
+
+
+    drupal_goto($redirect_url);
+
+}
+
+function page_all_cruise() {
+    drupal_set_title(t('All cruises'));
+
+
+    global $conf;
+    $lang = (isset($_SESSION['lang']) && $_SESSION['lang'] != '')?$_SESSION['lang']:'en';
+    $c_key = 'page_all_cruise_'.$lang;
+    if($cached = cache_get($c_key, 'cache') && $conf['ev'] == 'production' )  {
+        $theme = $cached->data;
+    } else {
+        $data = all_itinerary();
+        $theme = theme('page_all_cruise',array('data' => $data));
+        cache_set($c_key, $theme);
+    }
+    return $theme;//theme('page_all_cruise',array('data' => $data));
+}
+
+function cruise_list() {
+    $type = arg(1);
+    $data['type'] = $type;
+    $data['cruises'] = list_cruise($type);
+    return theme('page_cruise_list',array('data' => $data));
+}
+function cruise_detail($id) {
+    $tran = isset($_REQUEST['t'])?$_REQUEST['t']:0;
+    $arg2 = isset($_REQUEST['arg2'])?$_REQUEST['arg2']:'';
+
+    if(isset($_POST['room_type'])) {
+//        print_r($_POST);die;
+        //$_SESSION['search_param'] = null;
+
+        if(isset($_POST['cruise']) && $_POST['cruise'] > 0 && isset($_POST['duration']) && $_POST['duration'] != '') {
+            $id = $_POST['cruise'];
+            $cruise_obj =  detail_cruise($id);
+            $itinerary = $cruise_obj['itinerary'];
+
+            if(count($itinerary) > 0) {
+                foreach($itinerary as $itinerary_id => $it) {
+                    if($it['field_type_itinerary']['und'][0]['value'] == $_POST['duration']) {
+                        $arg2 = $itinerary_id;break;
+
+                    }
+                }
+            }
+
+        }
+        if($tran > 0) {
+            $_SESSION['search_param'][$tran] = $_POST;
+            $_SESSION['search_param'][$tran]['depart'] = $_POST['depart'];
+            $_SESSION['search_param'][$tran]['arg2'] = $arg2;
+
+            if(isset($_POST['cruise']) && $_POST['cruise'] == 'all') {
+                drupal_goto(drupal_get_path_alias('all_cruise'),array('query' => array('t' => $tran )));
+            }
+            if($arg2 > 0) {
+                drupal_goto('cruise/'.$id.'/'.$arg2,array('query' => array('t' => $tran )));
+            } else {
+                drupal_goto('cruise/'.$id,array('query' => array('t' => $tran )));
+            }
+
+        }
+
+
+    } else {
+
+
+        $_SESSION['search_param'][$tran]['cruise'] = $id;
+        $_SESSION['search_param'][$tran]['arg2'] = arg(2);
+
+    }
+
+    $session_current = $_SESSION['search_param'][$tran];
+    $_SESSION['search_param'] = null;
+    $_SESSION['search_param'][$tran] = $session_current;
+
+    $data = detail_cruise($id);
+
+    drupal_set_title($data['info']['title']);
+  //  drupal_add_html_head($data['info']['body']['und'][0]['value'], 'meta_description');
+    return theme('page_cruise_detail',array('data' => $data));
+}
+
+function html_star($star) {
+    $html = '';
+    for($i = 0; $i < $star; $i++) {
+        $html .= ' <svg xmlns="http://www.w3.org/2000/svg" width="12" height="11" viewBox="0 0 12 11" fill="none">
+                                                            <path d="M6 0L7.34708 4.1459H11.7063L8.17963 6.7082L9.52671 10.8541L6 8.2918L2.47329 10.8541L3.82037 6.7082L0.293661 4.1459H4.65292L6 0Z" fill="#FD6431"/>
+                                                        </svg>';
+    }
+    return $html;
+}
+
+function page_faq() {
+    drupal_set_title(t('FAQ'));
+    $data['faq'] = _faq();
+    return theme('page_faq',array('data' => $data));
+}
+
+function page_detail() {
+    $nid = arg(1);
+
+    $data['content'] = _get_node($nid);
+    drupal_set_title($data['content']['title']);
+
+    return theme('page_detail',array('data' => $data));
+}
+
+function page_contactus() {
+    drupal_set_title(t('Contact us'));
+    $data = array();
+    return theme('page_contactus',array('data' => $data));
+}
+
+function page_deals() {
+    drupal_set_title('Hot deals');
+    $data['itinerary'] = _deals();
+    return theme('page_deal',array('data' => $data));
+}
+function page_news() {
+    drupal_set_title(t('News'));
+    $data = array();
+    $data['hot_news'] = hot_news();
+    $data['special_offers'] = special_offers();
+    $data['travel_advisor'] = travel_advisor();
+    return theme('page_news',array('data' => $data));
+}
+
+function page_destination() {
+    drupal_set_title(t('Destination'));
+    $data = array();
+    return theme('page_destination',array('data' => $data));
+}
+
+function page_thing_to_do() {
+    $data = array();
+    drupal_set_title(t('Things to do'));
+    $data['list'] = thing_to_do();
+    return theme('page_thing_to_do',array('data' => $data));
+}
+function page_passenger() {
+    drupal_set_title(t('Passenger'));
+    if(isset($_POST['passenger'])) {
+        $tran = isset($_REQUEST['tran'])?$_REQUEST['tran']:'';
+        if($tran > 0 && isset($_REQUEST['room_selected']) && count($_REQUEST['room_selected']) > 0) {
+            $_SESSION['search_param'][$tran]['room_selected'] = $_REQUEST['room_selected'];
+            drupal_goto('passenger',array('query' => array('t' => $tran )));die;
+        }
+    }
+
+    $data = array();
+    $data['area_code'] = area_code();
+    return theme('page_passenger',array('data' => $data));
+}
+
+function page_review() {
+    drupal_set_title(t('  Review'));
+    $lang = isset($_SESSION['lang'])?$_SESSION['lang']:'en';
+    if(isset($_POST['review'])) {
+
+
+        $tran = isset($_REQUEST['tran'])?$_REQUEST['tran']:'';
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        //remove other tran
+
+        if($tran > 0 ) {
+            $_SESSION['search_param'][$tran]['passenger'] = $_POST;
+            $_SESSION['search_param'][$tran]['lang'] = $lang;
+            if(count($_SESSION['search_param']) > 0) {
+                foreach ($_SESSION['search_param'] as $key => $ob) {
+                    if($key != $tran) {
+                        unset($_SESSION['search_param'][$key]);
+                    }
+                }
+            }
+            $search_param =  $_SESSION['search_param'];
+            $cruise_id = $search_param[$tran]['cruise'];
+
+
+            $cruise_obj =  detail_cruise($cruise_id);
+            $email = isset($_POST['email'])?$_POST['email']:'';
+            $phone = isset($_POST['phone'])?$_POST['phone']:'';
+            $amount = 0;
+            for ($i = 0; $i < count($search_param[$tran]['room_selected']); $i++) {
+                $room_id = $search_param[$tran]['room_selected'][$i];
+                $room_obj = $cruise_obj['rooms'][$room_id];
+                $itinerary_id = $search_param[$tran]['duration'];
+                $discount = get_discount_for_booking($cruise_id,$itinerary_id,$search_param[$tran]);
+                $total_of_room = calculator_fare($room_obj, $i, $search_param[$tran],$discount);
+
+                $amount += $total_of_room['total'];
+            }
+            $data = array('search_param' => json_encode($_SESSION['search_param']),'total' => $amount,'email' => $email,'phone' => $phone,'ip' => $ip);
+
+            $full_code = post_api_data($data,'passenger');
+            $_SESSION['send_email'] = true;
+
+            drupal_goto('review/'.$full_code,array('query' => array('t' => $tran )));die;
+
+        }
+    }
+
+    if(arg(1) != '') {
+        $data = array();
+        $full_code = arg(1);
+        $data['code'] = get_code($full_code);
+        $data['review'] = _page_review($full_code);
+        return theme('page_review',array('data' => $data));
+    } else {
+        drupal_goto('');die;
+    }
+
+
+}
+
+function update_total($id) {
+
+}
+function get_code($full_code) {
+    return 'C-'.substr($full_code,0,6);
+}
+
+function cruise_theme() {
+
+    $themes['blk_header'] = array('template' => 'templates/blk_header', 'arguments' => array('data'=>'') );
+    $themes['blk_footer'] = array('template' => 'templates/blk_footer', 'arguments' => array('data'=>'') );
+    $themes['blk_menu_left'] = array('template' => 'templates/blk_menu_left', 'arguments' => array('data'=>'') );
+    $themes['blk_form_search'] = array('template' => 'templates/blk_form_search', 'arguments' => array('data'=>'') );
+    $themes['blk_cruise_line'] = array('template' => 'templates/blk_cruise_line', 'arguments' => array('data'=>'') );
+    $themes['blk_special_packages'] = array('template' => 'templates/blk_special_packages', 'arguments' => array('data'=>'') );
+    $themes['blk_popular_destinations'] = array('template' => 'templates/blk_popular_destinations', 'arguments' => array('data'=>'') );
+    $themes['blk_thing_to_do'] = array('template' => 'templates/blk_thing_to_do', 'arguments' => array('data'=>'') );
+    $themes['blk_review'] = array('template' => 'templates/blk_review', 'arguments' => array('data'=>'') );
+    $themes['blk_passenger'] = array('template' => 'templates/blk_passenger', 'arguments' => array('data'=>'') );
+    $themes['page_cruise_detail'] = array('template' => 'templates/page_cruise_detail', 'arguments' => array('data'=>'') );
+    $themes['page_passenger'] = array('template' => 'templates/page_passenger', 'arguments' => array('data'=>'') );
+    $themes['page_review'] = array('template' => 'templates/page_review', 'arguments' => array('data'=>'') );
+    $themes['blk_room_detail_popup'] = array('template' => 'templates/blk_room_detail_popup', 'arguments' => array('data'=>'') );
+    $themes['page_thing_to_do'] = array('template' => 'templates/page_thing_to_do', 'arguments' => array('data'=>'') );
+    $themes['page_news'] = array('template' => 'templates/page_news', 'arguments' => array('data'=>'') );
+    $themes['page_deal'] = array('template' => 'templates/page_deal', 'arguments' => array('data'=>'') );
+    $themes['page_destination'] = array('template' => 'templates/page_destination', 'arguments' => array('data'=>'') );
+    $themes['page_faq'] = array('template' => 'templates/page_faq', 'arguments' => array('data'=>'') );
+    $themes['page_contactus'] = array('template' => 'templates/page_contactus', 'arguments' => array('data'=>'') );
+    $themes['page_detail'] = array('template' => 'templates/page_detail', 'arguments' => array('data'=>'') );
+    $themes['page_cruise_list'] = array('template' => 'templates/page_cruise_list', 'arguments' => array('data'=>'') );
+    $themes['page_all_cruise'] = array('template' => 'templates/page_all_cruise', 'arguments' => array('data'=>'') );
+    $themes['page_payment'] = array('template' => 'templates/page_payment', 'arguments' => array('data' => ''));
+    $themes['payment_failed'] = array('template' => 'templates/payment_failed', 'arguments' => array('data' => ''));
+    $themes['payment_success'] = array('template' => 'templates/payment_success', 'arguments' => array('data' => ''));
+    $themes['email'] = array('template' => 'templates/email', 'arguments' => array('data' => ''));
+    return $themes;
+}
+
+function blk_footer() {
+    return theme('blk_footer',array('data' =>null));
+}
+
+function cruise_css_alter(&$css) {
+
+    // Remove defaults.css file.
+    unset($css[drupal_get_path('module', 'system') . '/system.theme.css']);
+}
+
+function blk_header() {
+    global $conf;
+    $lang = (isset($_SESSION['lang']) && $_SESSION['lang'] != '')?$_SESSION['lang']:'en';
+    $c_key = 'blk_header_'.$lang;
+    $cached = cache_get($c_key, 'cache');
+
+    if($cached && $conf['ev'] == 'production')  {
+        $html = $cached->data;
+    } else {
+
+        $data = array();
+        $html = theme('blk_header', array('data' => $data));
+        cache_set($c_key, $html);
+    }
+    return $html;
+}
+function blk_menu_left() {
+    global $conf;
+    $lang = (isset($_SESSION['lang']) && $_SESSION['lang'] != '')?$_SESSION['lang']:'en';
+    $c_key = 'blk_menu_left_'.$lang;
+    $cached = cache_get($c_key, 'cache');
+    if($cached && $conf['ev'] == 'production')  {
+        $html = $cached->data;
+    } else {
+        $data = array();
+        $html = theme('blk_menu_left', array('data' => $data));
+        cache_set($c_key, $html);
+    }
+    return $html;
+}
+
+function blk_form_search() {
+    global $conf;
+    $data = array();
+    $html = theme('blk_form_search', array('data' => $data));
+    return $html;
+}
+
+function blk_passenger($type,$tran) {
+    global $conf;
+    $data['type'] = $type;
+    $data['tran'] = $tran;
+    $html = theme('blk_passenger', array('data' => $data));
+    return $html;
+}
+
+function blk_cruise_line() {
+    global $conf;
+    $lang = (isset($_SESSION['lang']) && $_SESSION['lang'] != '')?$_SESSION['lang']:'en';
+    $c_key = 'blk_cruise_line_'.$lang;
+    $cached = cache_get($c_key, 'cache');
+    if($cached && $conf['ev'] == 'production')  {
+        $html = $cached->data;
+    } else {
+        $data['cruise'] = cruise_line();//print_r($data['cruise']);die;
+        $html = theme('blk_cruise_line', array('data' => $data));
+        cache_set($c_key, $html);
+    }
+    return $html;
+}
+function blk_special_packages() {
+    global $conf;
+    $lang = (isset($_SESSION['lang']) && $_SESSION['lang'] != '')?$_SESSION['lang']:'en';
+    $c_key = 'blk_special_packages_'.$lang;
+    $cached = cache_get($c_key, 'cache');
+    if($cached && $conf['ev'] == 'production')  {
+        $html = $cached->data;
+    } else {
+        $data['cruise'] = special_packages();//print_r($data['cruise']);die;
+        $html = theme('blk_special_packages', array('data' => $data));
+        cache_set($c_key, $html);
+    }
+
+    return $html;
+}
+
+function blk_popular_destinations() {
+    global $conf;
+    $lang = (isset($_SESSION['lang']) && $_SESSION['lang'] != '')?$_SESSION['lang']:'en';
+    $c_key = 'blk_popular_destinations_'.$lang;
+    $cached = cache_get($c_key, 'cache');
+    if($cached && $conf['ev'] == 'production')  {
+        $html = $cached->data;
+    } else {
+        $data['destination'] = popular_destinations();//print_r($data['cruise']);die;
+        $html = theme('blk_popular_destinations', array('data' => $data));
+        cache_set($c_key, $html);
+    }
+
+    return $html;
+}
+
+function blk_thing_to_do() {
+    global $conf;
+    $lang = (isset($_SESSION['lang']) && $_SESSION['lang'] != '')?$_SESSION['lang']:'en';
+    $c_key = 'blk_thing_to_do_'.$lang;
+
+    $cached = cache_get($c_key, 'cache');
+    if($cached && $conf['ev'] == 'production')  {
+        $html = $cached->data;
+    } else {
+        $data['thing_to_do'] = thing_to_do();//print_r($data['cruise']);die;
+        $html = theme('blk_thing_to_do', array('data' => $data));
+        cache_set($c_key, $html);
+    }
+
+    return $html;
+}
+
+function blk_room_detail_popup($data) {
+    global $conf;
+    $lang = (isset($_SESSION['lang']) && $_SESSION['lang'] != '')?$_SESSION['lang']:'en';
+    $c_key = 'blk_room_detail_popup_'.$lang;
+    $cached = cache_get($c_key, 'cache');
+    if($cached  && $conf['ev'] == 'production')  {
+        $html = $cached->data;
+    } else {
+        $html = theme('blk_room_detail_popup', array('data' => $data));
+        cache_set($c_key, $html);
+    }
+
+    return $html;
+}
+function blk_review() {
+    global $conf;
+    $lang = (isset($_SESSION['lang']) && $_SESSION['lang'] != '')?$_SESSION['lang']:'en';
+    $c_key = 'blk_review_'.$lang;
+    $cached = cache_get($c_key, 'cache');
+    if($cached && $conf['ev'] == 'production')  {
+        $html = $cached->data;
+    } else {
+        $data['review'] = review();//print_r($data['cruise']);die;
+        $html = theme('blk_review', array('data' => $data));
+        cache_set($c_key, $html);
+    }
+
+    return $html;
+}
+
+function get_icon_by_name($type) {
+    if($type == 'field_square') {
+        return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M12.64 0.5H3.36C2.60189 0.501322 1.8752 0.803067 1.33913 1.33913C0.803067 1.8752 0.501322 2.60189 0.5 3.36V12.64C0.501322 13.3981 0.803067 14.1248 1.33913 14.6609C1.8752 15.1969 2.60189 15.4987 3.36 15.5H12.64C13.3981 15.4987 14.1248 15.1969 14.6609 14.6609C15.1969 14.1248 15.4987 13.3981 15.5 12.64V3.36C15.4987 2.60189 15.1969 1.8752 14.6609 1.33913C14.1248 0.803067 13.3981 0.501322 12.64 0.5ZM14.5 12.64C14.4987 13.1329 14.3023 13.6052 13.9538 13.9538C13.6052 14.3023 13.1329 14.4987 12.64 14.5H3.36C2.8671 14.4987 2.39477 14.3023 2.04624 13.9538C1.69771 13.6052 1.50132 13.1329 1.5 12.64V3.36C1.50132 2.8671 1.69771 2.39477 2.04624 2.04624C2.39477 1.69771 2.8671 1.50132 3.36 1.5H12.64C13.1329 1.50132 13.6052 1.69771 13.9538 2.04624C14.3023 2.39477 14.4987 2.8671 14.5 3.36V12.64Z" fill="#5C6AA1"></path>
+                            <path d="M12.5 8.92C12.3674 8.92 12.2402 8.97268 12.1464 9.06645C12.0527 9.16021 12 9.28739 12 9.42V11.295L4.705 4H6.58C6.71261 4 6.83979 3.94732 6.93355 3.85355C7.02732 3.75979 7.08 3.63261 7.08 3.5C7.08 3.36739 7.02732 3.24021 6.93355 3.14645C6.83979 3.05268 6.71261 3 6.58 3H3.345C3.2535 3 3.16575 3.03635 3.10105 3.10105C3.03635 3.16575 3 3.2535 3 3.345V6.58C3 6.71261 3.05268 6.83979 3.14645 6.93355C3.24021 7.02732 3.36739 7.08 3.5 7.08C3.63261 7.08 3.75979 7.02732 3.85355 6.93355C3.94732 6.83979 4 6.71261 4 6.58V4.705L11.295 12H9.42C9.28739 12 9.16021 12.0527 9.06645 12.1464C8.97268 12.2402 8.92 12.3674 8.92 12.5C8.92 12.6326 8.97268 12.7598 9.06645 12.8536C9.16021 12.9473 9.28739 13 9.42 13H12.655C12.7465 13 12.8343 12.9637 12.899 12.899C12.9637 12.8343 13 12.7465 13 12.655V9.42C13 9.28739 12.9473 9.16021 12.8536 9.06645C12.7598 8.97268 12.6326 8.92 12.5 8.92Z" fill="#5C6AA1"></path>
+                        </svg>';
+    } else if($type == 'wifi') {
+        return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="13" viewBox="0 0 16 13" fill="none">
+                            <path d="M3.33301 6.36667C4.65072 5.26912 6.31141 4.66809 8.02634 4.66809C9.74127 4.66809 11.402 5.26912 12.7197 6.36667" stroke="#5C6AA1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M0.946289 3.99998C2.89457 2.28263 5.40249 1.33508 7.99962 1.33508C10.5968 1.33508 13.1047 2.28263 15.053 3.99998" stroke="#5C6AA1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M5.68652 8.74002C6.36332 8.25918 7.17297 8.00085 8.00319 8.00085C8.83341 8.00085 9.64306 8.25918 10.3199 8.74002" stroke="#5C6AA1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M8 11.3334H8.00667" stroke="#5C6AA1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>';
+    } else if($type == 'air_conditional') {
+        return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 48 48">
+                                                                    <defs>
+
+
+
+                                                                        <path fill="#5C6AA1" id="i-439" d="M37.895,31.553l4,8l-1.789,0.895l-4-8L37.895,31.553z M23,41h2v-8.992L23,32V41z M6.105,39.553l1.789,0.895l4-8 l-1.789-0.895L6.105,39.553z M48,8v18c0,1.607-1.065,4-4,4H4c-2.935,0-4-2.393-4-4V8H48z M42,24H6v4h36V24z M46,10H2v16 c0.008,0.463,0.174,2,2,2v-6h40v6c1.903,0,2-1.666,2-2V10z M41,17c1.105,0,2-0.896,2-2s-0.895-2-2-2s-2,0.896-2,2S39.895,17,41,17z M40.15,25H7.85v2H40.15V25z"/>
+                                                                    </defs>
+
+                                                                    <use x="0" y="0" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-439"/>
+
+                                                                </svg>';
+    } else if($type == 'bed_type') {
+        return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M15 9V12.5C15 12.776 14.776 13 14.5 13C14.224 13 14 12.776 14 12.5V12H2V12.5C2 12.776 1.776 13 1.5 13C1.224 13 1 12.776 1 12.5V9C1 8.173 1.673 7.5 2.5 7.5H13.5C14.327 7.5 15 8.173 15 9Z" fill="#5C6AA1"></path>
+                            <path d="M2.5 6.5V3.5C2.5 3.224 2.724 3 3 3H13C13.276 3 13.5 3.224 13.5 3.5V6.5H12V6C12 5.4485 11.5515 5 11 5H9.5C8.9485 5 8.5 5.4485 8.5 6V6.5H7.5V6C7.5 5.4485 7.0515 5 6.5 5H5C4.4485 5 4 5.4485 4 6V6.5H2.5Z" fill="#5C6AA1"></path>
+                        </svg>';
+    } else if($type == 'no_smoking') {
+        return '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M11.3333 5.33337C10.9658 5.33337 10.6667 5.03422 10.6667 4.66672C10.6667 3.93137 10.0687 3.33337 9.33334 3.33337H8.33334C8.14909 3.33337 8 3.48247 8 3.66672C8 3.85097 8.14909 4.00006 8.33334 4.00006H9.33334C9.70084 4.00006 10 4.29922 10 4.66672C10 5.40206 10.598 6.00003 11.3333 6.00003C11.7008 6.00003 12 6.29919 12 6.66669V7.66669C12 7.85094 12.1491 8.00003 12.3333 8.00003C12.5176 8.00003 12.6667 7.85094 12.6667 7.66669V6.66669C12.6667 5.93134 12.0687 5.33337 11.3333 5.33337Z" fill="#5C6AA1"></path>
+                            <path d="M11 7.33331H10.3334C10.1495 7.33331 10 7.18391 10 6.99997C10 6.44853 9.55147 5.99997 9.00003 5.99997C8.81613 5.99997 8.66669 5.85056 8.66669 5.66663V4.99997C8.66669 4.81572 8.51759 4.66663 8.33334 4.66663C8.14909 4.66663 8 4.81572 8 4.99997V5.66663C8 6.21806 8.44856 6.66663 9 6.66663C9.18391 6.66663 9.33334 6.81603 9.33334 6.99997C9.33334 7.55141 9.78191 7.99997 10.3333 7.99997H11C11.1843 7.99997 11.3334 7.85088 11.3334 7.66663C11.3334 7.48241 11.1843 7.33331 11 7.33331Z" fill="#5C6AA1"></path>
+                            <path d="M8 0C3.58887 0 0 3.58887 0 8C0 12.4111 3.58887 16 8 16C12.4111 16 16 12.4111 16 8C16 3.58887 12.4111 0 8 0ZM8 14.6667C4.32391 14.6667 1.33334 11.6761 1.33334 8C1.33334 6.40153 1.89975 4.93356 2.84113 3.78381L7.72397 8.66666H3.66666C3.48241 8.66666 3.33331 8.81575 3.33331 9V10.3333C3.33331 10.5176 3.48241 10.6667 3.66666 10.6667H9.72394L12.2162 13.1589C11.0664 14.1002 9.59847 14.6667 8 14.6667ZM13.1589 12.2162L11.6094 10.6667H12.3333C12.5176 10.6667 12.6667 10.5176 12.6667 10.3333V9C12.6667 8.81575 12.5176 8.66666 12.3333 8.66666H9.60938L3.78381 2.84109C4.93356 1.89975 6.40153 1.33334 8 1.33334C11.6761 1.33334 14.6667 4.32391 14.6667 8C14.6667 9.59847 14.1002 11.0664 13.1589 12.2162ZM11.3333 10V9.33334H12V10H11.3333Z" fill="#5C6AA1"></path>
+                        </svg>';
+    }
+}
+function base64url_encode($data) {
+    return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+}
+
+function base64url_decode($data) {
+    return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
+}
+
+function convert_img_url($path) {
+    $old_url = $_SERVER['HTTP_HOST'];
+    $new_url = 'webservice.annguyen.vn';
+    $path = str_replace($old_url,$new_url,$path);
+    return $path;
+}
+
+function view_more_icon() {
+    return '<svg class="ml5" xmlns="http://www.w3.org/2000/svg" width="16" height="8" viewBox="0 0 16 8" fill="none">
+                                        <path d="M15.8047 3.52731L12.6193 0.341981C12.5261 0.248775 12.4073 0.185304 12.278 0.159592C12.1487 0.13388 12.0147 0.147082 11.8929 0.197529C11.7711 0.247975 11.667 0.333402 11.5937 0.443009C11.5205 0.552615 11.4814 0.681481 11.4813 0.813314V2.83198C11.4813 2.87618 11.4638 2.91858 11.4325 2.94983C11.4013 2.98109 11.3589 2.99865 11.3147 2.99865H1C0.734784 2.99865 0.48043 3.104 0.292893 3.29154C0.105357 3.47908 0 3.73343 0 3.99865C0 4.26386 0.105357 4.51822 0.292893 4.70575C0.48043 4.89329 0.734784 4.99865 1 4.99865H11.3147C11.3589 4.99865 11.4013 5.01621 11.4325 5.04746C11.4638 5.07872 11.4813 5.12111 11.4813 5.16531V7.18398C11.4814 7.31581 11.5205 7.44468 11.5937 7.55429C11.667 7.66389 11.7711 7.74932 11.8929 7.79977C12.0147 7.85021 12.1487 7.86342 12.278 7.8377C12.4073 7.81199 12.5261 7.74852 12.6193 7.65531L15.8047 4.46998C15.9296 4.34496 15.9999 4.17542 15.9999 3.99865C15.9999 3.82187 15.9296 3.65233 15.8047 3.52731Z" fill="#FD6431"></path>
+                                    </svg>';
+}
+
+function question_icon() {
+    return '
+    <svg fill="#20265A" class="" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 width="8px" height="8px" viewBox="0 0 973.1 973.1" xml:space="preserve"
+	>
+<g>
+	<path d="M502.29,788.199h-47c-33.1,0-60,26.9-60,60v64.9c0,33.1,26.9,60,60,60h47c33.101,0,60-26.9,60-60v-64.9
+		C562.29,815,535.391,788.199,502.29,788.199z"/>
+	<path d="M170.89,285.8l86.7,10.8c27.5,3.4,53.6-12.4,63.5-38.3c12.5-32.7,29.9-58.5,52.2-77.3c31.601-26.6,70.9-40,117.9-40
+		c48.7,0,87.5,12.8,116.3,38.3c28.8,25.6,43.1,56.2,43.1,92.1c0,25.8-8.1,49.4-24.3,70.8c-10.5,13.6-42.8,42.2-96.7,85.9
+		c-54,43.7-89.899,83.099-107.899,118.099c-18.4,35.801-24.8,75.5-26.4,115.301c-1.399,34.1,25.8,62.5,60,62.5h49
+		c31.2,0,57-23.9,59.8-54.9c2-22.299,5.7-39.199,11.301-50.699c9.399-19.701,33.699-45.701,72.699-78.1
+		C723.59,477.8,772.79,428.4,795.891,392c23-36.3,34.6-74.8,34.6-115.5c0-73.5-31.3-138-94-193.4c-62.6-55.4-147-83.1-253-83.1
+		c-100.8,0-182.1,27.3-244.1,82c-52.8,46.6-84.9,101.8-96.2,165.5C139.69,266.1,152.39,283.5,170.89,285.8z"/>
+</g>
+</svg>
+    
+    ';
+}
+
+function child_icon() {
+    return '
+    
+    <img class="child_icon" src="'.base_path().'sites/all/themes/newtheme/images/icons8-son-30.png" />
+    ';
+}
+
+function adult_icon() {
+    return '
+    
+    <img class="adult_icon" src="'.base_path().'sites/all/themes/newtheme/images/icons8-boy-64.png" />
+    ';
+}
+function calculator_fare($room,$idx,$search_param,$discount = array()) {
+    $total_discount = 0;
+
+    $total = 0;//print_r($discount);
+    $rate = isset($room['field_single_rate']['und'][0]['value'])?$room['field_single_rate']['und'][0]['value']:1;
+    $fare_adult = $room['field_price_for_adult']['und'][0]['value'];
+    $percent_of_child = isset($room['field_percent_of_child']['und'][0]['value'])?$room['field_percent_of_child']['und'][0]['value']:75;
+
+    $fare_child = round( $fare_adult*  $percent_of_child /100);
+    $fare_infant = round( $fare_adult*  0.75);
+
+    $type_room = $room['field_type_room']['und'][0]['value'];
+    $max = $room['field_max_of_adult']['und'][0]['value'];
+    $so_tien_giam = isset($discount['so_tien_giam'])?$discount['so_tien_giam']:0;
+    $so_tien_giam_adult = 0;
+    $so_tien_giam_child = 0;
+    $so_tien_giam_infant = 0;
+    $so_tien_giam_total = 0;
+
+    $type = '';
+    if(isset($discount['doi_tuong_giam_total']) && $discount['doi_tuong_giam_total'] == 1) {
+        $so_tien_giam_total = $so_tien_giam;
+        $type = 'total';
+    } else {
+        if(isset($discount['doi_tuong_giam_adult']) && $discount['doi_tuong_giam_adult'] == 1) {
+            $so_tien_giam_adult = $so_tien_giam;//so tien giam 1 adult
+        }
+        if(isset($discount['doi_tuong_giam_child']) && $discount['doi_tuong_giam_child'] == 1) {
+            $so_tien_giam_child = $so_tien_giam; //so tien giam 1 child
+        }
+        if(isset($discount['doi_tuong_giam_infant']) && $discount['doi_tuong_giam_infant'] == 1) {
+            $so_tien_giam_infant = $so_tien_giam;
+        }
+        $type = 'passenger';
+    }
+
+
+
+    $adult = $search_param['adult'][$idx];
+    $child = $search_param['child'][$idx];
+    $infant = $search_param['infant'][$idx];
+    $total_passenger = $adult + $child + $infant;
+
+
+    if($type_room == 'single') {
+        $total = $fare_adult ;
+        $total_discount = $so_tien_giam_adult*$adult + $so_tien_giam_total;
+    } else if($type_room == 'fullday') {
+
+
+        $total_fare = $adult * $fare_adult + $child * $fare_child;
+        $total_fare = round($total_fare,1);
+        $total = $total_fare;
+        if($discount['don_vi'] == 'percent') {
+            $total_discount = $so_tien_giam;
+        } else {
+            $total_discount = $so_tien_giam_adult * $adult + $child * $so_tien_giam_child  + $so_tien_giam_total;
+        }
+
+
+
+    } else {
+
+        if($adult == 1 && $child == 0 && $infant < 2  ) {
+            $total = round($fare_adult * $max * $rate/100 ,1);
+
+            $total_discount = $so_tien_giam_total + $so_tien_giam_adult;
+
+        } else {
+            if($total_passenger <= $max) {
+                $total_fare = round(($fare_adult) * $max,1);
+                $total = $total_fare;
+                $total_discount = $so_tien_giam_adult * $adult + $so_tien_giam_total;
+            } else {
+
+                    $total_fare = $max * $fare_adult;
+                    $total_discount = $so_tien_giam_adult * $adult; //tong so giam cua nguoi lon
+                    $so_khach_du = $total_passenger - $max;//so khach du < infant + child
+                    if($infant >= $so_khach_du) {
+                        //so du ra la em be:
+                        $so_khach_du = floor($so_khach_du/2);
+                        //tinh phi cho em be thu 2 tro di
+                        if($so_khach_du > 1) {
+                            $so_khach_du = $so_khach_du - 1;
+                        }
+                        if($so_khach_du >= 1) {
+                            $fare_infant_more = $so_khach_du * $fare_infant; //tong so phí em be
+                            $total_discount += $so_khach_du * $so_tien_giam_infant; //tien giam cho tong em be
+                        } else {
+                            $fare_infant_more = 0;
+                        }
+
+                        $total_fare = $total_fare + round($fare_infant_more);
+                        $total_fare = round($total_fare,1);
+                        $total = $total_fare;
+                        $total_discount += $so_tien_giam_total;
+
+
+                    } else if($infant < $so_khach_du) {
+                        //so khach du co ca em be va tre em
+                        $so_child_du = $child - ($max - $adult);
+                        $fare_child_more = $so_child_du * $fare_child;
+                        $total_discount += $so_child_du * $so_tien_giam_child ;
+
+                        //so du ra la em be:
+                        $fare_infant_more = floor(($so_khach_du - $so_child_du)/2);
+                        $fare_infant_more =  $fare_infant_more * $fare_infant;
+                        $total_discount += $fare_infant_more * $so_tien_giam_infant ;
+
+                        $total_fare = $total_fare + round($fare_child_more) + round($fare_infant_more);
+                        $total_fare = round($total_fare,1);
+                        $total = $total_fare;
+                        $total_discount += $so_tien_giam_total;
+                    }
+
+            }
+        }
+    }
+//    if(isset($discount['don_vi']) && $discount['don_vi'] == 'percent') {
+//        $num_day = substr($search_param['duration'],0,1);
+//        $num_day = filter_var($num_day,FILTER_SANITIZE_NUMBER_INT) - 1;
+//        $total_discount = round($so_tien_giam_total*$num_day * $total/100);
+//    }
+
+   // print_r($total_discount);
+    return array('total' => round($total),'total_discount' => $total_discount,'type' => $type,'don_vi' => $discount['don_vi'],'did' => $discount['nid']);
+
+}
+
+
+function replace_body($body) {
+    $web_info = web_info();
+    $field_site_name = $web_info['field_site_name']['und'][0]['value'];
+    $site_email = $web_info['field_site_email']['und'][0]['value'];
+    $site_link = $web_info['field_site_link']['und'][0]['value'];
+    $site_link = '<a href="'.$site_link.'">'.$site_link.'</a>';
+    $body = str_replace('[SITE_NAME]',$field_site_name,$body);
+    $body = str_replace('[SITE_EMAIL]',$site_email,$body);
+    $body = str_replace('[SITE_LINK]',$site_link,$body);
+    return $body;
+}
+function page_payment(){
+    $order = _page_review(arg(1));
+
+    if($order) {
+        onepage_post_form($order);
+    }
+
+}
+
+function onepage_post_form($order) {
+    global $conf,$base_url, $language;
+    $lang = isset($_SESSION['lang'])?$_SESSION['lang']:'en';
+    $web_info = web_info_basic();//print_r($web_info);die;
+    $onepay_lang = $language->language;
+    $ty_gia = 1;// isset($web_info['field_ty_gia']['ud'][0]['value'])?$web_info['field_ty_gia']['ud'][0]['value']:23500;
+    if($lang == 'vi') {
+        $onepay_lang = 'vn';
+    }
+    //echo $order['total'];die;
+    if($lang == 'vi') {
+        if(isset($web_info['onepay_vi']['keypayment']) ) {
+            $total = round($order['total']) * 100;
+            $key_payment = $web_info['onepay_vi']['keypayment'];
+            $vpc_AccessCode = $web_info['onepay_vi']['accesscode'];
+            $SECURE_SECRET = $web_info['onepay_vi']['secret'];
+            $vpcURL = 'https://onepay.vn/vpcpay/vpcpay.op?';
+        } else {
+            $key_payment = 'TESTONEPAY';
+            $SECURE_SECRET = '6D0870CDE5F24F34F3915FB0045120DB'; //"48354A066882B738EE37C30365116516";  //12B1850A8BA9A002940CE72859785C36
+            $vpc_AccessCode = '6BEB2546';
+            $vpcURL = 'https://mtf.onepay.vn/vpcpay/vpcpay.op?';
+            $total = round($order['total']) * 100;
+            $total = $total * 23000;
+        }
+    } else {
+        if(isset($web_info['onepay']['keypayment']) ) {
+            $total = round($order['total']) * 100;
+            $key_payment = $web_info['onepay']['keypayment'];
+            $vpc_AccessCode = $web_info['onepay']['accesscode'];
+            $SECURE_SECRET = $web_info['onepay']['secret'];
+            $vpcURL = 'https://onepay.vn/vpcpay/vpcpay.op?';
+        } else {
+            $key_payment = 'TESTONEPAY';
+            $SECURE_SECRET = '6D0870CDE5F24F34F3915FB0045120DB'; //"48354A066882B738EE37C30365116516";  //12B1850A8BA9A002940CE72859785C36
+            $vpc_AccessCode = '6BEB2546';
+            $vpcURL = 'https://mtf.onepay.vn/vpcpay/vpcpay.op?';
+            $total = round($order['total']) * 100;
+            $total = $total * 23000;
+        }
+    }
+
+
+    $mail = $order['email'];
+
+
+
+
+    // echo $vpc_AccessCode;die;
+
+    // add the start of the vpcURL querystring parameters
+
+    // Get and URL Encode the AgainLink. Add the AgainLink to the array
+    // Shows how a user field (such as application SessionIDs) could be added
+
+    $param['AgainLink'] = DOMAIN;
+    $param['Title'] = 'VPC 3-Party';
+    $param['vpc_AccessCode'] = $vpc_AccessCode;//'6BEB2546';
+    $param['vpc_Amount'] = $total;
+    $param['vpc_Command'] = 'pay';
+    $param['vpc_Customer_Email'] = $mail;
+    $param['vpc_Locale'] = $onepay_lang;
+    $param['vpc_MerchTxnRef'] = $order['full_code'].'_'.date('His');
+    $param['vpc_Merchant'] = $key_payment;//  'OP_ANNGUYEN1';
+    $param['vpc_OrderInfo'] = get_code($order['full_code']);
+    $param['vpc_ReturnURL'] = DOMAIN . '/payment/respond';
+    $param['vpc_TicketNo'] = $_SERVER['REMOTE_ADDR'];
+    $param['vpc_Version'] = '2';
+    //$_POST['AgainLink']=urlencode($_SERVER['HTTP_REFERER']);
+    // Create the request to the Virtual Payment Client which is a URL encoded GET
+    // request. Since we are looping through all the data we may as well sort it in
+    // case we want to create a secure hash and add it to the VPC data if the
+    // merchant secret has been provided.
+    //$md5HashData = $SECURE_SECRET; Khởi tạo chuỗi dữ liệu mã hóa trống
+    $md5HashData = "";
+    // set a parameter to show the first pair in the URL
+    $appendAmp = 0;
+    foreach ($param as $key => $value) {
+        // create the md5 input and URL leaving out any fields that have no value
+        if (strlen($value) > 0) {
+            // this ensures the first paramter of the URL is preceded by the '?' char
+            if ($appendAmp == 0) {
+                $vpcURL .= urlencode($key) . '=' . urlencode($value);
+                $appendAmp = 1;
+            } else {
+                $vpcURL .= '&' . urlencode($key) . "=" . urlencode($value);
+            }
+            //$md5HashData .= $value; sử dụng cả tên và giá trị tham số để mã hóa
+            if ((strlen($value) > 0) && ((substr($key, 0, 4) == "vpc_") || (substr($key, 0, 5) == "user_"))) {
+                $md5HashData .= $key . "=" . $value . "&";
+            }
+        }
+    }
+    //xóa ký tự & ở thừa ở cuối chuỗi dữ liệu mã hóa
+    $md5HashData = rtrim($md5HashData, "&");
+    // Create the secure hash and append it to the Virtual Payment Client Data if
+    // the merchant secret has been provided.
+    if (strlen($SECURE_SECRET) > 0) {
+        //$vpcURL .= "&vpc_SecureHash=" . strtoupper(md5($md5HashData));
+        // Thay hàm mã hóa dữ liệu
+        $vpcURL .= "&vpc_SecureHash=" . strtoupper(hash_hmac('SHA256', $md5HashData, pack('H*', $SECURE_SECRET)));
+    }
+    // FINISH TRANSACTION - Redirect the customers using the Digital Order
+    // ===================================================================
+  //  echo $vpcURL;die;
+
+    header("Location: " . $vpcURL);
+}
+
+
+function payment_onepay_respond() {
+    global  $conf,$user;
+    $lang = isset($_SESSION['lang'])?$_SESSION['lang']:'en';
+    $web_info = web_info_basic();
+    $site_email = $web_info['field_site_email']['und'][0]['value'];
+    $site_name = $web_info['field_site_name']['und'][0]['value'];
+    $site_link = $web_info['field_site_link']['und'][0]['value'];
+
+    if(isset($web_info['onepay']['keypayment'])) {
+        $key_payment = $web_info['onepay']['keypayment'];
+        $vpc_AccessCode = $web_info['onepay']['accesscode'];
+        $SECURE_SECRET = $web_info['onepay']['secret'];
+        $vpcURL = 'https://onepay.vn/vpcpay/vpcpay.op?';
+    } else {
+        $SECURE_SECRET = '6D0870CDE5F24F34F3915FB0045120DB'; //"48354A066882B738EE37C30365116516";  //12B1850A8BA9A002940CE72859785C36
+        $vpc_AccessCode = '6BEB2546';
+        $vpcURL = 'https://mtf.onepay.vn/vpcpay/vpcpay.op?';
+
+    }
+
+    if($lang == 'vi') {
+        if(isset($web_info['onepay_vi']['keypayment']) ) {
+            $key_payment = $web_info['onepay_vi']['keypayment'];
+            $vpc_AccessCode = $web_info['onepay_vi']['accesscode'];
+            $SECURE_SECRET = $web_info['onepay_vi']['secret'];
+            $vpcURL = 'https://onepay.vn/vpcpay/vpcpay.op?';
+        } else {
+            $SECURE_SECRET = '6D0870CDE5F24F34F3915FB0045120DB'; //"48354A066882B738EE37C30365116516";  //12B1850A8BA9A002940CE72859785C36
+            $vpc_AccessCode = '6BEB2546';
+            $vpcURL = 'https://mtf.onepay.vn/vpcpay/vpcpay.op?';
+        }
+    } else {
+        if(isset($web_info['onepay']['keypayment']) ) {
+            $key_payment = $web_info['onepay']['keypayment'];
+            $vpc_AccessCode = $web_info['onepay']['accesscode'];
+            $SECURE_SECRET = $web_info['onepay']['secret'];
+            $vpcURL = 'https://onepay.vn/vpcpay/vpcpay.op?';
+        } else {
+            $SECURE_SECRET = '6D0870CDE5F24F34F3915FB0045120DB'; //"48354A066882B738EE37C30365116516";  //12B1850A8BA9A002940CE72859785C36
+            $vpc_AccessCode = '6BEB2546';
+            $vpcURL = 'https://mtf.onepay.vn/vpcpay/vpcpay.op?';
+        }
+    }
+
+
+    $admin_email = isset($web_info['field_manager_email']['und'][0]['value'])?$web_info['field_manager_email']['und'][0]['value']:'';
+
+
+
+
+    $vpc_Txn_Secure_Hash = $_GET["vpc_SecureHash"];
+    $res = $_GET['vpc_TxnResponseCode'];
+    $temp = isset($_GET['vpc_MerchTxnRef'])?$_GET['vpc_MerchTxnRef']:'';
+    $temp = explode('_',$temp);
+    $full_code = $temp[0];//isset($_GET['vpc_MerchTxnRef'])?$_GET['vpc_MerchTxnRef']:'';
+
+
+    $order = _page_review($full_code);
+    $customer_email = $order['email'];
+
+
+    if (strlen($SECURE_SECRET) > 0 && $_GET["vpc_TxnResponseCode"] != "7" && $_GET["vpc_TxnResponseCode"] != "No Value Returned") {
+        ksort($_GET);
+        $md5HashData = "";
+        foreach ($_GET as $key => $value) {
+            if ($key != "vpc_SecureHash" && (strlen($value) > 0) && ((substr($key, 0, 4) == "vpc_") || (substr($key, 0, 5) == "user_"))) {
+                $md5HashData .= $key . "=" . $value . "&";
+            }
+        }
+        //  Xóa dấu & thừa cuối chuỗi dữ liệu
+        $md5HashData = rtrim($md5HashData, "&");
+        //    if (strtoupper ( $vpc_Txn_Secure_Hash ) == strtoupper ( md5 ( $md5HashData ) )) {
+        //    Thay hàm tạo chuỗi mã hóa
+        if (strtoupper($vpc_Txn_Secure_Hash) == strtoupper(hash_hmac('SHA256', $md5HashData, pack('H*', $SECURE_SECRET)))) {
+            // Secure Hash validation succeeded, add a data field to be displayed
+            // later.
+            $hashValidated = "CORRECT";
+        } else {
+            // Secure Hash validation failed, add a data field to be displayed
+            // later.
+            $hashValidated = "INVALID HASH";
+        }
+    } else {
+        // Secure Hash was not validated, add a data field to be displayed later.
+        $hashValidated = "INVALID HASH";
+    }
+
+    $order_code = get_code($full_code);
+
+    $total = $order['total'];
+
+    if (($res === '0' && $res == 0)) {
+
+        $_SESSION['payment_respond']['status'] = '1';
+        $_SESSION['payment_respond']['message'] = t('Your payment successful!');
+        $_SESSION['payment_respond']['amount'] = $_GET["vpc_Amount"];
+        $_SESSION['payment_respond']['trans_id'] = $_GET["vpc_MerchTxnRef"];
+        $_SESSION['payment_respond']['onepay_id'] = $_GET["vpc_TransactionNo"];
+
+       post_api_data(array(),'update_status/'.$full_code);
+
+
+        if($lang == 'vi') {
+            $node = _get_node(PAYMENT_SUCC_VI);
+            $suject = 'Thanh toán thành công - Mã đặt chỗ: '.$order_code;
+        } else {
+            $node = _get_node(PAYMENT_SUCC);
+            $suject = 'Payment successful - Order number: '.$order_code;
+        }
+
+
+
+
+        $body = $node['body']['und'][0]['value'];
+        $body = str_replace('[ORDER_NUMBER]',$order_code,$body);
+        $booking_status = '<a href="'.DOMAIN.'/booking-status">Booking status</a>';
+        $body = str_replace('[BOOKING_STATUS]',$booking_status,$body);
+        $body = str_replace('[AMOUNT]',number_format($total),$body);
+        $body = str_replace('[SITE_NAME]',$site_name,$body);
+        $body = str_replace('[SITE_EMAIL]',$site_email,$body);
+        $body = str_replace('[SITE_LINK]',$site_link,$body);
+        $body = str_replace('[PAYMENT_DATE]',date('d M Y'),$body);
+
+        //gui cho admin
+
+        _do_send_mail($admin_email,$body,$suject,'');
+        _do_send_mail($customer_email,$body,$suject,'');
+
+
+        drupal_goto('payment/finish/'.$full_code.'/success');
+    }else {
+
+        $_SESSION['payment_respond']['status'] = '0';
+
+        switch ($res) {
+            case '1':
+                $_SESSION['payment_respond']['message'] = t('Transaction Declined - Bank Error!');
+                break;
+            case '2':
+                $_SESSION['payment_respond']['message'] = t('Bank Declined Transaction');
+                break;
+            case '3':
+                $_SESSION['payment_respond']['message'] = t('Transaction Declined - No Reply from Bank');
+                break;
+            case '4':
+                $_SESSION['payment_respond']['message'] = t('Transaction Declined - Expired Card');
+                break;
+            case '5':
+                $_SESSION['payment_respond']['message'] = t('Transaction Declined - Insufficient funds');
+                break;
+            case '6':
+                $_SESSION['payment_respond']['message'] = t('Transaction Declined - Error Communicating with Bank ');
+                break;
+            case '7':
+                $_SESSION['payment_respond']['message'] = t('Payment Server Processing Error - Typically caused by invalid input data such as an
+invalid credit card number. Processing errors can also occur ');
+                break;
+            case '8':
+                $_SESSION['payment_respond']['message'] = t('Transaction Declined - Transaction Type Not Supported');
+                break;
+            case '9':
+                $_SESSION['payment_respond']['message'] = t('Bank Declined Transaction (Do not contact Bank) ');
+                break;
+        }
+
+
+
+
+        if($lang == 'vi') {
+            $node = _get_node(PAYMENT_FAILED_VI);
+            $suject = 'Thanh toán thất bại - Mã đặt chỗ: '.$order_code;
+        } else {
+            $node = _get_node(PAYMENT_FAILED);
+            $suject = 'Payment failed - Order number: '.$order_code;
+        }
+        $body = $node['body']['und'][0]['value'];
+        $body = str_replace('[ORDER_NUMBER]',$order_code,$body);
+        $pay_again = '<a href="'.DOMAIN.'/review/'.$full_code.'"><input type="button" value="Pay again"></a>';
+        //gui cho admin
+        $body = str_replace('[PAY_AGAIN]',$pay_again,$body);
+
+        $body = str_replace('[SITE_NAME]',$site_name,$body);
+        $body = str_replace('[SITE_EMAIL]',$site_email,$body);
+        $body = str_replace('[SITE_LINK]',$site_link,$body);
+
+        _do_send_mail($admin_email,$body,$suject,'');
+        _do_send_mail($customer_email,$body,$suject,'');
+
+        drupal_goto('payment/finish/'.$full_code.'/failed');
+    }
+
+}
+function payment_finish_page() {
+    $data = array();
+    if(arg(2) != '') {
+        $order = _page_review(arg(2));
+        $data['order'] = $order;
+    }
+
+    if(arg(3) == 'failed'){
+        return theme('payment_failed', array('data' => $data));
+    }else{
+        return theme('payment_success', array('data' => $data));
+    }
+
+
+}
+
+
+function cruise_mail ($key, &$message, $params) {
+
+    switch ($key) {
+        case 'send_for_manager':
+            $message['headers']['Content-Type'] = 'text/html; charset=UTF-8;';
+            $message['subject'] = t($params['email_title']);
+            $message['body'][] = $params['body'];
+            break;
+
+    }
+}
+
+function _do_send_mail($to,$content = null,$subject = null,$sender = '') {
+    $from = variable_get('smtp_username');
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $headers .= 'From: '.$sender.' <'.$from . "> \r\n";
+    $to = trim($to);// 'reservations@flygarudaindonesia.com';
+
+    $rs = drupal_mail('cruise', 'send_for_manager',$to, 'en',array('email_title' => $subject,'body' => $content),'',true);
+//    echo $from.','.$to;
+    return $rs;
+
+
+}
+
+
+function email($full_code) {
+
+    $data['code'] = get_code($full_code);
+    $data['review'] = _page_review($full_code);
+
+
+
+
+    return theme('email', array('data' => $data));die;
+}
+
+
+
+function email_traveler($type, $nb_type, $passenger){
+    $data = array(
+        'type' => $type,
+        'nb_type' => $nb_type,
+        'passenger' => $passenger
+    );
+    return theme('email_traveler', array('data' => $data));
+}
+function email_contact($area_code, $phone, $email,$special_request){
+    $data['area_code'] = $area_code;
+    $data['phone'] = $phone;
+    $data['email'] = $email;
+    $data['special_request'] = $special_request;
+    return theme('email_contact', array('data' => $data));
+}
+function email_baggage(){
+    $data = null;
+    return theme('email_baggage', array('data' => $data));
+}
+
+
+function get_total_passenger_bus_fee($passenger,$depart) {
+    $depart_temp = explode('-',$depart);
+    $depart = $depart_temp[2].'-'.$depart_temp[1].'-'.$depart_temp[0];
+    $days = $passenger['day']['infant'];
+    $months = $passenger['month']['infant'];
+    $years = $passenger['year']['infant'];
+    $total = 0;
+    if(is_array($years) && is_array($months) && is_array($days)) {
+        for($i = 0; $i < count($years); $i++) {
+            $dob = $years[$i].'-'.$months[$i].'-'.$days[$i];
+
+            $d1=new DateTime($dob);
+            $d2=new DateTime($depart);
+            $Months = $d2->diff($d1);
+            $howeverManyMonths = (($Months->y) * 12) + ($Months->m);
+
+            if($howeverManyMonths > 24) {
+                $total++;
+            }
+
+        }
+    }
+    return $total;
+}
+
+function logo($width) {
+    return '<img src="'.base_path().'sites/all/themes/newtheme/images/logo.svg" style="width:'.$width.'px" />';
+}
+
+function show_price($price,$dec = 0,$show_class = false) {
+    $lang = isset($_SESSION['lang'])?$_SESSION['lang']:'en';
+
+    if($price > 0) {
+        if($lang == 'vi') {
+            $price = round($price/1000)*1000;
+            if($show_class) {
+
+                //echo $price.'---'.$lang.'---'.number_format($price);
+                return '<span class="price_value">' . number_format($price) .'</span> VND';
+            } else {
+                return number_format($price) .' VND';
+            }
+
+        } else {
+            if($dec == 0) {
+                if($show_class) {
+                    return 'USD <span class="price_value">'.number_format($price).'</span>';
+                } else {
+                    return 'USD '.number_format($price);
+                }
+
+            } else {
+                if($show_class) {
+                    return 'USD <span class="price_value">'.number_format($price,1).'</span>';
+                } else {
+                    return 'USD '.number_format($price,1);
+                }
+
+            }
+
+        }
+    }
+    return $price;
+
+
+}
+
+function get_wday_depart($depart) {
+    $temp = explode('-',$depart);
+    $depart = $temp[2].'-'.$temp[1].'-'.$temp[0];
+    $depart = strtotime($depart);
+    $wd = date('D',$depart);
+    $wd = strtolower($wd);
+    switch ($wd) {
+        case  'mon':
+            return 'T2';
+            break;
+        case  'tue':
+            return 'T3';
+        case 'wed':
+            return 'T4';
+            break;
+        case 'thu':
+            return 'T4';
+            break;
+        case 'fri':
+            return 'T4';
+            break;
+        case 'fri':
+            return 'T4';
+            break;
+        case 'sat':
+            return 'T4';
+            break;
+        case 'sun':
+            return 'T4';
+            break;
+    }
+
+}
+function get_discount_for_booking($cruise_id,$itinerary_id,$search_param) {
+    $depart = $search_param['depart'];
+
+    $discount_value = 0;
+    $don_vi = '';
+    $discount = _get_discount();//print_r($search_param);
+    $num_adult = 0;
+    $num_child = 0;
+    $num_infant = 0;
+
+    for($r = 0; $r < $search_param['no_room']; $r++) {
+        $num_adult += $search_param['adult'][$r];
+        $num_child += $search_param['child'][$r];
+        $num_infant += $search_param['infant'][$r];
+
+    }
+    $total_passenger = $num_adult + $num_child + $num_infant;
+
+    $data = array();//print_r($discount);
+    if(count($discount) > 0) {
+        foreach ($discount as $ob) {
+            $is_ok = false;
+            if(count($ob['cruise']) > 0) {
+                if(in_array($cruise_id,$ob['cruise'])) {
+                    $is_ok = true;
+                }
+            } else {
+                $is_ok = true;
+            }
+            if($is_ok) {
+                if(count($ob['hanh_trinh']) > 0) {
+                    if(in_array($itinerary_id,$ob['hanh_trinh'])) {
+                        $is_ok = true;
+                    } else {
+                        $is_ok = false;
+                    }
+                } else {
+                    $is_ok = true;
+                }
+            }
+
+
+            if($is_ok) {
+                if(count($ob['ngay_trong_tuan']) > 0) {
+                    $wday = get_wday_depart($depart);
+                    if(in_array($wday,$ob['ngay_trong_tuan'])) {
+                        $is_ok = true;
+                    } else {
+                        $is_ok = false;
+                    }
+                } else {
+                    $is_ok = true;
+                }
+            }
+            if($is_ok) {
+                if($ob['so_phong'] > 0) {
+                    $no_room = $search_param['no_room'];
+                    if($no_room >= $ob['so_phong']) {
+                        $is_ok = true;
+                    } else {
+                        $is_ok = false;
+                    }
+                } else {
+                    $is_ok = true;
+                }
+            }
+
+            if($is_ok) {
+                if($ob['tongkhach'] > 0) {
+                    if($total_passenger >= $ob['tongkhach']) {
+                        $is_ok = true;
+                    } else {
+                        $is_ok = false;
+                    }
+                } else {
+                    $is_ok = true;
+                }
+            }
+            if($is_ok) {
+                if($ob['nguoilon_treem'] > 0) {
+                    if(($num_adult + $num_child) >= $ob['nguoilon_treem']) {
+                        $is_ok = true;
+                    } else {
+                        $is_ok = false;
+                    }
+                } else {
+                    $is_ok = true;
+                }
+            }
+
+            if($is_ok) {
+                if($ob['nguoilon_embe'] > 0) {
+                    if(($num_adult + $num_infant) >= $ob['nguoilon_embe']) {
+                        $is_ok = true;
+                    } else {
+                        $is_ok = false;
+                    }
+                } else {
+                    $is_ok = true;
+                }
+            }
+
+            if($is_ok) {
+
+
+                if($ob['so_tien_giam'] > $discount_value) {
+                    $data = $ob;
+
+                }
+
+                if($ob['doi_tuong_giam_total'] == 1) {
+                    $discount_value = $ob['so_tien_giam'];
+                } else {
+                    $discount_value  = 0;
+                    if($ob['doi_tuong_giam_adult'] == 1) {
+                        $discount_value += $num_adult * $ob['so_tien_giam'];
+                    }
+                    if($ob['doi_tuong_giam_child'] == 1) {
+                        $discount_value += $num_child * $ob['so_tien_giam'];
+                    }
+                    if($ob['doi_tuong_giam_infant'] == 1) {
+                        $discount_value += $num_infant * $ob['so_tien_giam'];
+                    }
+                }
+            }
+        }
+    }
+    return $data;
+}
+
+function show_unit() {
+    $lang = isset($_SESSION['lang'])?$_SESSION['lang']:'en';
+    if($lang == 'vi') {
+        return 'VND';
+    }
+    return 'USD';
+}
+
+function show_option_price($id,$min,$max,$ty_ga) {
+    $lang = isset($_SESSION['lang'])?$_SESSION['lang']:'en';
+    if($lang == 'vi') {
+        $min = $min * $ty_ga;
+        $max = $max * $ty_ga;
+        if($max != '') {
+            $text = number_format($min).' VND  –  '.number_format($max).' VND';
+        } else {
+            $text = number_format($min).' VND +';
+        }
+
+    } else {
+        if($max > 1000000) {
+            $text = 'USD '.number_format($min).' +';
+        } else {
+            $text = 'USD '.number_format($min).' - USD'.number_format($max);
+        }
+
+    }
+    return '<div class="checkbox" type="price" min="'.$min.'" max="'.$max.'">
+                        <input id="'.$id.'" type="radio" name="price">
+
+                        <label for="'.$id.'" class="text13 blueDark">'.$text.'</label>
+                    </div>';
+}
+
+
+function convert_vn2latin($str)
+{
+    // Mảng các ký tự tiếng việt không dấu theo mã unicode tổ hợp
+    $tv_unicode_tohop  =
+        [
+            "à","á","ạ","ả","ã","â","ầ","ấ","ậ","ẩ","ẫ","ă", "ằ","ắ","ặ","ẳ","ẵ",
+            "è","é","ẹ","ẻ","ẽ","ê","ề" ,"ế","ệ","ể","ễ",
+            "ì","í","ị","ỉ","ĩ",
+            "ò","ó","ọ","ỏ","õ","ô","ồ","ố","ộ","ổ","ỗ","ơ" ,"ò","ớ","ợ","ở","õ",
+            "ù","ú","ụ","ủ","ũ","ư","ừ","ứ","ự","ử","ữ",
+            "ỳ","ý","ỵ","ỷ","ỹ",
+            "đ",
+            "À","À","Ạ","Ả","Ã","Â","Ầ","Ấ","Ậ","Ẩ","Ẫ","Ă" ,"Ằ","Ắ","Ặ","Ẳ","Ẵ",
+            "È","É","Ẹ","Ẻ","Ẽ","Ê","Ề","Ế","Ệ","Ể","Ễ",
+            "Ì","Í","Ị","Ỉ","Ĩ",
+            "Ò","Ó","Ọ","Ỏ","Õ","Ô","Ồ","Ố","Ộ","Ổ","Ỗ","Ơ" ,"Ờ","Ớ","Ợ","Ở","Ỡ",
+            "Ù","Ú","Ụ","Ủ","Ũ","Ư","Ừ","Ứ","Ự","Ử","Ữ",
+            "Ỳ","Ý","Ỵ","Ỷ","Ỹ",
+            "Đ"
+        ];
+    // Mảng các ký tự tiếng việt không dấu theo mã unicode dựng sẵn
+    $tv_unicode_dungsan  =
+        [
+            "à","á","ạ","ả","ã","â","ầ","ấ","ậ","ẩ","ẫ","ă","ằ","ắ","ặ","ẳ","ẵ",
+            "è","é","ẹ","ẻ","ẽ","ê","ề","ế","ệ","ể","ễ",
+            "ì","í","ị","ỉ","ĩ",
+            "ò","ó","ọ","ỏ","õ","ô","ồ","ố","ộ","ổ","ỗ","ơ","ờ","ớ","ợ","ở","ỡ",
+            "ù","ú","ụ","ủ","ũ","ư","ừ","ứ","ự","ử","ữ",
+            "ỳ","ý","ỵ","ỷ","ỹ",
+            "đ",
+            "À","Á","Ạ","Ả","Ã","Â","Ầ","Ấ","Ậ","Ẩ","Ẫ","Ă","Ằ","Ắ","Ặ","Ẳ","Ẵ",
+            "È","É","Ẹ","Ẻ","Ẽ","Ê","Ề","Ế","Ệ","Ể","Ễ",
+            "Ì","Í","Ị","Ỉ","Ĩ",
+            "Ò","Ó","Ọ","Ỏ","Õ","Ô","Ồ","Ố","Ộ","Ổ","Ỗ","Ơ","Ờ","Ớ","Ợ","Ở","Ỡ",
+            "Ù","Ú","Ụ","Ủ","Ũ","Ư","Ừ","Ứ","Ự","Ử","Ữ",
+            "Ỳ","Ý","Ỵ","Ỷ","Ỹ",
+            "Đ"
+        ];
+    // Mảng các ký không dấu sẽ thay thế cho ký tự có dấu
+    $tv_khongdau =
+        [
+            "a","a","a","a","a","a","a","a","a","a","a" ,"a","a","a","a","a","a",
+            "e","e","e","e","e","e","e","e","e","e","e",
+            "i","i","i","i","i",
+            "o","o","o","o","o","o","o","o","o","o","o","o" ,"o","o","o","o","o",
+            "u","u","u","u","u","u","u","u","u","u","u",
+            "y","y","y","y","y",
+            "d",
+            "A","A","A","A","A","A","A","A","A","A","A","A" ,"A","A","A","A","A",
+            "E","E","E","E","E","E","E","E","E","E","E",
+            "I","I","I","I","I",
+            "O","O","O","O","O","O","O","O","O","O","O","O" ,"O","O","O","O","O",
+            "U","U","U","U","U","U","U","U","U","U","U",
+            "Y","Y","Y","Y","Y",
+            "D"
+        ];
+
+    $str = str_replace($tv_unicode_dungsan, $tv_khongdau, $str);
+    $str = str_replace($tv_unicode_tohop,   $tv_khongdau, $str);
+    return $str;
+}
+
+function isMobile() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}

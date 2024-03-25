@@ -1,0 +1,33 @@
+.title1{
+  font-size: 20px;
+  font-weight: 500;
+  color: #0F5A5E;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 15px;
+  @include breakpoint(ipad){
+    font-size: 1.3vw;
+    padding-left: 2vw;
+    margin-bottom: 1vw;
+  }
+  @include breakpoint(lg){
+    font-size: 30px;
+  }
+  &:before{
+    content: '';
+    width: 8px;
+    height: 32px;
+    position: absolute;
+    top: -1px;
+    left: 0;
+    background-color: #FBB040;
+    @include breakpoint(ipad){
+      width: .5vw;
+      height: 2vw;
+      top: 0;
+    }
+    @include breakpoint(lg){
+      top: 6px;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+.flightFaq{
+  margin-bottom: 50px;
+  @include breakpoint(ipad){
+    margin-bottom: 5vw;
+  }
+}
+.cheapSchedules{
+  padding: 40px 0;
+  @include breakpoint(ipad){
+    padding: 4vw 0;
+  }
+  .stopBox{
+    width: 100px;
+    padding-top: 0;
+    margin: auto;
+    @include breakpoint(ipad){
+      width: 10vw;
+    }
+  }
+  &__logo{
+    img{
+      width: 100px;
+      @include breakpoint(ipad){
+        width: 6vw;
+      }
+    }
+  }
+  &__weekly{
+    span{
+      font-size: 16px;
+      color: $dark-green;
+      font-weight: 500;
+      padding: 0 5px;
+      @include breakpoint(ipad){
+        font-size: 1.1vw;
+        color: $dark-green;
+        font-weight: 500;
+        padding: 0 .5vw;
+      }
+    }
+  }
+  &__btn{
+    width: 100px;
+    margin: 5px auto 0;
+    @include breakpoint(ipad){
+      width: 10vw;
+      margin: .5vw auto 0;
+    }
+    .btn{
+      width: 100%;
+    }
+  }
+  &__item{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 15px 0;
+    &:last-child{
+      border-bottom: none;
+    }
+    .flInfo{
+      width: 100%;
+      padding: 0;
+    }
+    .airlineInfo{
+      &__logo{
+        span{
+          font-size: 16px;
+          font-weight: 500;
+          color: $dark-green;
+        }
+      }
+    }
+  }
+}

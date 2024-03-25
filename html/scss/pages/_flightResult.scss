@@ -1,0 +1,34 @@
+.flightResult{
+  &__body{
+    margin-bottom: 50px;
+    @include breakpoint(ipad){
+      margin-bottom: 5vw;
+    }
+    .container{
+      @include breakpoint(sm){
+        display: flex;
+      }
+    }
+  }
+  &__left{
+    @include breakpoint(xs){
+      margin-bottom: 30px;
+    }
+    @include breakpoint(ipad){
+      width: calc(100% - 25vw);
+    }
+    @include breakpoint(lg){
+      width: calc(100% - 300px);
+    }
+  }
+  &__right{
+    @include breakpoint(ipad){
+      width: 25vw;
+      padding-left: 2vw;
+    }
+    @include breakpoint(lg){
+      width: 300px;
+      padding-left: 30px;
+    }
+  }
+}

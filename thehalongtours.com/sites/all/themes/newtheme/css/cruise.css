@@ -1,0 +1,417 @@
+.packages__name p {
+    padding: 6px 10px;
+}
+.packages__name {
+    width: auto;
+}
+.cruiseResult__table__left .discount h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.cruiseResult__table__left img {
+    cursor: pointer;
+}
+.cruiseResult__table__left .discount {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    background: #f6f9ff;
+    border: 1px solid #ccc;
+    top: 33px;
+    padding: 20px;
+}
+.cruiseResult__table__left {
+    position: relative;
+}
+.cruiseResult__table__cell:hover .discount {
+    display: block;
+}
+.cruise_name {
+    height: 48px;
+}
+.page-passenger .room-item {
+    border-bottom: 1px dashed #ccc;
+}.page-passenger .room-item.last {
+    border-bottom: none;
+}
+ .formBox__review__item .formBox__image img {
+     height: 202px;
+ }
+ .bestDeals__item .tableIcon__star {
+     margin-left: 0;
+ }
+ .node-detail img {
+     height: auto;
+     padding: 10px;
+     width: 800px;
+     border-radius: 24px;
+ }
+ .node-detail p, .destinations__main p {
+     line-height: 30px;
+ }
+
+.roomBox__group .select__box {
+    display: inline-grid;
+    width: calc(100%/3 - 15px);
+    margin-top: 4px;
+}
+
+.btn.btn-blue,.btn.btn-blue:hover {
+    background-color: #2F80ED;
+    border-color: #2F80ED;
+    color: #fff;
+}
+.btn.btn-orange:hover {
+    color: #fff;
+    background-color: #FD6431;
+    border-color: #FD6431;
+}
+
+.suggestion__list li button:hover span {
+    color: #000 !important;
+}
+
+.suggestion__list li button span:hover {
+    color: #5562DA!important;
+}
+
+.colorBluedark900 {
+    color: #20265A;
+    margin-bottom: 15px;
+}
+
+.showMobile .offers__img {
+    width: auto !important;
+
+}
+.showMobile .offers__img img {
+    height: 250px;
+}
+
+.tripContent ul li {
+    padding: 10px 0;
+}
+.bar-container .bar-0 {
+    width: 0;
+}
+.bar-container .bar-10 {
+    width: 100%;
+}
+.bar-container .bar-9 {
+    width: 90%;
+}
+.bar-container .bar-8 {
+    width: 80%;
+}
+.bar-container .bar-7 {
+    width: 70%;
+}
+.bar-container .bar-6 {
+    width: 60%;
+}
+.bar-container .bar-5 {
+    width: 50%;
+}
+.bar-container .bar-4 {
+    width: 40%;
+}
+.bar-container .bar-3 {
+    width: 30%;
+}
+.bar-container .bar-2 {
+    width: 20%;
+}
+.bar-container .bar-1 {
+    width: 10%;
+}
+
+.ratingBottom__user img {
+    width: 50px !important;
+    height: 50px !important;
+    object-fit:contain !important;
+}
+.cruiseInf__header  .medium  {
+    cursor: pointer;
+}
+.text-center {
+    text-align: center;
+}
+.room_summary {
+    margin-bottom: 20px;
+}
+strong {
+    font-weight: 500;
+}
+.roomPopup__amenities {
+    height: 660px;
+    overflow: auto;
+}
+#roomDetailPopup .modal-body {
+    padding: 15px !important;
+}
+
+#roomDetailPopup .modal-dialog {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin:0 !important;
+}
+.page-news .newFlex__main img {
+    height: 209px;
+}
+#popup_itinerary .modal-dialog {
+
+}
+.flightReview__main .question {
+    position: absolute;
+    right: -37px;
+    width: 21px;
+    /* background: #ccc; */
+    background: #ccc;
+    padding: 0px;
+    border-radius: 50%;
+    display: block;
+    text-align: center;
+    top: 4px;
+    cursor: pointer;
+}
+.percent_of_child .percent_of_child_text,.percent_of_infant .percent_of_infant_text {
+    display: none;
+}
+.percent_of_child:hover .percent_of_child_text, .percent_of_infant:hover .percent_of_infant_text {
+    display: block;
+    position: absolute;
+    right: 27px;
+    z-index: 9999;
+    background: #FFF;
+    border: 1px solid #ccc;
+    padding: 20px;
+    top: 0;
+    width: 230px;
+}
+.cruiseItinerary__main h3 {
+    font-size: 14px;
+}
+#frm-search-cruise input {
+    font-size: 13px;
+}
+.searchBox__input .form-control {
+    padding-left: 40px;
+}
+
+.searchBox__input .searchBox_passenger {
+    padding-left: 33px !important;
+}
+.adult_icon {
+    width: 10px;
+    display: inline !important;
+}
+.child_icon {
+    width: 8px;
+    display: inline !important;
+    padding-top: 8px;
+}
+.sleeps__number__icon {
+    position: relative;
+    cursor: pointer;
+}
+.sleeps__number__icon .passenger_info_number {
+    display: none;
+    position: absolute;
+    background: #fff;
+    width: 250px;
+    border: 1px solid #ccc;
+    z-index: 100;
+    text-align: left;
+    padding: 10px;
+}
+.sleeps__number__icon:hover .passenger_info_number {
+    display: block;
+}
+.suggestion__list li span {
+   color: #000 !important;
+}
+.bus_transfer_service.question svg {
+    background: #ccc;
+    border-radius: 50%;
+    padding: 5px;
+    width: 20px;
+    height: 20px;
+    margin-top: -9px;
+    margin-left: 5px;
+}
+#popup_bus_transfer_service .modal-dialog {
+    max-width: 500px;
+
+}
+.footer__list svg {
+    width: 22px;
+    height: 22px;
+}
+.btn.disabled, .btn:disabled {
+    /* opacity: .65; */
+    color: #FD6431;
+    background-color: #fff;
+    border-color: #FD6431;
+    opacity: 1 !important;
+}
+
+#popup_bus_transfer_service .modal-body {
+    padding: 24px;
+
+}
+
+.bus_transfer_service.question {
+    cursor: pointer;
+}
+
+.page-detail .node-detail table td, .page-detail .node-detail table th {
+    vertical-align: top;
+
+}
+
+.discount_content {
+    margin-top: 24px;
+    border: 1px solid #CCB;
+    padding: 10px;
+    background: #fff;
+    font-size: 14px;
+    font-style: italic;
+    color: red;
+
+}
+.page-deals .deals {
+    position: relative;
+    overflow: visible;
+    cursor: pointer;
+}
+.page-deals .deals .deals__top:hover .discount_body {
+    display: block;
+}
+.page-deals .deals .deals__top:hover p.text16{
+    text-decoration: underline;
+}
+.page-all-cruise .cruiseResult__table__cell {
+    position: relative;
+    overflow: visible;
+    cursor: pointer;
+}
+.page-all-cruise .deals__img {
+    height: auto;
+}
+.page-all-cruise .cruiseResult__table__left a:hover .discount_body {
+    display: block;
+}
+.page-deals .deals__img img {
+    object-fit: initial;
+}
+.page-deals .discount_body,.page-all-cruise .discount_body  {
+    display: none;
+    box-shadow: 0 2px 20px rgba(0,0,0,.5);
+    position: absolute;
+    width: 100%;
+    background: #f6f9ff;
+    z-index: 99;
+    left: 50px;
+    padding: 20px;
+    top: 50px;
+    border: 1px solid #FD6431;
+    border-radius: 15px;
+    transform: translate(-50%, -50%);
+}
+.discount_body:after{
+    content: '';
+    display: block;
+    position: absolute;
+    right: 30px;
+    bottom: -34px;
+    width: 0;
+    height: 0;
+    border: 18px solid transparent;
+    border-top-color: #f6f9ff;
+}
+.discount_body:before{
+    content: '';
+    display: block;
+    position: absolute;
+    right: 30px;
+    bottom: -36px;
+    width: 0;
+    height: 0;
+    border: 18px solid transparent;
+    border-top-color: #FD6431;
+}
+@media (max-width: 767px) {
+    .roomBox__group .select__box.room_type {
+        width: calc(100%/2 - 15px);
+    }
+
+    .box__passenger label {
+        font-size: 14px !important;
+    }
+    .homeOffers, .homePackages, .homeChoose__cruise, .homeDestinations, .homeClients, .homeTop__cruise {
+        padding: 0 15px;
+    }
+    .homePackages__item {
+        width: 100%;
+    }
+    .destinations, .clients {
+        box-shadow: unset;
+        margin-bottom: 20px;
+    }
+    .homeCheap__list li {
+        width: calc(100%/2);
+    }
+    .footer {
+        padding-left: 0;
+    }
+
+    .footer__list ul:not(:last-child) {
+        margin-top: 15px;
+        border-bottom: 1px solid #C3C9DE;
+    }
+
+    .footer__list ul {
+        max-width: 100%;
+    }
+    .homeEmail__from {
+        display: block;
+    }
+    .homeEmail__from .w50 {
+        width: 100%;
+        text-align: center;
+    }
+    .flightPassenger__btn {
+       margin: 18px 0;
+    }
+    .formBox__body  .room-item  .formBox__service {
+        padding: 8px 0;
+    }
+    .row .col-6 {
+        margin-top: 20px;
+    }
+    .row .col-6:first-child {
+        margin-top: 0px !important;
+    }
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    .newFlex__main {
+        margin: 0 !important;
+    }
+    .newFlex__col {
+        width: 100% !important;
+    }
+    .colorBluedark900 {
+       margin-bottom: 0px;
+    }
+    .newPost__slide {
+        padding: 0 8px;
+    }
+    .newFlex__group {
+        margin-bottom: 0 !important;
+    }
+
+}

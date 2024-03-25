@@ -1,0 +1,119 @@
+.flightDetail{
+  > .flexGroup1{
+    @include breakpoint(xs){
+      display: block;
+    }
+  }
+  &__title{
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    position: relative;
+    padding-left: 25px;
+    @include breakpoint(xs){
+      margin-bottom: 5px;
+    }
+    @include breakpoint(ipad){
+      font-size: 1.1vw;
+      padding-left: 1.7vw;
+    }
+    &:before{
+      content: '';
+      width: 8px;
+      height: 16px;
+      position: absolute;
+      top: 3px;
+      left: 0;
+      background-color: #FBB040;
+      @include breakpoint(ipad){
+        width: .5vw;
+        height: 1.1vw;
+        top: .3vw;
+      }
+    }
+  }
+  &__cont{}
+  &__row{
+    display: flex;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    position: relative;
+    @include breakpoint(ipad){
+      padding-bottom: 2vw;
+      margin-bottom: 2vw;
+    }
+    &:last-child{
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+  &__item{
+    @include breakpoint(xs){
+      width: calc((100% - 24px)/2);
+    }
+    @include breakpoint(ipad){
+      width: calc((100% - 16vw)/2);
+    }
+    @include breakpoint(lg){
+      width: calc((100% - 180px)/2);
+    }
+    &:nth-child(2){
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      align-items: center;
+      @include breakpoint(xs){
+        width: 24px;
+      }
+      @include breakpoint(ipad){
+        width: 16vw;
+      }
+      @include breakpoint(lg){
+        width: 180px;
+      }
+    }
+    &:nth-child(3){
+      @include breakpoint(xs){
+        text-align: right;
+      }
+    }
+  }
+  &__time{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: -8px;
+    @include breakpoint(ipad){
+      bottom: -.7vw;
+    }
+    img{
+      width: 26px;
+      @include breakpoint(ipad){
+        width: 2.2vw;
+      }
+    }
+    p{
+      padding: 0 15px;
+      background-color: #fff;
+    }
+  }
+}
+#flightDetailPopup{
+  h2{
+    text-align: center;
+    color: $dark-green;
+    margin-bottom: 30px;
+    @include breakpoint(xs){
+      font-size: 22px;
+    }
+    @include breakpoint(ipad){
+      font-size: 2vw;
+      margin-bottom: 2vw;
+    }
+    @include breakpoint(lg){
+      font-size: 30px;
+    }
+  }
+}

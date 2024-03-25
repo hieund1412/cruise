@@ -1,0 +1,59 @@
+.newAndUpdate{
+  &__body{
+    margin: 35px 0;
+  }
+  &__item{
+    box-shadow: $shadow;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    @include breakpoint(ipad){
+      margin-bottom: 1.5vw;
+      border-radius: 0.2vw;
+    }
+  }
+  &__title{
+    padding: 15px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @include breakpoint(ipad){
+      padding: 1vw;
+    }
+    .titleIcon{
+      padding-left: 10px;
+    }
+    .active{
+      fill: $black45;
+      path{
+        transform: rotatex(180deg);
+        transform-origin: 50% 50%;
+        fill: white;
+      }
+    }
+  }
+  &__cont{
+    margin: 0 15px 0;
+    padding-bottom: 15px;
+    @include breakpoint(ipad){
+      padding-bottom: 1vw;
+      margin: 0 1vw 0;
+    }
+    p{
+      padding: 0 15px;
+      border-left: 1px solid #EA6200;
+      @include breakpoint(ipad){
+        padding: 0 1vw;
+      }
+    }
+  }
+}
+
+//svg{
+//  position: absolute;
+//  right: 10px;
+//  top: 50%;
+//  transform: translateY(-50%);
+//  transition: 0.4s;
+//}{

@@ -1,0 +1,1046 @@
+.homeBanner {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  height: 256px;
+  padding-top: 50px;
+  position: relative;
+  @include breakpoint(ipad) {
+    height: 20vw;
+    padding-top: 5vw;
+  }
+  @include breakpoint(lg) {
+    height: 323px;
+    padding-top: 70px;
+  }
+
+  &__cont {
+    width: 100%;
+    position: absolute;
+    z-index: 9;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    h2 {
+      font-size: 20px;
+      @include breakpoint(ipad) {
+        font-size: 2.5vw;
+      }
+      @include breakpoint(lg) {
+        font-size: 46px;
+      }
+    }
+
+    p {
+      @include breakpoint(ipad) {
+        font-size: 1.3vw;
+      }
+      @include breakpoint(lg) {
+        font-size: 20px;
+      }
+    }
+  }
+
+  &__backdrop {
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0.4;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.homeBook {
+  margin-bottom: 50px;
+  @include breakpoint(ipad) {
+    margin-bottom: 20vw;
+  }
+  @include breakpoint(lg) {
+    margin-bottom: 270px;
+  }
+
+  &__row {
+    @include breakpoint(sm) {
+      display: flex;
+      position: relative;
+    }
+    @include breakpoint(ipad) {
+      margin: 0 -1vw;
+    }
+    @include breakpoint(lg) {
+      margin: 0 -15px;
+    }
+  }
+
+  &__col {
+    @include breakpoint(xs) {
+      padding-bottom: 30px;
+      margin-bottom: 30px;
+      border-bottom: 1px dashed $border-color;
+      &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+      }
+    }
+    @include breakpoint(sm) {
+      width: 33.333%;
+    }
+    @include breakpoint(ipad) {
+      padding: 0 1vw;
+    }
+    @include breakpoint(lg) {
+      padding: 0 15px;
+    }
+  }
+
+  &__item {
+    text-align: center;
+  }
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #ffe9c9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    @include breakpoint(ipad) {
+      width: 5vw;
+      height: 5vw;
+    }
+  }
+
+  &__title {
+    margin: 15px 0;
+    @include breakpoint(ipad) {
+      margin: 1vw 0;
+    }
+  }
+
+  &__text {
+    color: rgba(0, 0, 0, 0.45);
+  }
+
+  &__plus {
+    margin-top: 15px;
+    @include breakpoint(ipad) {
+      margin-top: 1vw;
+    }
+
+    button {
+      .svgMinus {
+        display: none;
+      }
+
+      &.active {
+        .svgPlus {
+          display: none;
+        }
+
+        .svgMinus {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &__form {
+    background-color: #fff;
+    box-shadow: $shadow;
+    border-radius: 4px;
+    padding: 15px;
+    position: relative;
+    margin-top: 15px;
+    display: none;
+    animation: opacityShow .3s ease-in-out;
+    @include breakpoint(ipad) {
+      border-radius: .2vw;
+      padding: 2vw 5vw;
+      margin-top: 1vw;
+    }
+    @include breakpoint(sm) {
+      position: absolute;
+      top: 100%;
+      left: 1vw;
+      right: 1vw;
+    }
+    @include breakpoint(lg) {
+      padding: 30px 50px;
+      left: 15px;
+      right: 15px;
+    }
+
+    &.open {
+      display: block;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent transparent #fff transparent;
+      top: -20px;
+      @include breakpoint(xs) {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      @include breakpoint(ipad) {
+        border-width: .8vw;
+        top: -1.6vw;
+      }
+      @include breakpoint(lg) {
+      }
+    }
+  }
+
+  #formBook-1 {
+    &:before {
+      @include breakpoint(ipad) {
+        left: 13.5vw;
+      }
+      @include breakpoint(lg) {
+        left: 164px;
+      }
+    }
+  }
+
+  #formBook-2 {
+    &:before {
+      @include breakpoint(sm) {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  #formBook-3 {
+    &:before {
+      @include breakpoint(ipad) {
+        right: 13.5vw;
+      }
+      @include breakpoint(lg) {
+        right: 164px;
+      }
+    }
+  }
+}
+
+.homeLetter {
+  margin-bottom: 50px;
+
+  &__row {
+    @include breakpoint(sm) {
+      display: flex;
+    }
+    @include breakpoint(ipad) {
+      margin: 0 -1vw;
+    }
+    @include breakpoint(lg) {
+      margin: 0 -15px;
+    }
+  }
+
+  &__col {
+    @include breakpoint(sm) {
+      width: 50%;
+    }
+    @include breakpoint(ipad) {
+      padding: 0 1vw;
+    }
+    @include breakpoint(lg) {
+      padding: 0 15px;
+    }
+  }
+
+  &__item {
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    padding: 15px;
+    @include breakpoint(xs) {
+      margin-bottom: 15px;
+    }
+    @include breakpoint(ipad) {
+      border-radius: .2vw;
+      padding: 1vw 2vw;
+      height: 10vw;
+    }
+    @include breakpoint(sm) {
+      display: flex;
+      align-items: center;
+    }
+    @include breakpoint(lg) {
+      padding: 15px 30px;
+      height: 120px;
+    }
+  }
+
+  &__title {
+    @include breakpoint(xs) {
+      font-size: 16px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      width: calc(100% - 30px);
+      padding-left: 15px;
+    }
+    @include breakpoint(ipad) {
+      font-size: 1.3vw;
+    }
+    @include breakpoint(lg) {
+      font-size: 20px;
+    }
+  }
+
+  &__icon {
+    @include breakpoint(xs) {
+      float: left;
+    }
+
+    svg {
+      @include breakpoint(xs) {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  &__cont {
+    @include breakpoint(ipad) {
+      padding-left: 2vw;
+    }
+    @include breakpoint(sm) {
+      flex: 1;
+    }
+    @include breakpoint(lg) {
+      padding-left: 30px;
+    }
+  }
+
+  &__input {
+    display: flex;
+    @include breakpoint(xs) {
+      margin-top: 15px;
+    }
+
+    .form-control {
+      margin-right: 15px;
+      @include breakpoint(ipad) {
+        margin-right: 1vw;
+      }
+    }
+  }
+}
+
+.homeOffers {
+  margin-bottom: 50px;
+  @include breakpoint(ipad) {
+    margin-bottom: 5vw;
+  }
+
+  &__row {
+    @include breakpoint(ipad) {
+      margin: 0 -1vw;
+    }
+    @include breakpoint(sm) {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    @include breakpoint(lg) {
+      margin: 0 -15px;
+    }
+  }
+
+  &__item {
+    @include breakpoint(xs) {
+      padding: 15px;
+    }
+    @include breakpoint(ipad) {
+      padding: 1vw;
+    }
+    @include breakpoint(sm) {
+      width: 50%;
+    }
+    @include breakpoint(lg) {
+      padding: 15px;
+    }
+  }
+
+  &__group {
+    @include breakpoint(ipad) {
+      padding: 0 1vw;
+    }
+    @include breakpoint(lg) {
+      padding: 0 15px;
+    }
+  }
+
+  &__slide {
+    @include breakpoint(xs) {
+      padding-bottom: 15px;
+      margin: 0 -15px;
+    }
+    @include breakpoint(ipad) {
+      padding-bottom: 2vw;
+    }
+    @include breakpoint(lg) {
+      padding-bottom: 30px;
+      margin: 0 -15px;
+    }
+
+    .slick-arrow {
+      @include breakpoint(ipad) {
+        top: -3vw;
+      }
+      @include breakpoint(sm) {
+        transform: none;
+      }
+      @include breakpoint(lg) {
+        top: -53px;
+      }
+    }
+
+    .slick-prev {
+      @include breakpoint(ipad) {
+        right: 3vw;
+      }
+      @include breakpoint(sm) {
+        left: auto;
+      }
+      @include breakpoint(lg) {
+        right: 55px;
+      }
+    }
+
+    .slick-next {
+      @include breakpoint(lg) {
+        right: 15px;
+      }
+    }
+  }
+}
+
+.offers {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  display: flex;
+  height: 195px;
+  overflow: hidden;
+  @include breakpoint(ipad) {
+    border-radius: .2vw;
+    height: 15vw;
+  }
+  @include breakpoint(lg) {
+
+  }
+
+  &__img {
+    width: 130px;
+    @include breakpoint(ipad) {
+      width: 15vw;
+    }
+    @include breakpoint(lg) {
+      width: 220px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__cont {
+    width: calc(100% - 130px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px 15px 15px 20px;
+    @include breakpoint(ipad) {
+      width: calc(100% - 15vw);
+      padding: 1vw 1vw 1vw 1.5vw;
+    }
+    @include breakpoint(lg) {
+      width: calc(100% - 220px);
+    }
+  }
+
+  &__bot {
+    text-align: right;
+  }
+
+  .btn {
+    width: 110px;
+    text-transform: uppercase;
+    @include breakpoint(ipad) {
+      width: 10vw;
+    }
+  }
+}
+
+.homeReason {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 230px;
+  position: relative;
+  @include breakpoint(ipad) {
+    min-height: 15vw;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+
+  &__cont {
+    color: #fff;
+    text-align: center;
+    padding: 0 15px;
+    position: relative;
+    @include breakpoint(ipad) {
+      padding: 0 1vw;
+    }
+
+    p {
+      &.p1 {
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 15px;
+        @include breakpoint(ipad) {
+          margin-bottom: 1vw;
+          font-size: 1.3vw;
+        }
+        @include breakpoint(lg) {
+          font-size: 24px;
+        }
+      }
+
+      &.p2 {
+      }
+    }
+
+    .btn {
+      margin-top: 15px;
+      @include breakpoint(ipad) {
+        margin-top: 1vw;
+      }
+    }
+  }
+}
+
+.homeIntern {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: relative;
+  @include breakpoint(ipad) {
+    padding: 5vw 0;
+  }
+  @include breakpoint(lg) {
+    padding: 100px 0;
+  }
+
+  &:before {
+    @include breakpoint(xs){
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(4.62deg, #FFFFFF 3.74%, rgba(255, 255, 255, 0) 56.06%);
+    }
+  }
+
+  &__main {
+    @include breakpoint(sm) {
+      display: flex;
+    }
+  }
+
+  &__left {
+    @include breakpoint(ipad) {
+      width: 20vw;
+      padding-right: 2vw;
+    }
+    @include breakpoint(lg) {
+      width: 300px;
+      padding-right: 30px;
+    }
+  }
+
+  &__right {
+    @include breakpoint(ipad) {
+      width: calc(100% - 20vw);
+    }
+    @include breakpoint(lg) {
+      width: calc(100% - 300px);
+    }
+  }
+
+  &__cont {
+    position: relative;
+    @include breakpoint(xs) {
+      padding: 15px;
+      height: 350px;
+      display: flex;
+      align-items: center;
+    }
+
+    p {
+      margin: 30px 0;
+      @include breakpoint(ipad) {
+        margin: 2vw 0;
+      }
+    }
+
+    .btn {
+      width: 140px;
+      @include breakpoint(ipad) {
+        width: 10vw;
+      }
+    }
+  }
+
+  &__slide {
+    margin: 0 -15px;
+    @include breakpoint(ipad) {
+      padding-bottom: 5vw;
+      margin: 0 -1vw;
+    }
+    @include breakpoint(lg) {
+      padding-bottom: 50px;
+    }
+
+    .slick-arrow {
+      @include breakpoint(sm) {
+        transform: none;
+        top: auto;
+        bottom: 0;
+      }
+    }
+
+    .slick-prev {
+      @include breakpoint(ipad) {
+        right: 3vw;
+      }
+      @include breakpoint(sm) {
+        left: auto;
+      }
+      @include breakpoint(lg) {
+        right: 55px;
+      }
+    }
+
+    .slick-next {
+      @include breakpoint(lg) {
+        right: 15px;
+      }
+    }
+  }
+
+  &__col {
+    @include breakpoint(ipad) {
+      padding: 0 1vw;
+    }
+    @include breakpoint(lg) {
+      padding: 0 15px;
+    }
+  }
+
+  &__item {
+    position: relative;
+    display: block;
+    height: 350px;
+    border-radius: 4px;
+    overflow: hidden;
+    @include breakpoint(ipad) {
+      border-radius: .2vw;
+      height: 20vw;
+    }
+    @include breakpoint(lg) {
+      &:hover {
+        .homeIntern__text {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 0 15px;
+    text-align: center;
+    @include breakpoint(ipad) {
+      padding: 0 1vw;
+    }
+    @include breakpoint(lg) {
+      transition: all .3s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    p {
+      color: #fff;
+    }
+  }
+}
+
+.homeCheap {
+  background-color: #fff;
+  padding: 50px 0;
+  @include breakpoint(ipad) {
+    padding: 3vw 0;
+  }
+
+  &__row {
+    @include breakpoint(sm) {
+      display: flex;
+    }
+  }
+
+  &__left {
+    @include breakpoint(ipad) {
+      width: calc(100% - 20vw);
+      padding-right: 2vw;
+    }
+    @include breakpoint(lg) {
+      width: calc(100% - 250px);
+      padding-right: 30px;
+    }
+  }
+
+  &__right {
+    @include breakpoint(xs) {
+      display: none;
+    }
+    @include breakpoint(ipad) {
+      width: 20vw;
+    }
+    @include breakpoint(lg) {
+      width: 250px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+    @include breakpoint(ipad) {
+      margin: 0 -1vw;
+    }
+
+    li {
+      padding: 0 15px;
+      width: 33.333%;
+      @include breakpoint(ipad) {
+        padding: 0 1vw;
+      }
+
+      a {
+        color: #318FDB;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &__cont {
+
+  }
+
+  &__img {
+    position: relative;
+    height: 265px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    overflow: hidden;
+    @include breakpoint(ipad) {
+      margin-bottom: 1vw;
+      border-radius: .2vw;
+      height: 20vw;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    p {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+.appBox {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  padding: 50px 0;
+  position: relative;
+  @include breakpoint(ipad) {
+    padding: 4vw 0 1vw;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(4.62deg, #FFFFFF 3.74%, rgba(255, 255, 255, 0) 56.06%);
+  }
+
+  &__cont {
+    > p {
+      letter-spacing: .3px;
+    }
+  }
+
+  &__group {
+    @include breakpoint(xs) {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__form {
+    margin-bottom: 30px;
+    @include breakpoint(sm) {
+      display: flex;
+    }
+    @include breakpoint(ipad) {
+      margin-bottom: 2vw;
+    }
+
+    .inputSelect {
+      @include breakpoint(sm) {
+        margin-bottom: 0;
+      }
+      @include breakpoint(ipad) {
+        width: 20vw;
+        margin-right: 1vw;
+      }
+      @include breakpoint(lg) {
+        width: 275px;
+        margin-right: 15px;
+      }
+    }
+
+    .btn {
+      @include breakpoint(xs) {
+        width: 100%;
+      }
+    }
+  }
+
+  &__download {
+    display: flex;
+    @include breakpoint(xs) {
+      justify-content: center;
+    }
+  }
+
+  &__logo {
+    margin-right: 15px;
+    @include breakpoint(ipad) {
+      margin-right: 1vw;
+    }
+
+    a {
+      display: block;
+      margin-bottom: 15px;
+      @include breakpoint(ipad) {
+        margin-bottom: 1vw;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      img {
+        width: 160px;
+        display: block;
+        @include breakpoint(ipad) {
+          width: 6.5vw;
+        }
+      }
+    }
+  }
+
+  &__qrcode {
+    a {
+      display: block;
+
+      img {
+        width: 122px;
+        display: block;
+        @include breakpoint(ipad) {
+          width: 5.3vw;
+        }
+      }
+    }
+  }
+
+  &__img {
+    @include breakpoint(sm) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      @include breakpoint(ipad) {
+        width: 20vw;
+      }
+    }
+  }
+
+  .col-7, .col-5 {
+    @include breakpoint(xs) {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+.homeServices {
+  padding: 50px 0;
+  @include breakpoint(ipad){
+    padding: 5vw 0;
+  }
+  &__item{
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: $shadow;
+    height: 290px;
+    text-align: center;
+    padding: 20px 15px;
+    @include breakpoint(xs){
+      width: 80vw;
+      margin-right: 15px;
+    }
+    @include breakpoint(ipad){
+      border-radius: .2vw;
+      height: 22vw;
+    }
+  }
+  &__group{
+    display: flex;
+    @include breakpoint(xs){
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 15px;
+      margin: 0 -15px;
+    }
+    @include breakpoint(sm){
+      flex-wrap: wrap;
+      margin: 0 -1vw;
+    }
+    @include breakpoint(lg){
+      margin: 0 -15px;
+    }
+  }
+  &__col{
+    @include breakpoint(sm){
+      width: 50%;
+      padding: 1vw;
+    }
+    @include breakpoint(lg){
+      padding: 15px;
+    }
+  }
+  &__icon{
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background-color: #ffe9c9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px;
+    @include breakpoint(ipad){
+      width: 6vw;
+      height: 6vw;
+      margin: 0 auto 1vw;
+    }
+  }
+  &__card{
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: $shadow;
+    overflow: hidden;
+    margin-top: 15px;
+    @include breakpoint(ipad){
+      border-radius: .2vw;
+      margin-top: 1vw;
+      height: 46vw;
+    }
+    @include breakpoint(lg){
+      height: 610px;
+    }
+  }
+  &__img{
+    height: 430px;
+    @include breakpoint(ipad){
+      height: 25vw;
+    }
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__cont{
+    padding: 15px;
+    @include breakpoint(ipad){
+      padding: 1vw;
+    }
+  }
+  .col-6{
+    @include breakpoint(xs){
+      flex: 0 0 100%;
+      max-width: 100%;
+      &:last-child{
+        display: none;
+      }
+    }
+  }
+}

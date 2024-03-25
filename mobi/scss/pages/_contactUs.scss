@@ -1,0 +1,32 @@
+.contactUs{
+  &__cont{
+    max-width: 650px;
+    margin: 35px auto;
+    @include breakpoint(xs){
+      padding: 0 15px;
+    }
+  }
+  &__title{
+    margin-bottom: 15px;
+    h3{
+      font-size: 20px;
+      @include breakpoint(ipad){
+        font-size: 2vw;
+      }
+    }
+  }
+  &__form{
+    label{
+      color: $black85;
+      span{
+        color: $red;
+      }
+    }
+  }
+  &__btn{
+    text-align: right;
+    span{
+      text-transform: uppercase;
+    }
+  }
+}

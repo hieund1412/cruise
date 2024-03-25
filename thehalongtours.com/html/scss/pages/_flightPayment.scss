@@ -1,0 +1,205 @@
+.flightPayment {
+  margin: 50px 0;
+  @include breakpoint(ipad) {
+    margin: 5vw 0;
+  }
+  &__body {
+    padding: 30px 0;
+    @include breakpoint(ipad) {
+      padding: 3vw 0;
+    }
+  }
+
+  &__box {
+    background: #FFFFFF;
+    box-shadow: $shadow;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    @include breakpoint(ipad) {
+      border-radius: .2vw;
+      margin-bottom: 1vw;
+    }
+
+  }
+
+  &__bg{
+    padding: 60px 15px 130px;
+    @include breakpoint(ipad){
+      padding: 5vw 2vw 10vw;
+    }
+    @include breakpoint(lg){
+      padding: 60px 30px 130px;
+    }
+    &.success{
+      background-color: #F5FDDA;
+    }
+    &.failed{
+      background-color: #FFE7DC;
+    }
+  }
+  &__main{
+    text-align: center;
+  }
+
+  &__icon {
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: -127px;
+    @include breakpoint(ipad) {
+      margin-bottom: 1vw;
+      margin-top: -11vw;
+    }
+    svg{
+      @include breakpoint(ipad){
+        width: 15vw;
+        height: 15vw;
+      }
+    }
+  }
+
+  &__title {
+    text-align: center;
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 15px;
+    @include breakpoint(ipad) {
+      font-size: 2vw;
+      margin-bottom: 1vw;
+    }
+    @include breakpoint(lg){
+      font-size: 30px;
+    }
+  }
+  &__reason{
+    .btnReason{
+      &:hover{
+        span{
+          text-decoration: underline;
+        }
+      }
+      &.rotate{
+        svg{
+          transform: rotate(180deg);
+        }
+      }
+      svg{
+        transition: all .3s ease-in-out;
+      }
+    }
+    &__collapse{
+      display: none;
+    }
+    &__cont{
+      text-align: left;
+      display: flex;
+      justify-content: center;
+      padding: 15px 15px 0;
+      @include breakpoint(ipad){
+        padding: 1vw 1vw 0;
+      }
+    }
+  }
+
+  &__cont {
+    text-align: center;
+    @include breakpoint(xs) {
+      margin-bottom: 15px;
+    }
+    @include breakpoint(ipad) {
+      margin: 0 auto 1.5vw;
+    }
+    @include breakpoint(sm){
+      width: 85%
+    }
+    @include breakpoint(lg){
+
+      margin: 0 auto 20px;
+    }
+  }
+
+  &__again {
+    margin-bottom: 15px;
+    @include breakpoint(ipad) {
+      margin-bottom: 1vw;
+    }
+  }
+
+  &__question {
+    margin-bottom: 15px;
+    @include breakpoint(ipad) {
+      margin-bottom: 1vw;
+    }
+  }
+
+  &__list {
+    margin-top: 30px;
+    @include breakpoint(sm) {
+      display: flex;
+      justify-content: center;
+    }
+    @include breakpoint(ipad){
+      margin-top: 3vw;
+    }
+    @include breakpoint(lg){
+      margin-top: 2.5vw;
+    }
+
+    li {
+      @include breakpoint(ipad) {
+        padding: 0 2vw;
+      }
+      @include breakpoint(lg){
+        padding: 0 30px;
+      }
+
+      p {
+        color: $black55;
+      }
+    }
+  }
+
+  &__text {
+    text-align: center;
+    padding: 0 15px 30px;
+    @include breakpoint(ipad){
+      padding: 0 2vw 2vw;
+    }
+    @include breakpoint(lg){
+      padding: 0 30px 30px;
+    }
+  }
+
+  &__price {
+    margin: 15px 0;
+    @include breakpoint(ipad) {
+      margin: 2vw 0;
+    }
+  }
+
+  &__link {
+    p {
+      color: $black55;
+    }
+  }
+}
+
+.modal-failed {
+  &__title {
+    text-align: center;
+    margin-bottom: 30px;
+    @include breakpoint(ipad) {
+      margin-bottom: 2vw;
+    }
+  }
+
+  &__cont {
+    ul {
+      li {
+        padding: 5px 0;
+        @include breakpoint(ipad) {
+          padding: .5vw 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,249 @@
+.searchBox {
+  margin-bottom: 50px;
+  position: relative;
+  @include breakpoint(ipad){
+    margin-bottom: 5vw;
+  }
+  &.searchBox_home{
+    margin-top: -85px;
+    @include breakpoint(ipad){
+      margin-top: -3.7vw;
+    }
+  }
+  &.searchBox_shadow{
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    .searchBox{
+      &__body{
+        box-shadow: none;
+        background-color: transparent;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+
+  &__header {
+    background-color: $dark-green;
+    padding: 5px 15px;
+    border-radius: 4px 4px 0 0;
+    @include breakpoint(ipad) {
+      border-radius: .2vw .2vw 0 0;
+      padding: .5vw 1vw;
+    }
+  }
+
+  &__body {
+    background-color: #fff;
+    border-radius: 0 0 4px 4px;
+    box-shadow: $shadow;
+    padding: 15px;
+    @include breakpoint(ipad) {
+      border-radius: 0 0 .2vw .2vw;
+      padding: 1vw;
+    }
+  }
+
+  &__action {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    @include breakpoint(ipad) {
+      margin-bottom: 1vw;
+    }
+    .dropdown{
+      margin-right: 30px;
+    }
+    .dropdown-menu{
+      z-index: 200!important;
+    }
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-right: 8px;
+      @include breakpoint(ipad) {
+        margin-right: .7vw;
+      }
+    }
+  }
+
+  &__form {
+    @include breakpoint(sm) {
+      display: flex;
+    }
+    @include breakpoint(ipad){margin: 0 -.3vw;}
+    @include breakpoint(lg){margin: 0 -4px;}
+  }
+
+  &__input {
+    position: relative;
+
+    > svg {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 15px;
+      @include breakpoint(ipad) {
+        left: 1vw;
+      }
+    }
+
+    .form-control {
+      padding-left: 50px;
+      @include breakpoint(ipad) {
+        padding-left: 3vw;
+      }
+    }
+  }
+
+  &__date{
+    @include breakpoint(xs){
+      position: relative;
+    }
+  }
+
+  &__flex{
+    @include breakpoint(sm){
+      display: flex;
+    }
+    @include breakpoint(ipad){margin: 0 -.3vw;}
+    @include breakpoint(lg){margin: 0 -4px;}
+
+    .searchBox__code{
+      @include breakpoint(ipad){
+        width: calc(100% - ((100% - 5vw)/ 4) - 5vw);
+      }
+      @include breakpoint(lg){
+        width: calc(100% - ((100% - 70px)/ 4) - 70px);
+      }
+    }
+  }
+
+  &__remove{
+    @include breakpoint(xs){
+      text-align: center;
+    }
+    @include breakpoint(ipad){
+      padding-left: 2vw;
+    }
+    @include breakpoint(sm){
+      display: flex;
+      align-items: center;
+    }
+    @include breakpoint(lg){
+      padding-left: 24px;
+    }
+    button{
+      color: rgba(0, 0, 0, 0.45);
+      &:hover{
+        text-decoration: underline;
+      }
+      span{
+        padding-left: 8px;
+        @include breakpoint(ipad){padding-left: .9vw}
+      }
+    }
+  }
+
+  &__add{
+    margin-bottom: 24px;
+    @include breakpoint(xs){
+      margin-bottom: 15px;
+    }
+    @include breakpoint(ipad){
+      margin-bottom: 2vw;
+    }
+  }
+
+  &__group{
+    .searchBox__form{
+      margin-bottom: 24px;
+      @include breakpoint(xs){
+        border-bottom: 1px solid $border-color;
+        margin: 0 -15px 15px;
+        padding: 0 15px 15px;
+      }
+      @include breakpoint(ipad){
+        margin-bottom: 2vw;
+      }
+    }
+  }
+
+  &__dropdown {
+    .form-control{
+      .svgArrow{
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        @include breakpoint(ipad){
+          right: 1vw;
+        }
+      }
+    }
+    .dropdown-menu{
+      min-width: 100%;
+    }
+  }
+
+  &__tab{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    li{
+      width: 50%;
+      border-bottom: 1px solid $border-color;
+      @include breakpoint(sm){
+        width: 20%;
+      }
+      &.active{
+        button{
+          border-color: #FBB040;
+          color: #FBB040;;
+        }
+      }
+      button{
+        width: 100%;
+        padding: 10px 15px;
+        border-bottom: 3px solid transparent;
+        transform: translateY(2px);
+        transition: all .2s;
+        @include breakpoint(ipad){
+          border-bottom: .3vw solid transparent;
+          transform: translateY(.2vw);
+        }
+        &:hover{
+          color: #FBB040;
+        }
+      }
+    }
+  }
+  &__main{
+    &.collapseMobile{
+      @include breakpoint(xs){
+        display: none;
+      }
+    }
+  }
+}
+.btnEditSearch{
+  padding: 15px;
+  border-bottom: 1px solid $border-color;
+  background-color: #fff;
+  margin: 0 -15px;
+  @include breakpoint(sm){
+    display: none;
+  }
+  &.rotate{
+    svg{
+      transform: rotate(180deg);
+    }
+  }
+  svg{
+    transition: all .3s ease-in-out;
+  }
+}

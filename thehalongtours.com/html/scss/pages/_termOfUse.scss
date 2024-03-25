@@ -1,0 +1,16 @@
+.termOfUse{
+  &__title{
+    margin: 20px 0;
+    h3{
+      font-size: 20px;
+      @include breakpoint(ipad){
+        font-size: 2vw;
+      }
+    }
+  }
+  &__cont{
+    p{
+      margin-bottom: 12px;
+    }
+  }
+}

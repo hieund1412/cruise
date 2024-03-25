@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d611a810-f148-4089-a6c3-47765e0b969c" name="html">
+        <fileTransfer rootFolder="/home/thehalongcruises/public_html/html" accessType="SFTP" host="thehalongcruises.com" port="22" sshConfigId="b8156168-b2ae-4277-9b23-b3857ef43d9a" sshConfig="thehalongcruises@thehalongcruises.com:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

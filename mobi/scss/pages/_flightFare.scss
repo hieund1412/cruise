@@ -1,0 +1,146 @@
+.flightFare{
+  padding: 50px 0;
+  @include breakpoint(ipad){
+    padding: 5vw 0;
+  }
+  &__action{
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__table{
+    display: flex;
+    padding: 15px 0;
+    @include breakpoint(ipad){
+      padding: 1vw 0;
+    }
+    &__vertical{
+      padding-top: 110px;
+      padding-bottom: 55px;
+      position: relative;
+      @include breakpoint(xs){
+        width: 90px;
+      }
+      @include breakpoint(ipad){
+        width: 12vw;
+        padding-top: 9.5vw;
+        padding-bottom: 4vw;
+      }
+      @include breakpoint(lg){
+        width: 140px;
+      }
+      .arrowUp,.arrowDown{
+        position: absolute;
+        width: 60px;
+        @include breakpoint(xs){
+          left: 15px;
+        }
+        @include breakpoint(ipad){
+          width: 6vw;
+          left: 3vw;
+        }
+        @include breakpoint(lg){
+          left: 40px;
+        }
+      }
+      .arrowUp{
+        top: 55px;
+        @include breakpoint(ipad){
+          top: 6vw;
+        }
+      }
+      .arrowDown{
+        bottom: 0;
+      }
+
+    }
+    &__cont{
+      @include breakpoint(xs){
+        width: calc(100% - 90px);
+      }
+      @include breakpoint(ipad){
+        width: calc(100% - 12vw);
+      }
+      @include breakpoint(lg){
+        width: calc(100% - 140px);
+      }
+    }
+    &__header{
+      position: relative;
+    }
+    &__group{
+      display: flex;
+    }
+    &__body{
+      position: relative;
+      .arrowUp,.arrowDown{
+        position: absolute;
+        left: 40px;
+        width: 60px;
+        @include breakpoint(ipad){
+          left: 3vw;
+          width: 5vw;
+        }
+      }
+      .arrowUp{
+        top: -60px;
+        @include breakpoint(ipad){
+          top: -4vw;
+        }
+      }
+      .arrowDown{
+        bottom: -60px;
+        @include breakpoint(ipad){
+          bottom: -4vw;
+        }
+      }
+    }
+    &__row{
+      display: flex;
+    }
+    &__cell{
+      flex: 1;
+      padding: 15px;
+      display: flex;
+      height: 74px;
+      align-items: center;
+      border: .5px solid #fff;
+      transition: all .1s;
+      @include breakpoint(xs){
+        padding: 15px 10px;
+      }
+      @include breakpoint(ipad){
+        padding: 1vw;
+        border-width: .1vw;
+        height: 7vw;
+      }
+      &.bgLightGreen{
+        cursor: pointer;
+        &:hover{
+          background-color: rgba(15, 90, 94, 0.06);
+        }
+        &.active{
+          background-color: $dark-green;
+          pointer-events: none;
+          .flightFare__table__price{
+            color: #fff;
+          }
+        }
+      }
+    }
+    &__date{}
+    &__price{
+      width: 100%;
+      font-weight: 500;
+      transition: all .1s;
+    }
+    &__arrow{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 15px;
+      @include breakpoint(ipad){
+        padding-bottom: 1vw;
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+.checkbox {
+  input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+  }
+
+  label {
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 0;
+    padding-left: 30px;
+    font-size: 14px;
+    color: $black85;
+    @include breakpoint(ipad){
+      font-size: 1vw;
+      padding-left: 2vw;
+    }
+    &:before {
+      content: '';
+      -webkit-appearance: none;
+      background-color: transparent;
+      border: 1px solid $black55;
+      padding: 8px;
+      display: inline-block;
+      position: absolute;
+      top: 2px;
+      left: 0;
+      vertical-align: middle;
+      cursor: pointer;
+      border-radius: 2px;
+      @include breakpoint(sm){
+        padding: .6vw;
+        top: 0;
+      }
+    }
+  }
+
+  input:checked + label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    width: 6px;
+    height: 12px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    @include breakpoint(ipad){
+      width: .5vw;
+      height: 1vw;
+      top: 1px;
+      left: .5vw;
+    }
+  }
+  input:checked + label:before {
+    background-color: $orange;
+    border-color: $orange;
+  }
+}

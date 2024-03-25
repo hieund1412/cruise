@@ -1,0 +1,464 @@
+h1 {
+  font-size: 26px;
+  @include breakpoint(ipad) {
+    font-size: 3vw;
+  }
+}
+
+h2 {
+  font-size: 22px;
+  @include breakpoint(ipad) {
+    font-size: 2vw;
+  }
+}
+
+h3 {
+  font-size: 18px;
+  @include breakpoint(ipad) {
+    font-size: 1.6vw;
+  }
+}
+
+h4 {
+  font-size: 16px;
+  @include breakpoint(ipad) {
+    font-size: 1.2vw;
+  }
+}
+
+h5 {
+  font-size: 13px;
+  @include breakpoint(ipad) {
+    font-size: .8vw;
+  }
+}
+
+.mb0 {
+  margin-bottom: 0;
+}
+
+.mb5 {
+  margin-bottom: 5px;
+  @include breakpoint(ipad) {
+    margin-bottom: .5vw;
+  }
+}
+
+.mb15 {
+  margin-bottom: 15px;
+  @include breakpoint(ipad) {
+    margin-bottom: 1vw;
+  }
+}
+
+.ml15 {
+  margin-left: 15px;
+  @include breakpoint(ipad) {
+    margin-left: 1vw;
+  }
+}
+
+.ml10 {
+  margin-left: 10px;
+  @include breakpoint(ipad) {
+    margin-left: .8vw;
+  }
+}
+
+.mb30 {
+  margin-bottom: 30px;
+  @include breakpoint(ipad) {
+    margin-bottom: 2vw;
+  }
+}
+
+.mt5 {
+  margin-top: 5px;
+  @include breakpoint(ipad) {
+    margin-top: .5vw;
+  }
+}
+.mt10{
+  margin-top: 10px;
+  @include breakpoint(ipad){
+    margin-top: .8vw;
+  }
+}
+
+.mt15 {
+  margin-top: 15px;
+  @include breakpoint(ipad) {
+    margin-top: 1vw;
+  }
+}
+
+.ml5 {
+  margin-left: 5px;
+  @include breakpoint(ipad) {
+    margin-left: .5vw;
+  }
+}
+
+.mr5 {
+  margin-right: 5px;
+  @include breakpoint(ipad) {
+    margin-right: .5vw;
+  }
+}
+
+.mr10 {
+  margin-right: 10px;
+  @include breakpoint(ipad) {
+    margin-right: .8vw;
+  }
+}
+
+.mr15 {
+  margin-right: 15px;
+  @include breakpoint(ipad) {
+    margin-right: 1vw;
+  }
+}
+
+.mrl15 {
+  margin: 0 15px;
+  @include breakpoint(ipad) {
+    margin: 0 1vw;
+  }
+}
+
+.bgGreen {
+  background: $green;
+}
+
+.bgYellow {
+  background: $yellow;
+}
+
+.bgPink {
+  background: $pink;
+}
+
+.bgRed {
+  background: $red;
+}
+
+.bgBlack {
+  background: $black;
+}
+
+.bgPurple {
+  background: $purple;
+}
+
+.bgGray {
+  background: $gray;
+}
+
+.bgOrange {
+  background: $orange;
+}
+
+.colorOrange {
+  color: $orange;
+}
+
+.colorGreen {
+  color: $green;
+}
+
+.colorYellow {
+  color: $yellow;
+}
+
+.colorPink {
+  color: $pink;
+}
+
+.colorRed {
+  color: $red;
+}
+
+.colorBlack {
+  color: $black;
+}
+
+.colorPurple {
+  color: $purple;
+}
+
+.colorGray {
+  color: $gray;
+}
+
+.colorBlack85 {
+  color: $black85;
+}
+
+.colorBlack75 {
+  color: $black75;
+}
+
+.colorBlack65 {
+  color: $black65;
+}
+
+.colorBlack55 {
+  color: $black55;
+}
+
+.colorBlack45 {
+  color: $black45;
+}
+
+.colorBlack35 {
+  color: $black35;
+}
+
+.colorBlack25 {
+  color: $black25;
+}
+
+.colorBlack15 {
+  color: $black15;
+}
+
+.colorBlack5 {
+  color: $black5;
+}
+
+.colorWhite {
+  color: #fff;
+}
+
+.colorDarkGreen {
+  color: $dark-green;
+}
+
+.colorBlue {
+  color: $blue;
+}
+
+.text12 {
+  font-size: 12px;
+  @include breakpoint(ipad) {
+    font-size: .9vw;
+  }
+}
+
+.text14 {
+  font-size: 14px;
+  @include breakpoint(ipad) {
+    font-size: 1vw;
+  }
+}
+
+.text16 {
+  font-size: 16px;
+  @include breakpoint(ipad) {
+    font-size: 1.1vw;
+  }
+}
+
+.text18 {
+  font-size: 18px;
+  @include breakpoint(ipad) {
+    font-size: 1.2vw;
+  }
+}
+
+.text20 {
+  font-size: 20px;
+  @include breakpoint(ipad) {
+    font-size: 1.3vw;
+  }
+}
+.text24 {
+  font-size: 24px;
+  @include breakpoint(ipad) {
+    font-size: 1.5vw;
+  }
+}
+.semibold {
+  font-weight: $semibold;
+}
+
+.medium {
+  font-weight: $medium;
+}
+.regular{
+  font-weight: 400;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.svg1 {
+  @include breakpoint(ipad) {
+    width: 1vw;
+    height: 1vw;
+  }
+}
+
+.svg1point5 {
+  @include breakpoint(ipad) {
+    width: 1.5vw;
+    height: 1.5vw;
+  }
+}
+
+.svg2 {
+  @include breakpoint(ipad) {
+    width: 2vw;
+    height: 2vw;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.logo {
+  a {
+    display: block;
+
+    img {
+      width: 210px;
+      display: block;
+      @include breakpoint(ipad) {
+        width: 15vw;
+      }
+    }
+  }
+}
+
+.flexGroup1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flexGroup2 {
+  display: flex;
+  align-items: center;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.pd4 {
+  @include breakpoint(xs) {
+    margin-bottom: 15px;
+  }
+  @include breakpoint(sm) {
+    padding: 0 .3vw;
+  }
+  @include breakpoint(lg) {
+    padding: 0 4px;
+  }
+}
+
+.col1 {
+  @include breakpoint(ipad) {
+    width: calc((100% - 14vw) / 2);
+  }
+  @include breakpoint(lg) {
+    width: calc((100% - 180px) / 2);
+  }
+}
+
+.col2 {
+  @include breakpoint(ipad) {
+    width: calc((100% - 5vw) / 4);
+  }
+  @include breakpoint(lg) {
+    width: calc((100% - 70px) / 4);
+  }
+}
+
+.col3 {
+  @include breakpoint(ipad) {
+    width: calc((100% - 8vw) / 3);
+  }
+  @include breakpoint(lg) {
+    width: calc((100% - 120px) / 3);
+  }
+}
+
+.col4 {
+  @include breakpoint(ipad) {
+    width: calc(100% - (((100% - 8vw) / 3) + 8vw));
+  }
+  @include breakpoint(lg) {
+    width: calc(100% - (((100% - 120px) / 3) + 120px));
+  }
+}
+
+.w70 {
+  @include breakpoint(ipad) {
+    width: 5vw;
+  }
+  @include breakpoint(lg) {
+    width: 70px;
+  }
+}
+
+.w120 {
+  @include breakpoint(ipad) {
+    width: 8vw;
+  }
+  @include breakpoint(lg) {
+    width: 120px;
+  }
+}
+
+.w180 {
+  @include breakpoint(ipad) {
+    width: 14vw;
+  }
+  @include breakpoint(lg) {
+    width: 180px;
+  }
+}
+
+.showMobile {
+  @include breakpoint(sm) {
+    display: none !important;
+  }
+}
+
+.showDesktop {
+  @include breakpoint(xs) {
+    display: none !important;
+  }
+}
+
+.bgDarkGreen1 {
+  background-color: #3A9E9B;
+}
+
+.bgDarkGreen2 {
+  background-color: #0F5A5E;
+}
+
+.bgDarkGreen3 {
+  background-color: #0A4750;
+}
+
+.bgLightGreen {
+  background-color: rgba(15, 90, 94, 0.16);
+}
