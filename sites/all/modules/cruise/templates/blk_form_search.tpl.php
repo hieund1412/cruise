@@ -34,7 +34,6 @@ if(arg(0) == 'cruise' && arg(1) > 0 && arg(2) > 0) {
 $depart = '';
 $search_param = array();
 if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] > 0) {
-    var_dump($conf['CRUISE_DURATION'],$conf['CRUISE_DURATION'][$type_itinerary]);
     $tran = $_REQUEST['t'];
     $depart = $_SESSION['search_param'][$tran]['depart'];
     $search_param = $_SESSION['search_param'][$tran];
@@ -46,7 +45,6 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
     for ($i = 0; $i < $no_room; $i++) {
         $travel += $adult[$i] + $child[$i] + $infant[$i];
     }
-
 }
 
 ?>
@@ -261,6 +259,7 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
         var cruise_id = $('input[name=cruise]').val();
         if(cruise_id > 0) {
             var field_full_day_cruise =$('#frm-search-cruise span.cruise[cid='+cruise_id+']').attr('field_full_day_cruise');
+            var key_duration = "<?php echo ($type_itinerary); ?>";
             if(field_full_day_cruise == 'yes') {
                 $('#duration .suggestion__list').addClass('d-none');
                 $('#duration .suggestion__list.full_day').removeClass('d-none');
@@ -269,8 +268,8 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
             } else {
                 $('#duration .suggestion__list').removeClass('d-none');
                 $('#duration .suggestion__list.full_day').addClass('d-none');
-                $('input[name=duration]').val('2day1night');
-                var text_duration = $('#duration button[key=2day1night] span').text();
+                $('input[name=duration]').val(key_duration);
+                var text_duration = $('#duration button[key='+ key_duration +'] span').text();
                 $('.duration_label').attr('placeholder',text_duration);
             }
             console.log(field_full_day_cruise);
@@ -308,7 +307,20 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
             $(this).parent().removeClass('open');
         });
 
-
+        let numb_room = <?php echo ($no_room)?>;
+        let traveller = <?php echo ($travel)?>;
+        let txt = '';
+        if(numb_room > 1) {
+            txt += numb_room + "<?php echo t(' Rooms, ')?>";
+        } else {
+            txt +=  "<?php echo t('1 Room, ');?>";
+        }
+        if(traveller > 1) {
+            txt += traveller + "<?php echo t(' Travellers');?>";
+        } else {
+            txt += traveller + "<?php echo t(' Traveller');?>";
+        }
+        $('.searchBox_passenger').attr('placeholder',txt);
 
         $(".inputPlace").click(function () {
             $(this).next('.suggestion').addClass('open');
@@ -551,6 +563,7 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
        
        function get_info() {
            var num_room = $('select[name=no_room] option:selected').val();
+           console.log(num_room);
            var passenger = 0;
 
 
