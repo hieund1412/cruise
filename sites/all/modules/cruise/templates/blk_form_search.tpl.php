@@ -32,6 +32,8 @@ if(arg(0) == 'cruise' && arg(1) > 0 && arg(2) > 0) {
     $frm_path = base_path().'cruise/0';
 }
 $depart = '';
+$no_room = 1;
+$travel = 1;
 $search_param = array();
 if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] > 0) {
     $tran = $_REQUEST['t'];
@@ -41,7 +43,7 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
     $adult = $search_param['adult'];
     $child = $search_param['child'];
     $infant = $search_param['infant'];
-    $travel = 0;
+
     for ($i = 0; $i < $no_room; $i++) {
         $travel += $adult[$i] + $child[$i] + $infant[$i];
     }
