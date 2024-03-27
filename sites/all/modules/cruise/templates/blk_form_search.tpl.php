@@ -33,7 +33,7 @@ if(arg(0) == 'cruise' && arg(1) > 0 && arg(2) > 0) {
 }
 $depart = '';
 $no_room = 1;
-$travel = 1;
+$travel = 0;
 $search_param = array();
 if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] > 0) {
     $tran = $_REQUEST['t'];
@@ -154,11 +154,7 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
                                         <p><svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none">
                                                 <path d="M9.24559 0.405812C9.1762 0.282691 9.07533 0.180229 8.95331 0.108921C8.83128 0.0376131 8.6925 2.25533e-05 8.55117 0H0.796887C0.655634 6.85536e-05 0.516935 0.0376631 0.394983 0.108937C0.273031 0.18021 0.172203 0.282604 0.102818 0.405641C0.0334323 0.528677 -0.00201984 0.667939 8.88697e-05 0.809176C0.00219758 0.950413 0.0417915 1.08855 0.114819 1.20946L3.99196 7.61556C4.06298 7.73289 4.16307 7.82992 4.28255 7.89727C4.40204 7.96462 4.53687 8 4.67403 8C4.81118 8 4.94602 7.96462 5.0655 7.89727C5.18499 7.82992 5.28508 7.73289 5.3561 7.61556L9.23324 1.20946C9.30629 1.08861 9.34592 0.950513 9.34809 0.809309C9.35027 0.668106 9.31489 0.52886 9.24559 0.405812Z" fill="#415092"></path>
                                             </svg></p>
-                                        <input type="text" readonly placeholder="
-                                        <?php
-                                            echo t('1 Room, 1 Traveller');
-                                         ?>
-                                        " class="form-control form-control-lg inputPlace searchBox_passenger" >
+                                        <input type="text" readonly placeholder="<?php echo t('1 Room, 1 Traveller'); ?>" class="form-control form-control-lg inputPlace searchBox_passenger" >
                                         <div class="suggestion roomSelect">
                                             <div class="roomSelect__close">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -171,7 +167,15 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
                                                     <label class="blueDark text16"><?php echo t('No. Rooms');?></label>
                                                     <select class="form-control" name="no_room" id="room_traveller">
                                                         <?php for($i = 1; $i <= $max_room; $i++):?>
-                                                            <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                                            <option value="<?php if ($no_room == 1){
+                                                              echo $i;
+                                                            }else {
+                                                              echo $no_room;
+                                                            }?>"><?php if ($no_room == 1){
+                                                                    echo $i;
+                                                                }else {
+                                                                    echo $no_room;
+                                                                }?></option>
                                                         <?php endfor;?>
 
                                                     </select>
@@ -180,15 +184,16 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
                                             <div class="suggestion__bottom">
                                                 <?php for($i = 1; $i <= $max_room; $i++):
                                                     $ii = $i - 1;
+                                                    $ar = $i- 1;
                                                     ?>
                                                     <div idx="<?php echo $i?>" id="room_<?php echo $i?>" class="roomBox__group d-none">
                                                         <p class="text16 medium blueP400 title_room"><?php echo t('Room');?> <?php echo $i;?></p>
                                                         <div class="select__box room_type ">
                                                             <label class="blueDark text16"><?php echo t('Type');?></label>
                                                             <select class="form-control room_type" name="room_type[<?php echo $ii?>]">
-                                                                <option value="single"><?php echo t('Single');?></option>
-                                                                <option value="double"><?php echo t('Double');?></option>
-                                                                <option value="family"><?php echo t('Family ');?></option>
+                                                                <option value="single" <?php if ($search_param['room_type'][$ar] == 'single') { echo 'selected';} ?>><?php echo t('Single');?></option>
+                                                                <option value="double" <?php if ($search_param['room_type'][$ar] == 'double') { echo 'selected';} ?>><?php echo t('Double');?></option>
+                                                                <option value="family" <?php if ($search_param['room_type'][$ar] == 'family') { echo 'selected';} ?>><?php echo t('Family ');?></option>
                                                             </select>
                                                         </div>
                                                         <div class="box__passenger">
@@ -196,25 +201,34 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
                                                             <div class="select__box">
                                                                 <label class="blueDark text16"><?php echo t('Adult (>10)');?> </label>
                                                                 <select class="form-control adult" name="adult[<?php echo $ii?>]">
-
+<!--                                                                    <option value="--><?php //if ($search_param['adult'][$ar] != '1') { echo $search_param['adult'][$ar];} else {echo 1;} ?><!--">-->
+<!--                                                                        --><?php //if ($search_param['adult'][$ar] != '1') { echo $search_param['adult'][$ar]; } else {echo 1;} ?>
+<!--                                                                    </option>-->
                                                                 </select>
                                                             </div>
                                                             <div class="select__box">
                                                                 <label class="blueDark text16"><?php echo t('Child (5-10)');?> </label>
                                                                 <select class="form-control child" name="child[<?php echo $ii?>]">
-
+<!--                                                                    <option value="--><?php //if ($search_param['child'][$ar] != '1') { echo $search_param['child'][$ar];} else {echo 1;} ?><!--">-->
+<!--                                                                        --><?php //if ($search_param['child'][$ar] != '1') { echo $search_param['child'][$ar];} else {echo 1;} ?>
+<!--                                                                    </option>-->
                                                                 </select>
                                                             </div>
                                                             <div class="select__box">
                                                                 <label class="blueDark text16"><?php echo t('Infant (0-4)');?> </label>
                                                                 <select class="form-control infant" name="infant[<?php echo $ii?>]">
-
+<!--                                                                    <option value="--><?php //if ($search_param['infant'][$ar] != '1') { echo $search_param['infant'][$ar];} else {echo 1;} ?><!--">-->
+<!--                                                                        --><?php //if ($search_param['infant'][$ar] != '1') { echo $search_param['infant'][$ar];} else {echo 1;} ?>
+<!--                                                                    </option>-->
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 <?php endfor;?>
 
+                                            </div>
+                                            <div style="text-align: center;">
+                                                <button type="button" class="btn btn-sm button-apply" style="background-color: #FD6431;border-color: #FD6431;color: #FFFFFF">Apply</button>
                                             </div>
                                         </div>
                                     </div>
@@ -257,7 +271,11 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
 
     });
 
+
     $(document).ready(function () {
+        $('.button-apply').click(function () {
+            $('.suggestion').removeClass('open');
+        })
         var cruise_id = $('input[name=cruise]').val();
         if(cruise_id > 0) {
             var field_full_day_cruise =$('#frm-search-cruise span.cruise[cid='+cruise_id+']').attr('field_full_day_cruise');
@@ -320,7 +338,7 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
         if(traveller > 1) {
             txt += traveller + "<?php echo t(' Travellers');?>";
         } else {
-            txt += traveller + "<?php echo t(' Traveller');?>";
+            txt += parseInt(traveller+1) + "<?php echo t(' Traveller');?>";
         }
         $('.searchBox_passenger').attr('placeholder',txt);
 
@@ -420,7 +438,7 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
             $('.duration_label').val(label);
             $(this).parents('.suggestion').removeClass('open');
             reset_room();
-
+            // set_traveller_for_room('','');
         });
        var room_traveller = $('.searchBox #room_traveller option:selected').val();
        var roomBox__group = $('.searchBox .suggestion__bottom .roomBox__group');
@@ -516,24 +534,57 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
                var roomBox__group = $('#' + id);
            }
            var duration = $('input[name=duration]').val();
+           var search_param = $('input[name=search_param]').val();
+           var search_param_json = {};
+           if(search_param != '') {
+               search_param_json = JSON.parse(search_param);
+               // console.log(search_param_json);
+           }
            if(roomBox__group.length > 0) {
                for(var i = 0; i < roomBox__group.length; i++) {
                   var room_type = $(roomBox__group[i]).find('select.room_type option:selected').val();
+                  let php_adult = 1;
+                  let php_child =0;
+                  let php_infant = 0;
+                  if(search_param != '') {
+                      php_adult = search_param_json['adult'][i];
+                      php_child = search_param_json['child'][i];
+                      php_infant = search_param_json['infant'][i];
+                  }
+                  let select0 = '';let select1 ='';let select2 ='';let select3 ='';let select4='';
                    console.log('set travel for room' + room_type);
                   if(room_type == 'single') {
-
-                      var option_adult = '<option value="1">1</option>';
-                      var option_child = '<option value="0">0</option>';
-                      var option_infant = '<option value="0">0</option><option value="1">1</option>';
+                      var option_adult = '<option value="1" selected="selected">1</option>';
+                      var option_child = '<option value="0" selected="selected">0</option>';
+                      if (php_infant == 0) {
+                          select0 = 'selected="selected"';
+                          select1 = '';
+                      } else {
+                          select1 = 'selected="selected"';
+                          select0 = '';
+                      }
+                      var option_infant = '<option value="0" '+ select0 +'>0</option><option value="1" '+ select1 +'>1</option>';
                       if(duration == 'full_day') {
                           var option_adult = '';
                           var option_child = '';
                           var option_infant = '';
                           for(var j = 1; j <= 10; j++) {
                               var jj = j - 1;
-                              option_adult += '<option value="'+ j +'">'+ j +'</option>';
-                              option_child += '<option value="'+ jj +'">'+ jj +'</option>';
-                              option_infant += '<option value="'+ jj +'">'+ jj +'</option>';
+                              let selecta = '';
+                              let selectc = '';
+                              let selecti = '';
+                              if (php_adult == j) {
+                                  selecta = 'selected="selected"';
+                              }
+                              if (php_child == jj) {
+                                  selectc = 'selected="selected"';
+                              }
+                              if (php_infant == jj) {
+                                  selecti = 'selected="selected"';
+                              }
+                              option_adult += '<option value="'+ j +'" '+ selecta +'>'+ j +'</option>';
+                              option_child += '<option value="'+ jj +'" '+ selectc +'>'+ jj +'</option>';
+                              option_infant += '<option value="'+ jj +'" '+ selecti +'>'+ jj +'</option>';
                           }
                       }
 
@@ -541,20 +592,108 @@ if(isset($_SESSION['search_param']) && isset($_REQUEST['t']) && $_REQUEST['t'] >
                       $(roomBox__group[i]).find('select.child').html(option_child);
                       $(roomBox__group[i]).find('select.infant').html(option_infant);
                   } else if(room_type == 'double') {
-                       var option_adult = '<option value="1">1</option><option value="2">2</option>';
+
+                      if (php_adult == 1) {
+                           select1 = 'selected="selected"';
+                           select2 = '';
+                      } else {
+                           select2 = 'selected="selected"';
+                           select1 = '';
+                      }
+                       var option_adult = '<option value="1" '+ select1 +'>1</option><option value="2" '+ select2 +'>2</option>';
                        $(roomBox__group[i]).find('select.adult').html(option_adult);
-                       var option_child = '<option value="0">0</option><option value="1">1</option><option value="2">2</option>';
+                       switch (php_child) {
+                            case 1:
+                                 select1 = 'selected="selected"';
+                                 select0 = '';
+                                 select2 = '';
+                                break;
+                           case 2:
+                                select2 = 'selected="selected"';
+                                select1 = '';
+                                select0 = '';
+                               break;
+                           default:
+                               select0 = 'selected="selected"';
+                               select1 = '';
+                               select2 = '';
+                       }
+                       var option_child = '<option value="0" '+ select0 +'>0</option><option value="1" '+ select1 +'>1</option><option value="2" '+ select2 +'>2</option>';
                        $(roomBox__group[i]).find('select.child').html(option_child);
-                       var option_infant = '<option value="0">0</option><option value="1">1</option><option value="2">2</option>';
+                      switch (php_infant) {
+                          case 1:
+                              select1 = 'selected="selected"';
+                              select0 = '';
+                              select2 = '';
+                              break;
+                          case 2:
+                              select2 = 'selected="selected"';
+                              select1 = '';
+                              select0 = '';
+                              break;
+                          default:
+                              select0 = 'selected="selected"';
+                              select1 = '';
+                              select2 = '';
+                      }
+                       var option_infant = '<option value="0" '+ select0 +'>0</option><option value="1" '+ select1 +'>1</option><option value="2" '+ select2 +'>2</option>';
                        $(roomBox__group[i]).find('select.infant').html(option_infant);
 
 
                   }else if(room_type == 'family') {
-                      var option_adult = '<option value="2">2</option><option value="3">3</option><option value="4">4</option>';
+                      switch (php_adult) {
+                          case 3:
+                              select3 = 'selected="selected"';
+                              select4 = '';
+                              select2 = '';
+                              break;
+                          case 4:
+                              select4 = 'selected="selected"';
+                              select2 = '';
+                              select3 = '';
+                              break;
+                          default:
+                              select2 = 'selected="selected"';
+                              select3 = '';
+                              select4 = '';
+                      }
+                      var option_adult = '<option value="2" '+ select2 +'>2</option><option value="3" '+ select3 +'>3</option><option value="4" '+ select4 +'>4</option>';
                       $(roomBox__group[i]).find('select.adult').html(option_adult);
-                      var option_child = '<option value="0">0</option><option value="1">1</option><option value="2">2</option>';
+                      switch (php_child) {
+                          case 1:
+                              select1 = 'selected="selected"';
+                              select0 = '';
+                              select2 = '';
+                              break;
+                          case 2:
+                              select2 = 'selected="selected"';
+                              select1 = '';
+                              select0 = '';
+                              break;
+                          default:
+                              select0 = 'selected="selected"';
+                              select1 = '';
+                              select2 = '';
+                      }
+                      var option_child = '<option value="0" '+ select0 +'>0</option><option value="1" '+ select1 +'>1</option><option value="2" '+ select2 +'>2</option>';
                       $(roomBox__group[i]).find('select.child').html(option_child);
-                      var option_infant = '<option value="0">0</option><option value="1">1</option><option value="2">2</option>';
+                      switch (php_infant) {
+                          case 1:
+                              select1 = 'selected="selected"';
+                              select0 = '';
+                              select2 = '';
+                              break;
+                          case 2:
+                              select2 = 'selected="selected"';
+                              select1 = '';
+                              select0 = '';
+                              break;
+                          default:
+                              select0 = 'selected="selected"';
+                              select1 = '';
+                              select2 = '';
+                      }
+                      var option_infant = '<option value="0" '+ select0 +'>0</option><option value="1" '+ select1 +'>1</option><option value="2" '+ select2 +'>2</option>';
                       $(roomBox__group[i]).find('select.infant').html(option_infant);
                   }
                }

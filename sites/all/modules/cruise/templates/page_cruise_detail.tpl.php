@@ -108,6 +108,23 @@ if($lang == 'en') {
     $passenger_info_number_family = 'Sức chứa tối đa trong cabin là __MAX__ người lớn và một (1) trẻ em dưới 4 tuổi. Sẽ tính phí thêm nếu vượt quá số lượng khách tối đa.';
 }
 ?>
+<style>
+    @media (min-width: 1200px){
+        .button-more-detail {
+            width: 364px;
+        }
+    }
+    @media (max-width: 767px){
+        .button-more-detail {
+            width: 293px;
+        }
+    }
+    @media (min-width: 768px) and (max-width: 1199px){
+        .button-more-detail {
+            width: 25vw;
+        }
+    }
+</style>
 <div class="tabLink showDesktop">
     <ul>
         <li>
@@ -123,6 +140,128 @@ if($lang == 'en') {
         </li>
     </ul>
 </div>
+
+<?php if(!empty($_SESSION['search_param'][$tran]['depart']) && !empty($_SESSION['search_param'][$tran]['cruise']) && !empty($_SESSION['search_param'][$tran]['duration'])): ?>
+    <div style="float: right;position: fixed;top: auto;z-index: 10;right: 30px" class="position-status">
+        <div style="text-align: right" class="button-more-detail">
+            <button type="button" name="detail_price" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="width: 100%">
+                <span><?php echo t('Price Summary: '); ?></span>&nbsp; <span id="detail_price"> 0 </span> &nbsp;<?php echo($lang == 'en' ? 'USD' : 'VND') ?>
+            </button>
+        </div>
+
+        <div class="flightPassenger__right display-none" style="margin-bottom: 20px;width: 100%;padding: 0;display: none">
+            <div class="tripSummary">
+                <div class="tripSummary__body" style="border: 1px solid #C3C9DE;border-radius: 10px;">
+                    <div class="tripSummary__group">
+                        <div class="tripSummary__item">
+                            <div class="tripSummary__cont">
+                                <ul class="count_room">
+                                </ul>
+                            </div>
+                            <?php
+                            $room_label = t('room');
+
+                            if(count($search_param[$tran]['room_selected']) > 1) {
+                                $room_label = t('rooms');
+                            }
+
+                            $adult_label = t('adult');
+                            if($num_adult > 1) {
+                                $adult_label = t('adults');
+                            }
+
+                            $child_label = t('child');
+                            if($num_child > 1) {
+                                $child_label = t('children');
+                            }
+
+                            $infant_label = t('infant');
+                            if($num_infant > 1) {
+                                $infant_label = t('infants');
+                            }
+
+                            ?>
+                            <div class="tripSummary__cont">
+                                <ul><li><img src="<?php echo $cruise_img_detail?>"></li></ul>
+                                <ul>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12" fill="none">
+                                            <path d="M3.33302 3.3335C3.33302 4.798 4.53552 6 5.99952 6C7.46452 6 8.66602 4.798 8.66602 3.3335C8.66602 1.868 7.46502 0.666504 5.99952 0.666504C4.53552 0.666504 3.33302 1.868 3.33302 3.3335ZM11.333 11.3335C11.333 9.3615 8.92902 7.3335 5.99952 7.3335C3.07102 7.3335 0.666016 9.3615 0.666016 11.3335V12H11.333V11.3335Z" fill="#5C6AA1"/>
+                                        </svg>
+                                        <?php if(!$is_full_day):?>
+                                            <span class="numb_room">0</span>&nbsp;
+                                        <?php endif;?>
+                                        <?php echo $num_adult .' '.$adult_label;?>
+                                        <?php if($num_child >= 1):?>
+                                            , <?php echo $num_child .' '.$child_label;?>
+                                        <?php endif;?>
+                                        <?php if($num_infant >= 1):?>
+                                            , <?php echo $num_infant .' '.$infant_label;?>
+                                        <?php endif;?>
+                                    </li>
+
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path d="M12.0003 13.9997V11.333H6.66699V9.99967H12.0003V7.33301L16.0003 10.6663L12.0003 13.9997Z" fill="#5C6AA1"/>
+                                            <path d="M15.3333 2H12V0.666667C12 0.489856 11.9298 0.320286 11.8047 0.195262C11.6797 0.0702379 11.5101 0 11.3333 0C11.1565 0 10.987 0.0702379 10.8619 0.195262C10.7369 0.320286 10.6667 0.489856 10.6667 0.666667V2H5.33333V0.666667C5.33333 0.489856 5.2631 0.320286 5.13807 0.195262C5.01305 0.0702379 4.84348 0 4.66667 0C4.48986 0 4.32029 0.0702379 4.19526 0.195262C4.07024 0.320286 4 0.489856 4 0.666667V2H0.666667C0.489856 2 0.320286 2.07024 0.195262 2.19526C0.0702379 2.32029 0 2.48986 0 2.66667L0 14.6667C0 14.8435 0.0702379 15.013 0.195262 15.1381C0.320286 15.2631 0.489856 15.3333 0.666667 15.3333H10.6667V14H1.33333V4.66667H14.6667V7.33333H16V2.66667C16 2.48986 15.9298 2.32029 15.8047 2.19526C15.6797 2.07024 15.5101 2 15.3333 2Z" fill="#5C6AA1"/>
+                                        </svg><?php echo t('Check-in')?>: <?php echo date('d/m/Y',$depart)?>
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path d="M3.99967 13.9997V11.333H9.33301V9.99967H3.99967V7.33301L-0.000325203 10.6663L3.99967 13.9997Z" fill="#5C6AA1"/>
+                                            <path d="M0.666666 2H4V0.666667C4 0.489856 4.07024 0.320286 4.19526 0.195262C4.32029 0.0702379 4.48986 0 4.66667 0C4.84348 0 5.01305 0.0702379 5.13807 0.195262C5.2631 0.320286 5.33333 0.489856 5.33333 0.666667V2H10.6667V0.666667C10.6667 0.489856 10.7369 0.320286 10.8619 0.195262C10.987 0.0702379 11.1565 0 11.3333 0C11.5101 0 11.6797 0.0702379 11.8047 0.195262C11.9298 0.320286 12 0.489856 12 0.666667V2H15.3333C15.5101 2 15.6797 2.07024 15.8047 2.19526C15.9298 2.32029 16 2.48986 16 2.66667V14.6667C16 14.8435 15.9298 15.013 15.8047 15.1381C15.6797 15.2631 15.5101 15.3333 15.3333 15.3333H5.33333V14H14.6667V4.66667H1.33333V7.33333H0V2.66667C0 2.48986 0.0702372 2.32029 0.195261 2.19526C0.320286 2.07024 0.489855 2 0.666666 2Z" fill="#5C6AA1"/>
+                                        </svg><?php echo t('Check-out')?>: <?php echo date('d/m/Y',$return)?>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tripSummary__item">
+                            <div class="tripSummary__ul">
+                                <?php if($num_day > 0):?>
+                                    <ul>
+                                        <li>
+                                            <p class="blueDark"><?php echo t('Number of nights');?></p>
+                                        </li>
+                                        <li><p class="blueDark">x<?php echo $num_day?></p></li>
+                                    </ul>
+                                <?php endif;?>
+                                <ul class="shutter_bus_blk d-none">
+                                    <li>
+                                        <p class="blueDark"><?php echo t('Shutter bus fee');?></p>
+                                    </li>
+                                    <li><p class="blueDark"><span id="shutter_bus">0</span></p></li>
+                                </ul>
+                                <?php if(!$is_full_day):?>
+                                    <ul class="extra_bed_fee_blk d-none">
+                                        <li>
+                                            <p class="blueDark"><?php echo t('Extra bed fee');?></p>
+                                        </li>
+                                        <li><p class="blueDark"><span id="extra_bed_fee">0</span></p></li>
+                                    </ul>
+                                <?php endif;?>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="total" value="">
+                        <div class="tripSummary__item">
+                            <div class="tripSummary__price">
+                                <ul>
+                                    <li>
+                                        <p class="blueDark text20 medium"><?php echo t('Total ');?></p>
+                                    </li>
+                                    <li><p class="green400 medium text20"><span id="total_charge" total_charge="<?php echo $amount?>">0</span>&nbsp;<?php echo($lang == 'en' ? 'USD' : 'VND') ?></p>
+                                        <p class="blueDark45"><?php echo t('Taxes and fees are not included');?></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif;?>
 
 <?php echo blk_form_search(); ?>
 <?php if($search_param['duration'] != 'full_day'):?>
@@ -155,138 +294,138 @@ if($lang == 'en') {
             </div>
         </div>
         <!-- Button trigger modal -->
-        <?php if(!empty($_SESSION['search_param'][$tran]['depart']) && !empty($_SESSION['search_param'][$tran]['cruise']) && !empty($_SESSION['search_param'][$tran]['duration'])): ?>
-        <button type="button" name="detail_price" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            <?php echo t('Price Summary: '); ?>&nbsp; <span id="detail_price"> 0 </span> &nbsp;<?php echo($lang == 'en' ? 'USD' : 'VND') ?>
-        </button>
-        <?php endif;?>
+<!--        --><?php //if(!empty($_SESSION['search_param'][$tran]['depart']) && !empty($_SESSION['search_param'][$tran]['cruise']) && !empty($_SESSION['search_param'][$tran]['duration'])): ?>
+<!--        <button type="button" name="detail_price" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">-->
+<!--            --><?php //echo t('Price Summary: '); ?><!--&nbsp; <span id="detail_price"> 0 </span> &nbsp;--><?php //echo($lang == 'en' ? 'USD' : 'VND') ?>
+<!--        </button>-->
+<!--        --><?php //endif;?>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="exampleModalLongTitle"><?php echo t('Price summary');?></h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="padding: 0">
-                        <div class="flightPassenger__right" style="margin-bottom: 20px;width: 100%;padding: 0">
-                            <div class="tripSummary">
-                                <div class="tripSummary__body">
-                                    <div class="tripSummary__group">
-                                        <div class="tripSummary__item">
-                                            <div class="tripSummary__cont">
-                                                <ul class="count_room">
-                                                </ul>
-                                            </div>
-                                            <?php
-                                            $room_label = t('room');
-
-                                            if(count($search_param[$tran]['room_selected']) > 1) {
-                                                $room_label = t('rooms');
-                                            }
-
-                                            $adult_label = t('adult');
-                                            if($num_adult > 1) {
-                                                $adult_label = t('adults');
-                                            }
-
-                                            $child_label = t('child');
-                                            if($num_child > 1) {
-                                                $child_label = t('children');
-                                            }
-
-                                            $infant_label = t('infant');
-                                            if($num_infant > 1) {
-                                                $infant_label = t('infants');
-                                            }
-
-                                            ?>
-                                            <div class="tripSummary__cont">
-                                                <ul><li><img src="<?php echo $cruise_img_detail?>"></li></ul>
-                                                <ul>
-                                                    <li>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12" fill="none">
-                                                            <path d="M3.33302 3.3335C3.33302 4.798 4.53552 6 5.99952 6C7.46452 6 8.66602 4.798 8.66602 3.3335C8.66602 1.868 7.46502 0.666504 5.99952 0.666504C4.53552 0.666504 3.33302 1.868 3.33302 3.3335ZM11.333 11.3335C11.333 9.3615 8.92902 7.3335 5.99952 7.3335C3.07102 7.3335 0.666016 9.3615 0.666016 11.3335V12H11.333V11.3335Z" fill="#5C6AA1"/>
-                                                        </svg>
-                                                        <?php if(!$is_full_day):?>
-                                                            <span class="numb_room">0</span>&nbsp;
-                                                        <?php endif;?>
-                                                        <?php echo $num_adult .' '.$adult_label;?>
-                                                        <?php if($num_child >= 1):?>
-                                                            , <?php echo $num_child .' '.$child_label;?>
-                                                        <?php endif;?>
-                                                        <?php if($num_infant >= 1):?>
-                                                            , <?php echo $num_infant .' '.$infant_label;?>
-                                                        <?php endif;?>
-                                                    </li>
-
-                                                    <li>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                            <path d="M12.0003 13.9997V11.333H6.66699V9.99967H12.0003V7.33301L16.0003 10.6663L12.0003 13.9997Z" fill="#5C6AA1"/>
-                                                            <path d="M15.3333 2H12V0.666667C12 0.489856 11.9298 0.320286 11.8047 0.195262C11.6797 0.0702379 11.5101 0 11.3333 0C11.1565 0 10.987 0.0702379 10.8619 0.195262C10.7369 0.320286 10.6667 0.489856 10.6667 0.666667V2H5.33333V0.666667C5.33333 0.489856 5.2631 0.320286 5.13807 0.195262C5.01305 0.0702379 4.84348 0 4.66667 0C4.48986 0 4.32029 0.0702379 4.19526 0.195262C4.07024 0.320286 4 0.489856 4 0.666667V2H0.666667C0.489856 2 0.320286 2.07024 0.195262 2.19526C0.0702379 2.32029 0 2.48986 0 2.66667L0 14.6667C0 14.8435 0.0702379 15.013 0.195262 15.1381C0.320286 15.2631 0.489856 15.3333 0.666667 15.3333H10.6667V14H1.33333V4.66667H14.6667V7.33333H16V2.66667C16 2.48986 15.9298 2.32029 15.8047 2.19526C15.6797 2.07024 15.5101 2 15.3333 2Z" fill="#5C6AA1"/>
-                                                        </svg><?php echo t('Check-in')?>: <?php echo date('d/m/Y',$depart)?>
-                                                    </li>
-                                                    <li>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                            <path d="M3.99967 13.9997V11.333H9.33301V9.99967H3.99967V7.33301L-0.000325203 10.6663L3.99967 13.9997Z" fill="#5C6AA1"/>
-                                                            <path d="M0.666666 2H4V0.666667C4 0.489856 4.07024 0.320286 4.19526 0.195262C4.32029 0.0702379 4.48986 0 4.66667 0C4.84348 0 5.01305 0.0702379 5.13807 0.195262C5.2631 0.320286 5.33333 0.489856 5.33333 0.666667V2H10.6667V0.666667C10.6667 0.489856 10.7369 0.320286 10.8619 0.195262C10.987 0.0702379 11.1565 0 11.3333 0C11.5101 0 11.6797 0.0702379 11.8047 0.195262C11.9298 0.320286 12 0.489856 12 0.666667V2H15.3333C15.5101 2 15.6797 2.07024 15.8047 2.19526C15.9298 2.32029 16 2.48986 16 2.66667V14.6667C16 14.8435 15.9298 15.013 15.8047 15.1381C15.6797 15.2631 15.5101 15.3333 15.3333 15.3333H5.33333V14H14.6667V4.66667H1.33333V7.33333H0V2.66667C0 2.48986 0.0702372 2.32029 0.195261 2.19526C0.320286 2.07024 0.489855 2 0.666666 2Z" fill="#5C6AA1"/>
-                                                        </svg><?php echo t('Check-out')?>: <?php echo date('d/m/Y',$return)?>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="tripSummary__item">
-                                            <div class="tripSummary__ul">
-                                                <?php if($num_day > 0):?>
-                                                    <ul>
-                                                        <li>
-                                                            <p class="blueDark"><?php echo t('Number of nights');?></p>
-                                                        </li>
-                                                        <li><p class="blueDark">x<?php echo $num_day?></p></li>
-                                                    </ul>
-                                                <?php endif;?>
-                                                <ul class="shutter_bus_blk d-none">
-                                                    <li>
-                                                        <p class="blueDark"><?php echo t('Shutter bus fee');?></p>
-                                                    </li>
-                                                    <li><p class="blueDark"><span id="shutter_bus">0</span></p></li>
-                                                </ul>
-                                                <?php if(!$is_full_day):?>
-                                                    <ul class="extra_bed_fee_blk d-none">
-                                                        <li>
-                                                            <p class="blueDark"><?php echo t('Extra bed fee');?></p>
-                                                        </li>
-                                                        <li><p class="blueDark"><span id="extra_bed_fee">0</span></p></li>
-                                                    </ul>
-                                                <?php endif;?>
-                                            </div>
-                                        </div>
-
-                                        <input type="hidden" name="total" value="">
-                                        <div class="tripSummary__item">
-                                            <div class="tripSummary__price">
-                                                <ul>
-                                                    <li>
-                                                        <p class="blueDark text20 medium"><?php echo t('Total ');?></p>
-                                                    </li>
-                                                    <li><p class="green400 medium text20"><span id="total_charge" total_charge="<?php echo $amount?>">0</span>&nbsp;<?php echo($lang == 'en' ? 'USD' : 'VND') ?></p>
-                                                        <p class="blueDark45"><?php echo t('Taxes and fees are not included');?></p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+<!--            <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h3 class="modal-title" id="exampleModalLongTitle">--><?php //echo t('Price summary');?><!--</h3>-->
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="true">&times;</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body" style="padding: 0">-->
+<!--                        <div class="flightPassenger__right" style="margin-bottom: 20px;width: 100%;padding: 0">-->
+<!--                            <div class="tripSummary">-->
+<!--                                <div class="tripSummary__body">-->
+<!--                                    <div class="tripSummary__group">-->
+<!--                                        <div class="tripSummary__item">-->
+<!--                                            <div class="tripSummary__cont">-->
+<!--                                                <ul class="count_room">-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                            --><?php
+//                                            $room_label = t('room');
+//
+//                                            if(count($search_param[$tran]['room_selected']) > 1) {
+//                                                $room_label = t('rooms');
+//                                            }
+//
+//                                            $adult_label = t('adult');
+//                                            if($num_adult > 1) {
+//                                                $adult_label = t('adults');
+//                                            }
+//
+//                                            $child_label = t('child');
+//                                            if($num_child > 1) {
+//                                                $child_label = t('children');
+//                                            }
+//
+//                                            $infant_label = t('infant');
+//                                            if($num_infant > 1) {
+//                                                $infant_label = t('infants');
+//                                            }
+//
+//                                            ?>
+<!--                                            <div class="tripSummary__cont">-->
+<!--                                                <ul><li><img src="--><?php //echo $cruise_img_detail?><!--"></li></ul>-->
+<!--                                                <ul>-->
+<!--                                                    <li>-->
+<!--                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 12 12" fill="none">-->
+<!--                                                            <path d="M3.33302 3.3335C3.33302 4.798 4.53552 6 5.99952 6C7.46452 6 8.66602 4.798 8.66602 3.3335C8.66602 1.868 7.46502 0.666504 5.99952 0.666504C4.53552 0.666504 3.33302 1.868 3.33302 3.3335ZM11.333 11.3335C11.333 9.3615 8.92902 7.3335 5.99952 7.3335C3.07102 7.3335 0.666016 9.3615 0.666016 11.3335V12H11.333V11.3335Z" fill="#5C6AA1"/>-->
+<!--                                                        </svg>-->
+<!--                                                        --><?php //if(!$is_full_day):?>
+<!--                                                            <span class="numb_room">0</span>&nbsp;-->
+<!--                                                        --><?php //endif;?>
+<!--                                                        --><?php //echo $num_adult .' '.$adult_label;?>
+<!--                                                        --><?php //if($num_child >= 1):?>
+<!--                                                            , --><?php //echo $num_child .' '.$child_label;?>
+<!--                                                        --><?php //endif;?>
+<!--                                                        --><?php //if($num_infant >= 1):?>
+<!--                                                            , --><?php //echo $num_infant .' '.$infant_label;?>
+<!--                                                        --><?php //endif;?>
+<!--                                                    </li>-->
+<!---->
+<!--                                                    <li>-->
+<!--                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">-->
+<!--                                                            <path d="M12.0003 13.9997V11.333H6.66699V9.99967H12.0003V7.33301L16.0003 10.6663L12.0003 13.9997Z" fill="#5C6AA1"/>-->
+<!--                                                            <path d="M15.3333 2H12V0.666667C12 0.489856 11.9298 0.320286 11.8047 0.195262C11.6797 0.0702379 11.5101 0 11.3333 0C11.1565 0 10.987 0.0702379 10.8619 0.195262C10.7369 0.320286 10.6667 0.489856 10.6667 0.666667V2H5.33333V0.666667C5.33333 0.489856 5.2631 0.320286 5.13807 0.195262C5.01305 0.0702379 4.84348 0 4.66667 0C4.48986 0 4.32029 0.0702379 4.19526 0.195262C4.07024 0.320286 4 0.489856 4 0.666667V2H0.666667C0.489856 2 0.320286 2.07024 0.195262 2.19526C0.0702379 2.32029 0 2.48986 0 2.66667L0 14.6667C0 14.8435 0.0702379 15.013 0.195262 15.1381C0.320286 15.2631 0.489856 15.3333 0.666667 15.3333H10.6667V14H1.33333V4.66667H14.6667V7.33333H16V2.66667C16 2.48986 15.9298 2.32029 15.8047 2.19526C15.6797 2.07024 15.5101 2 15.3333 2Z" fill="#5C6AA1"/>-->
+<!--                                                        </svg>--><?php //echo t('Check-in')?><!--: --><?php //echo date('d/m/Y',$depart)?>
+<!--                                                    </li>-->
+<!--                                                    <li>-->
+<!--                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">-->
+<!--                                                            <path d="M3.99967 13.9997V11.333H9.33301V9.99967H3.99967V7.33301L-0.000325203 10.6663L3.99967 13.9997Z" fill="#5C6AA1"/>-->
+<!--                                                            <path d="M0.666666 2H4V0.666667C4 0.489856 4.07024 0.320286 4.19526 0.195262C4.32029 0.0702379 4.48986 0 4.66667 0C4.84348 0 5.01305 0.0702379 5.13807 0.195262C5.2631 0.320286 5.33333 0.489856 5.33333 0.666667V2H10.6667V0.666667C10.6667 0.489856 10.7369 0.320286 10.8619 0.195262C10.987 0.0702379 11.1565 0 11.3333 0C11.5101 0 11.6797 0.0702379 11.8047 0.195262C11.9298 0.320286 12 0.489856 12 0.666667V2H15.3333C15.5101 2 15.6797 2.07024 15.8047 2.19526C15.9298 2.32029 16 2.48986 16 2.66667V14.6667C16 14.8435 15.9298 15.013 15.8047 15.1381C15.6797 15.2631 15.5101 15.3333 15.3333 15.3333H5.33333V14H14.6667V4.66667H1.33333V7.33333H0V2.66667C0 2.48986 0.0702372 2.32029 0.195261 2.19526C0.320286 2.07024 0.489855 2 0.666666 2Z" fill="#5C6AA1"/>-->
+<!--                                                        </svg>--><?php //echo t('Check-out')?><!--: --><?php //echo date('d/m/Y',$return)?>
+<!--                                                    </li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!---->
+<!--                                        <div class="tripSummary__item">-->
+<!--                                            <div class="tripSummary__ul">-->
+<!--                                                --><?php //if($num_day > 0):?>
+<!--                                                    <ul>-->
+<!--                                                        <li>-->
+<!--                                                            <p class="blueDark">--><?php //echo t('Number of nights');?><!--</p>-->
+<!--                                                        </li>-->
+<!--                                                        <li><p class="blueDark">x--><?php //echo $num_day?><!--</p></li>-->
+<!--                                                    </ul>-->
+<!--                                                --><?php //endif;?>
+<!--                                                <ul class="shutter_bus_blk d-none">-->
+<!--                                                    <li>-->
+<!--                                                        <p class="blueDark">--><?php //echo t('Shutter bus fee');?><!--</p>-->
+<!--                                                    </li>-->
+<!--                                                    <li><p class="blueDark"><span id="shutter_bus">0</span></p></li>-->
+<!--                                                </ul>-->
+<!--                                                --><?php //if(!$is_full_day):?>
+<!--                                                    <ul class="extra_bed_fee_blk d-none">-->
+<!--                                                        <li>-->
+<!--                                                            <p class="blueDark">--><?php //echo t('Extra bed fee');?><!--</p>-->
+<!--                                                        </li>-->
+<!--                                                        <li><p class="blueDark"><span id="extra_bed_fee">0</span></p></li>-->
+<!--                                                    </ul>-->
+<!--                                                --><?php //endif;?>
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!---->
+<!--                                        <input type="hidden" name="total" value="">-->
+<!--                                        <div class="tripSummary__item">-->
+<!--                                            <div class="tripSummary__price">-->
+<!--                                                <ul>-->
+<!--                                                    <li>-->
+<!--                                                        <p class="blueDark text20 medium">--><?php //echo t('Total ');?><!--</p>-->
+<!--                                                    </li>-->
+<!--                                                    <li><p class="green400 medium text20"><span id="total_charge" total_charge="--><?php //echo $amount?><!--">0</span>&nbsp;--><?php //echo($lang == 'en' ? 'USD' : 'VND') ?><!--</p>-->
+<!--                                                        <p class="blueDark45">--><?php //echo t('Taxes and fees are not included');?><!--</p>-->
+<!--                                                    </li>-->
+<!--                                                </ul>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 <?php endif;?>
 
@@ -1376,6 +1515,8 @@ $('document').ready(function () {
         }
     });
 
+    var lang = '<?php echo $lang?>';
+    console.log(lang);
     $('.reserve__room a').click(function () {
         $('.tripSummary__cont').find('.count_room').empty();
         var date_val = $('.searchBox__form .datepicker input').val();
@@ -1481,9 +1622,11 @@ $('document').ready(function () {
                 for (var j = 0; j < ar_price.length; j++){
                     total+=parseFloat(ar_price[j]['price_room']) || 0;
                 }
-                $('span#detail_price').html(total);
+                var total_final = format1(total);
 
-                $('#total_charge').html(total);
+                $('span#detail_price').html(total_final);
+
+                $('#total_charge').html(total_final);
                 $('#total_charge').attr('total_charge',total);
 
                 var is_continue = _is_continue();
@@ -1501,12 +1644,29 @@ $('document').ready(function () {
 
     });
 
+    $(document).mouseup(function (e) {
+        if ($(e.target).closest(".display-none").length=== 0) {
+            $(".display-none").hide();
+        }
+    });
+
+    var int = 0;
     $('button[name=detail_price]').click(function () {
         flag = true;
+
+        if  (int%2==0) {
+            $('.display-none').css('display','');
+            int++;
+        } else {
+            $('.display-none').css('display','none');
+            int++;
+        }
         if (flag) {
             $('.tripSummary__cont').find('.count_room').empty();
             $('.tripSummary__ul').find('.tripSummary__ul__total').remove();
             flag = false;
+
+            // $('.display-none').css('display','none');
         }
         var sampleArray = new Array();
         var ar_price = new Array();
@@ -1542,13 +1702,18 @@ $('document').ready(function () {
             c +='<li class="medium blueDark ">'+ key[1] + ' x '+ key[0]+'</li>';
         })
         c +='<li class="medium blueDark">'+ "<?php echo $itinerary['title']?>" +'</li>';
-
+        let m = '';
+        if (lang == 'vi'){
+            m = ' VND';
+        } else {
+            m = ' USD';
+        }
         ar_p.forEach(function (key) {
             t +='<ul class="tripSummary__ul__total"><li ><p class=" blueDark ">Room Price</p></li>';
             if (key[0] != 1){
-                t +='<li><p  class=" blueDark ">'+ parseFloat(key[0])*parseFloat(key[1]) +'</p></li></ul>';
+                t +='<li><p  class=" blueDark ">'+ format1(parseFloat(key[0])*parseFloat(key[1])) + m +' </p></li></ul>';
             } else {
-                t +='<li><p  class=" blueDark ">'+ key[0]+'</p></li></ul>';
+                t +='<li><p  class=" blueDark ">'+ format1(parseFloat(key[0])) + m +'</p></li></ul>';
             }
 
         })
@@ -1611,7 +1776,25 @@ $('document').ready(function () {
     });
 
     show_review();
+
+
 });
+window.onscroll = function() {scrollFunction()};
+
+function format1(n) {
+    return  n.toFixed(0).replace(/./g, function(c, i, a) {
+        return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+    });
+}
+
+function scrollFunction() {
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        $('.position-status').css({'position':'fixed', 'top':0});
+    } else {
+        $('.position-status').css({'position':'fixed', 'top':'auto'});
+    }
+}
+
 
 function getUniqueDataCount(objArr, propName) {
     var data = [];
