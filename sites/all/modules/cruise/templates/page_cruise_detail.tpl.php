@@ -142,7 +142,7 @@ if($lang == 'en') {
 </div>
 
 <?php if(!empty($_SESSION['search_param'][$tran]['depart']) && !empty($_SESSION['search_param'][$tran]['cruise']) && !empty($_SESSION['search_param'][$tran]['duration'])): ?>
-    <div style="float: right;position: fixed;top: auto;z-index: 10;right: 30px" class="position-status">
+    <div style="float: right;position: fixed;top: auto;z-index: 99;right: 30px" class="position-status">
         <div style="text-align: right" class="button-more-detail">
             <button type="button" name="detail_price" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="width: 100%">
                 <span><?php echo t('Price Summary: '); ?></span>&nbsp; <span id="detail_price"> 0 </span> &nbsp;<?php echo($lang == 'en' ? 'USD' : 'VND') ?>
